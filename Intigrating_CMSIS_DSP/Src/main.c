@@ -2,6 +2,7 @@
 #include "signals.h"
 #include "uart.h"
 #include "stdio.h"
+#include "arm_math.h"
 
 #define GPIOAEN  (1U<<0)
 #define PIN5    (1U<<5)
@@ -10,12 +11,15 @@
 //#define ITM_PORT0 (*(volatile uint32_t *)0xE0000000)
 
 extern float _5hz_signal[301];
+extern float32_t inputSignal_f32_1kHz_15kHz[320];
 
 static void plot_input_signal(void);
 static void sudo_delay(uint16_t dly);
 
 float in_sig_sample;
 static void fpu_enable(void);
+static void serial_plotter(void);
+
 
 int main ()
 {
@@ -28,14 +32,9 @@ int main ()
 	while(1)
 	{
 		//printf("Hello from stm32...\n\r");
-		//plot_input_signal();
+		plot_input_signal();
+		serial_plotter();
 
-		for(int i=0; i<301; i++)
-		{
-		    printf("%f\r\n", _5hz_signal[i]);
-			//printf("%ld\r\n", (long)(_5hz_signal[i] * 100000));
-			sudo_delay(9000);
-		}
 	}
 }
 
@@ -51,12 +50,22 @@ static void fpu_enable(void)
 //	SCB->CPACR |= (1U<<23);
 }
 
+static void serial_plotter(void)
+{
+	for(int i=0; i<320; i++)
+	{
+	    printf("%f\r\n",inputSignal_f32_1kHz_15kHz[i] );
+		//printf("%ld\r\n", (long)(_5hz_signal[i] * 100000));
+		sudo_delay(9000);
+	}
+}
+
 static void plot_input_signal(void)
 {
 	int i;
-	for(i=0; i<301; i++)
+	for(i=0; i<320; i++)
 	{
-		in_sig_sample = _5hz_signal[i];
+		in_sig_sample = inputSignal_f32_1kHz_15kHz[i];
 		sudo_delay(9000);
 	}
 }
