@@ -1,10 +1,20 @@
-13:52:26 **** Incremental Build of configuration Debug for project Lgic_Analyzer_uart2 ****
+14:33:19 **** Incremental Build of configuration Debug for project Lgic_Analyzer_uart2 ****
 make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/DSP/Lgic_Analyzer_uart2/chip_headers/CMSIS/Include" -I"D:/DSP/Lgic_Analyzer_uart2/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:54:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
+   54 | static void plot_input_signal(void)
+      |             ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Lgic_Analyzer_uart2.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\DSP\Lgic_Analyzer_uart2\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lgic_Analyzer_uart2.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Lgic_Analyzer_uart2.elf
+ 
 arm-none-eabi-size  Lgic_Analyzer_uart2.elf 
+arm-none-eabi-objdump -h -S Lgic_Analyzer_uart2.elf  > "Lgic_Analyzer_uart2.list"
    text	   data	    bss	    dec	    hex	filename
-   5204	     92	   1900	   7196	   1c1c	Lgic_Analyzer_uart2.elf
+  23548	   1660	   1900	  27108	   69e4	Lgic_Analyzer_uart2.elf
 Finished building: default.size.stdout
  
+Finished building: Lgic_Analyzer_uart2.list
+ 
 
-13:52:26 Build Finished. 0 errors, 0 warnings. (took 223ms)
+14:33:20 Build Finished. 0 errors, 1 warnings. (took 618ms)
 
