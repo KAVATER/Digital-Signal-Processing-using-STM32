@@ -1,0 +1,56 @@
+#include "stm32f407xx.h"
+#include "signals.h"
+#include "uart.h"
+#include "stdio.h"
+
+#define GPIOAEN  (1U<<0)
+#define PIN5    (1U<<5)
+#define LED_PIN  PIN5
+
+//#define ITM_PORT0 (*(volatile uint32_t *)0xE0000000)
+
+extern float _5hz_signal[301];
+
+static void plot_input_signal(void);
+static void sudo_delay(uint16_t dly);
+
+float in_sig_sample;
+
+int main ()
+{
+	/*Enable the floating point unit*/
+	//SCB->CPACR |=((3UL << 10*2) | (3UL << 11*2)); // arm cortex m device generic user guide
+	// or
+
+	SCB->CPACR |= (1U<<20);
+	SCB->CPACR |= (1U<<21);
+	SCB->CPACR |= (1U<<22);
+	SCB->CPACR |= (1U<<23);
+
+	/* Initilaize the uart*/
+	uart2_tx_init();
+
+	while(1)
+	{
+		printf("Hello from stm32...\n\r");
+		//plot_input_signal();
+	}
+}
+
+static void plot_input_signal(void)
+{
+	int i;
+	for(i=0; i<301; i++)
+	{
+		in_sig_sample = _5hz_signal[i];
+//	    if (ITM->PORT[0].u32 != 0)  // Check if port is ready
+//	        {
+	            ITM->PORT[0].u32 = *(uint32_t *)&in_sig_sample;  // Send raw float bits
+	    //    }
+		sudo_delay(9000);
+	}
+}
+static void sudo_delay(uint16_t dly)
+{
+	for(int j = 0; j<dly; j++){}
+}

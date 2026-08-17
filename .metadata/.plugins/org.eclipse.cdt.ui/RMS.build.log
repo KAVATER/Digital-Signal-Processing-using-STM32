@@ -1,0 +1,16 @@
+18:35:50 **** Incremental Build of configuration Debug for project RMS ****
+make -j8 all 
+arm-none-eabi-gcc -o "RMS.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\DSP\RMS\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RMS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: RMS.elf
+ 
+arm-none-eabi-size  RMS.elf 
+arm-none-eabi-objdump -h -S RMS.elf  > "RMS.list"
+   text	   data	    bss	    dec	    hex	filename
+  21604	    104	   2336	  24044	   5dec	RMS.elf
+Finished building: default.size.stdout
+ 
+Finished building: RMS.list
+ 
+
+18:35:51 Build Finished. 0 errors, 0 warnings. (took 823ms)
+

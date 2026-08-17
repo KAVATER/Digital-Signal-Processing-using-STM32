@@ -1,0 +1,123 @@
+2026-08-16 22:44:31,745 [INFO] Activator:177 - 
+
+
+2026-08-16 22:44:31,749 [INFO] Activator:178 - !SESSION log4j initialized
+2026-08-16 22:44:37,535 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
+2026-08-16 22:44:40,619 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:44:40 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:44:40,621 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: copilot/hook/didChange
+2026-08-16 22:44:40,622 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:44:40,624 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:44:40 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:44:40,626 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: copilot/hook/didChange
+2026-08-16 22:44:40,644 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:44:41,221 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:44:41 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:44:41,223 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: didChangeStatus/v2
+2026-08-16 22:44:41,223 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:44:43,215 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:44:43 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:44:43,216 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: statusNotification
+2026-08-16 22:44:43,217 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:44:43,219 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:44:43 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:44:43,221 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: didChangeStatus
+2026-08-16 22:44:43,221 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:44:43,224 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:44:43 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:44:43,225 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: didChangeStatus/v2
+2026-08-16 22:44:43,225 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:44:43,228 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:44:43 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:44:43,230 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: copilot/quotaChange
+2026-08-16 22:44:43,230 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:44:43,255 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:44:43 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:44:43,257 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: conversation/preconditionsNotification
+2026-08-16 22:44:43,257 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:47:13,159 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] java.lang.IllegalAccessException: class org.eclipse.swt.widgets.TabFolder$SelectionListenerAdapter cannot access a member of class java.util.EventObject (in module java.base) with modifiers "protected transient"
+2026-08-16 22:47:13,161 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at java.base/jdk.internal.reflect.Reflection.newIllegalAccessException(Reflection.java:394)
+2026-08-16 22:47:13,162 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at java.base/java.lang.reflect.AccessibleObject.checkAccess(AccessibleObject.java:714)
+2026-08-16 22:47:13,163 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at java.base/java.lang.reflect.Field.checkAccess(Field.java:1156)
+2026-08-16 22:47:13,164 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at java.base/java.lang.reflect.Field.set(Field.java:833)
+2026-08-16 22:47:13,166 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.TabFolder$SelectionListenerAdapter.prepare(TabFolder.java:288)
+2026-08-16 22:47:13,168 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.TabFolder$SelectionListenerAdapter.widgetSelected(TabFolder.java:270)
+2026-08-16 22:47:13,169 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:290)
+2026-08-16 22:47:13,169 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:91)
+2026-08-16 22:47:13,170 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4364)
+2026-08-16 22:47:13,171 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1217)
+2026-08-16 22:47:13,171 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1241)
+2026-08-16 22:47:13,172 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1226)
+2026-08-16 22:47:13,172 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:863)
+2026-08-16 22:47:13,174 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.custom.CTabFolder.setSelection(CTabFolder.java:3265)
+2026-08-16 22:47:13,174 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.custom.CTabFolder.onMouse(CTabFolder.java:1900)
+2026-08-16 22:47:13,175 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.custom.CTabFolder.lambda$0(CTabFolder.java:332)
+2026-08-16 22:47:13,176 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:91)
+2026-08-16 22:47:13,176 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4364)
+2026-08-16 22:47:13,177 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1217)
+2026-08-16 22:47:13,178 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4162)
+2026-08-16 22:47:13,179 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3750)
+2026-08-16 22:47:13,179 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.jface.window.Window.runEventLoop(Window.java:824)
+2026-08-16 22:47:13,180 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.jface.window.Window.open(Window.java:804)
+2026-08-16 22:47:13,182 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at com.st.stm32cube.ide.mcu.ide.handlers.STM32ProjectCreationImportHandler.execute(STM32ProjectCreationImportHandler.java:62)
+2026-08-16 22:47:13,182 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.ui.internal.handlers.HandlerProxy.execute(HandlerProxy.java:277)
+2026-08-16 22:47:13,184 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.ui.internal.handlers.E4HandlerProxy.execute(E4HandlerProxy.java:98)
+2026-08-16 22:47:13,185 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+2026-08-16 22:47:13,185 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+2026-08-16 22:47:13,186 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+2026-08-16 22:47:13,187 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.core.internal.di.InjectorImpl.invokeUsingClass(InjectorImpl.java:305)
+2026-08-16 22:47:13,188 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.core.internal.di.InjectorImpl.invoke(InjectorImpl.java:237)
+2026-08-16 22:47:13,189 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.core.contexts.ContextInjectionFactory.invoke(ContextInjectionFactory.java:174)
+2026-08-16 22:47:13,190 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.core.commands.internal.HandlerServiceHandler.execute(HandlerServiceHandler.java:165)
+2026-08-16 22:47:13,191 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.core.commands.Command.executeWithChecks(Command.java:488)
+2026-08-16 22:47:13,192 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(ParameterizedCommand.java:484)
+2026-08-16 22:47:13,193 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.core.commands.internal.HandlerServiceImpl.executeHandler(HandlerServiceImpl.java:204)
+2026-08-16 22:47:13,194 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.ui.workbench.renderers.swt.HandledContributionItem.executeItem(HandledContributionItem.java:446)
+2026-08-16 22:47:13,195 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.handleWidgetSelection(AbstractContributionItem.java:471)
+2026-08-16 22:47:13,196 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.lambda$2(AbstractContributionItem.java:493)
+2026-08-16 22:47:13,197 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:91)
+2026-08-16 22:47:13,198 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4364)
+2026-08-16 22:47:13,199 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1217)
+2026-08-16 22:47:13,200 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4162)
+2026-08-16 22:47:13,200 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3750)
+2026-08-16 22:47:13,201 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1147)
+2026-08-16 22:47:13,202 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+2026-08-16 22:47:13,203 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1038)
+2026-08-16 22:47:13,204 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+2026-08-16 22:47:13,205 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:677)
+2026-08-16 22:47:13,206 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+2026-08-16 22:47:13,207 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:583)
+2026-08-16 22:47:13,207 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:173)
+2026-08-16 22:47:13,209 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:185)
+2026-08-16 22:47:13,210 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:219)
+2026-08-16 22:47:13,211 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+2026-08-16 22:47:13,212 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+2026-08-16 22:47:13,213 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+2026-08-16 22:47:13,213 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+2026-08-16 22:47:13,215 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+2026-08-16 22:47:13,216 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+2026-08-16 22:47:13,216 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:615)
+2026-08-16 22:47:13,217 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:563)
+2026-08-16 22:47:13,218 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 	at org.eclipse.equinox.launcher.Main.run(Main.java:1415)
+2026-08-16 22:49:30,947 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:49:42,442 [INFO] Activator:177 - 
+
+
+2026-08-16 22:49:42,444 [INFO] Activator:178 - !SESSION log4j initialized
+2026-08-16 22:49:51,730 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
+2026-08-16 22:49:53,658 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:49:53 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:49:53,661 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: copilot/hook/didChange
+2026-08-16 22:49:53,661 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:49:53,664 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:49:53 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:49:53,666 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: copilot/hook/didChange
+2026-08-16 22:49:53,667 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:49:54,041 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:49:54 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:49:54,047 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: didChangeStatus/v2
+2026-08-16 22:49:54,048 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:49:55,703 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:49:55 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:49:55,704 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: statusNotification
+2026-08-16 22:49:55,704 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:49:55,706 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:49:55 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:49:55,707 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: didChangeStatus
+2026-08-16 22:49:55,707 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:49:55,709 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:49:55 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:49:55,709 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: didChangeStatus/v2
+2026-08-16 22:49:55,709 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:49:55,711 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:49:55 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:49:55,712 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: copilot/quotaChange
+2026-08-16 22:49:55,712 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-16 22:49:55,729 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 16, 2026 10:49:55 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+2026-08-16 22:49:55,731 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: conversation/preconditionsNotification
+2026-08-16 22:49:55,732 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 

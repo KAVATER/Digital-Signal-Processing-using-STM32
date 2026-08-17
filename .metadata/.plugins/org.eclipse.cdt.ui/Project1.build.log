@@ -1,0 +1,20 @@
+23:47:44 **** Incremental Build of configuration Debug for project Project1 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -DSTM32F401xE -c -I../Inc -I"D:/DSP/Project1/chip_headers/CMSIS/Include" -I"D:/DSP/Project1/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:13:22: warning: value computed is not used [-Wunused-value]
+   13 |         GPIOA->MODER &~(1U<<11);
+arm-none-eabi-gcc -o "Project1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\DSP\Project1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Project1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Project1.elf
+ 
+arm-none-eabi-size  Project1.elf 
+arm-none-eabi-objdump -h -S Project1.elf  > "Project1.list"
+   text	   data	    bss	    dec	    hex	filename
+    736	      0	   1568	   2304	    900	Project1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Project1.list
+ 
+
+23:47:45 Build Finished. 0 errors, 1 warnings. (took 866ms)
+
