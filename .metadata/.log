@@ -5452,3 +5452,6 @@ java.lang.NullPointerException: Cannot read the array length because "containers
 
 !ENTRY org.eclipse.lsp4e 1 0 2026-08-17 14:48:15.474
 !MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-08-17 14:51:04.275
+!MESSAGE Indexed 'Intigrating_CMSIS_DSP' (5 sources, 66 headers) in 0.499 sec: 3,460 declarations; 5,766 references; 0 unresolved inclusions; 1 syntax errors; 0 unresolved names (0%)
