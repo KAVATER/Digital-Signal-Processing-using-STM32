@@ -5733,3 +5733,21 @@ COM10
 
 !ENTRY org.eclipse.lsp4e 1 0 2026-08-17 16:25:47.317
 !MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
+
+!ENTRY org.eclipse.lsp4e 1 0 2026-08-17 16:30:47.321
+!MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
+
+!ENTRY org.eclipse.lsp4e 1 0 2026-08-17 16:35:47.332
+!MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
+
+!ENTRY org.eclipse.lsp4e 1 0 2026-08-17 16:40:47.332
+!MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-17 16:42:57.894
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 16000000; div: 8
+
+!ENTRY org.eclipse.lsp4e 1 0 2026-08-17 16:45:47.337
+!MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-17 16:48:01.980
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 16000000; div: 8
