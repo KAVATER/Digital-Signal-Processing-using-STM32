@@ -3,6 +3,7 @@
 #include "uart.h"
 #include "stdio.h"
 #include "arm_math.h"
+#include <math.h>
 
 #define GPIOAEN  (1U<<0)
 #define PIN5    (1U<<5)
@@ -20,8 +21,13 @@ float in_sig_sample;
 static void fpu_enable(void);
 static void serial_plotter(void);
 static float32_t signal_mean(float32_t *sig_arr, uint32_t sig_len);
+static float32_t signal_variance(float32_t* sig_arr, float32_t sig_mean, uint32_t sig_len);
+static float32_t signal_standardDeviation(float32_t variance_local);
+
 
 float32_t mean_val;
+float32_t variance_val;
+float32_t standard_deviation;
 
 int main ()
 {
@@ -31,12 +37,30 @@ int main ()
 	/* Initilaize the uart*/
 	uart2_tx_init();
 	mean_val = signal_mean((float32_t*)inputSignal_f32_1kHz_15kHz,(uint32_t)sig2_len);
+	variance_val = signal_variance((float32_t*)inputSignal_f32_1kHz_15kHz, (float32_t)mean_val, (uint32_t)sig2_len);
+	standard_deviation = signal_standardDeviation(variance_val);
+
 	while(1)
 	{
 		//printf("Hello from stm32...\n\r");
 		//plot_input_signal();
 		serial_plotter();
 	}
+}
+static float32_t signal_standardDeviation(float32_t variance_local)
+{
+	return(sqrt(variance_local));
+}
+static float32_t signal_variance(float32_t* sig_arr, float32_t sig_mean, uint32_t sig_len)
+{
+	float32_t variance = 0.0;
+	uint32_t i;
+	for(i = 0; i<sig_len ; i++)
+	{
+		variance = variance + powf((sig_arr[i]- sig_mean),2);
+	}
+	variance = variance/(sig_len-1);
+	return variance;
 }
 
 static void fpu_enable(void)

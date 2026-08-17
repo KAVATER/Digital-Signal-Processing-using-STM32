@@ -1,4 +1,4 @@
-16:47:48 **** Incremental Build of configuration Debug for project Intigrating_CMSIS_DSP ****
+17:09:58 **** Incremental Build of configuration Debug for project Intigrating_CMSIS_DSP ****
 make -j8 all 
 arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
@@ -17,8 +17,8 @@ In file included from ../Inc/uart.h:3,
    51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       |         ^~~~~~~~~~~~~
 <command-line>: note: this is the location of the previous definition
-../Src/main.c:75:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
-   75 | static void plot_input_signal(void)
+../Src/main.c:99:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
+   99 | static void plot_input_signal(void)
       |             ^~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Intigrating_CMSIS_DSP.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\Intigrating_CMSIS_DSP\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Intigrating_CMSIS_DSP.map" -Wl,--gc-sections -static -L"D:\DSP\Intigrating_CMSIS_DSP\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Intigrating_CMSIS_DSP.elf
@@ -26,12 +26,12 @@ Finished building target: Intigrating_CMSIS_DSP.elf
 arm-none-eabi-size  Intigrating_CMSIS_DSP.elf 
 arm-none-eabi-objdump -h -S Intigrating_CMSIS_DSP.elf  > "Intigrating_CMSIS_DSP.list"
    text	   data	    bss	    dec	    hex	filename
-  23700	   1736	   1904	  27340	   6acc	Intigrating_CMSIS_DSP.elf
+  26824	   1736	   1912	  30472	   7708	Intigrating_CMSIS_DSP.elf
 Finished building: default.size.stdout
  
 Finished building: Intigrating_CMSIS_DSP.list
  
-16:47:54 **** Incremental Build of configuration Debug for project Intigrating_CMSIS_DSP ****
+17:10:05 **** Incremental Build of configuration Debug for project Intigrating_CMSIS_DSP ****
 make -j8 all 
 arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
@@ -50,8 +50,8 @@ In file included from ../Inc/uart.h:3,
    51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       |         ^~~~~~~~~~~~~
 <command-line>: note: this is the location of the previous definition
-../Src/main.c:75:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
-   75 | static void plot_input_signal(void)
+../Src/main.c:99:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
+   99 | static void plot_input_signal(void)
       |             ^~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Intigrating_CMSIS_DSP.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\Intigrating_CMSIS_DSP\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Intigrating_CMSIS_DSP.map" -Wl,--gc-sections -static -L"D:\DSP\Intigrating_CMSIS_DSP\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Intigrating_CMSIS_DSP.elf
@@ -59,7 +59,7 @@ Finished building target: Intigrating_CMSIS_DSP.elf
 arm-none-eabi-size  Intigrating_CMSIS_DSP.elf 
 arm-none-eabi-objdump -h -S Intigrating_CMSIS_DSP.elf  > "Intigrating_CMSIS_DSP.list"
    text	   data	    bss	    dec	    hex	filename
-  23700	   1736	   1904	  27340	   6acc	Intigrating_CMSIS_DSP.elf
+  26824	   1736	   1912	  30472	   7708	Intigrating_CMSIS_DSP.elf
 Finished building: default.size.stdout
  
 Finished building: Intigrating_CMSIS_DSP.list

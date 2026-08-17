@@ -5751,3 +5751,176 @@ COM10
 
 !ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-17 16:48:01.980
 !MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 16000000; div: 8
+
+!ENTRY org.eclipse.lsp4e 1 0 2026-08-17 16:50:47.345
+!MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
+
+!ENTRY org.eclipse.text 4 2 2026-08-17 16:54:32.313
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.text".
+!STACK 0
+java.lang.NullPointerException: Property must not be null: text
+	at org.eclipse.lsp4j.jsonrpc.util.Preconditions.checkNotNull(Preconditions.java:29)
+	at org.eclipse.lsp4j.TextDocumentContentChangeEvent.setText(TextDocumentContentChangeEvent.java:108)
+	at org.eclipse.lsp4e.DocumentContentSynchronizer.createChangeEvent(DocumentContentSynchronizer.java:199)
+	at org.eclipse.lsp4e.DocumentContentSynchronizer.documentAboutToBeChanged(DocumentContentSynchronizer.java:164)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentAboutToBeChanged(AbstractDocument.java:648)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1123)
+	at org.eclipse.core.internal.filebuffers.SynchronizableDocument.replace(SynchronizableDocument.java:271)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1150)
+	at org.eclipse.core.internal.filebuffers.SynchronizableDocument.replace(SynchronizableDocument.java:259)
+	at org.eclipse.cdt.internal.ui.editor.CEditor$BracketInserter.lambda$0(CEditor.java:843)
+	at org.eclipse.jface.text.AbstractDocument.executePostNotificationChanges(AbstractDocument.java:1252)
+	at org.eclipse.jface.text.AbstractDocument.resumePostNotificationProcessing(AbstractDocument.java:1286)
+	at org.eclipse.jface.text.projection.ProjectionDocument.replace(ProjectionDocument.java:658)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.replaceTextRange(DefaultDocumentAdapter.java:225)
+	at org.eclipse.swt.custom.StyledText.modifyContent(StyledText.java:7188)
+	at org.eclipse.swt.custom.StyledText.sendKeyEvent(StyledText.java:8088)
+	at org.eclipse.swt.custom.StyledText.doBackspace(StyledText.java:1869)
+	at org.eclipse.swt.custom.StyledText.invokeAction(StyledText.java:6977)
+	at org.eclipse.swt.custom.StyledText.handleKey(StyledText.java:5775)
+	at org.eclipse.swt.custom.StyledText.handleKeyDown(StyledText.java:5802)
+	at org.eclipse.swt.custom.StyledText.lambda$32(StyledText.java:5481)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:91)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4364)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1217)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1241)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1226)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1268)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1264)
+	at org.eclipse.swt.widgets.Widget.wmChar(Widget.java:1747)
+	at org.eclipse.swt.widgets.Control.WM_CHAR(Control.java:4982)
+	at org.eclipse.swt.widgets.Canvas.WM_CHAR(Canvas.java:341)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4859)
+	at org.eclipse.swt.widgets.Canvas.windowProc(Canvas.java:336)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5132)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(Native Method)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3748)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1147)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1038)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:677)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:583)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:173)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:185)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:219)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:615)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:563)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1415)
+
+!ENTRY org.eclipse.lsp4e 4 0 2026-08-17 16:54:32.327
+!MESSAGE [Error]	Notification handler 'textDocument/didChange' failed with message: Unknown change event received
+
+!ENTRY org.eclipse.lsp4e 4 0 2026-08-17 16:54:32.328
+!MESSAGE [Error]	[AgentTextDocumentConfiguration] update: Error: Unknown change event received
+    at t.update (C:\snapshot\copilot-language-server-internal\dist\main.js:63:8374)
+    at Object.update (C:\snapshot\copilot-language-server-internal\dist\main.js:63:9601)
+    at CopilotTextDocument.withChanges (C:\snapshot\copilot-language-server-internal\dist\main.js:2257:1900)
+    at s7r.update (C:\snapshot\copilot-language-server-internal\dist\main.js:4237:79880)
+    at C:\snapshot\copilot-language-server-internal\dist\main.js:4237:82036
+    at handleNotification (C:\snapshot\copilot-language-server-internal\dist\main.js:14:1637)
+    at handleMessage (C:\snapshot\copilot-language-server-internal\dist\main.js:13:6855)
+    at processMessageQueue (C:\snapshot\copilot-language-server-internal\dist\main.js:13:7041)
+    at Immediate._onImmediate (C:\snapshot\copilot-language-server-internal\dist\main.js:13:6742)
+    at process.processImmediate (node:internal/timers:484:21)
+
+!ENTRY org.eclipse.text 4 2 2026-08-17 16:55:21.815
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.text".
+!STACK 0
+java.lang.NullPointerException: Property must not be null: text
+	at org.eclipse.lsp4j.jsonrpc.util.Preconditions.checkNotNull(Preconditions.java:29)
+	at org.eclipse.lsp4j.TextDocumentContentChangeEvent.setText(TextDocumentContentChangeEvent.java:108)
+	at org.eclipse.lsp4e.DocumentContentSynchronizer.createChangeEvent(DocumentContentSynchronizer.java:199)
+	at org.eclipse.lsp4e.DocumentContentSynchronizer.documentAboutToBeChanged(DocumentContentSynchronizer.java:164)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentAboutToBeChanged(AbstractDocument.java:648)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1123)
+	at org.eclipse.core.internal.filebuffers.SynchronizableDocument.replace(SynchronizableDocument.java:271)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1150)
+	at org.eclipse.core.internal.filebuffers.SynchronizableDocument.replace(SynchronizableDocument.java:259)
+	at org.eclipse.cdt.internal.ui.editor.CEditor$BracketInserter.lambda$0(CEditor.java:843)
+	at org.eclipse.jface.text.AbstractDocument.executePostNotificationChanges(AbstractDocument.java:1252)
+	at org.eclipse.jface.text.AbstractDocument.resumePostNotificationProcessing(AbstractDocument.java:1286)
+	at org.eclipse.jface.text.projection.ProjectionDocument.replace(ProjectionDocument.java:658)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.replaceTextRange(DefaultDocumentAdapter.java:225)
+	at org.eclipse.swt.custom.StyledText.modifyContent(StyledText.java:7188)
+	at org.eclipse.swt.custom.StyledText.sendKeyEvent(StyledText.java:8088)
+	at org.eclipse.swt.custom.StyledText.doBackspace(StyledText.java:1869)
+	at org.eclipse.swt.custom.StyledText.invokeAction(StyledText.java:6977)
+	at org.eclipse.swt.custom.StyledText.handleKey(StyledText.java:5775)
+	at org.eclipse.swt.custom.StyledText.handleKeyDown(StyledText.java:5802)
+	at org.eclipse.swt.custom.StyledText.lambda$32(StyledText.java:5481)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:91)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4364)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1217)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1241)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1226)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1268)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1264)
+	at org.eclipse.swt.widgets.Widget.wmChar(Widget.java:1747)
+	at org.eclipse.swt.widgets.Control.WM_CHAR(Control.java:4982)
+	at org.eclipse.swt.widgets.Canvas.WM_CHAR(Canvas.java:341)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4859)
+	at org.eclipse.swt.widgets.Canvas.windowProc(Canvas.java:336)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5132)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(Native Method)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3748)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1147)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1038)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:677)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:583)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:173)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:185)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:219)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:615)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:563)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1415)
+
+!ENTRY org.eclipse.lsp4e 4 0 2026-08-17 16:55:21.818
+!MESSAGE [Error]	[AgentTextDocumentConfiguration] update: Error: Unknown change event received
+    at t.update (C:\snapshot\copilot-language-server-internal\dist\main.js:63:8374)
+    at Object.update (C:\snapshot\copilot-language-server-internal\dist\main.js:63:9601)
+    at CopilotTextDocument.withChanges (C:\snapshot\copilot-language-server-internal\dist\main.js:2257:1900)
+    at s7r.update (C:\snapshot\copilot-language-server-internal\dist\main.js:4237:79880)
+    at C:\snapshot\copilot-language-server-internal\dist\main.js:4237:82036
+    at handleNotification (C:\snapshot\copilot-language-server-internal\dist\main.js:14:1637)
+    at handleMessage (C:\snapshot\copilot-language-server-internal\dist\main.js:13:6855)
+    at processMessageQueue (C:\snapshot\copilot-language-server-internal\dist\main.js:13:7041)
+    at Immediate._onImmediate (C:\snapshot\copilot-language-server-internal\dist\main.js:13:6742)
+    at process.processImmediate (node:internal/timers:484:21)
+
+!ENTRY org.eclipse.lsp4e 4 0 2026-08-17 16:55:21.818
+!MESSAGE [Error]	Notification handler 'textDocument/didChange' failed with message: Unknown change event received
+
+!ENTRY org.eclipse.lsp4e 1 0 2026-08-17 16:55:47.349
+!MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-17 17:00:15.498
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 16000000; div: 8
+
+!ENTRY org.eclipse.lsp4e 1 0 2026-08-17 17:00:47.352
+!MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
+
+!ENTRY org.eclipse.lsp4e 1 0 2026-08-17 17:05:47.363
+!MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-17 17:10:17.273
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 16000000; div: 8
+
+!ENTRY org.eclipse.lsp4e 1 0 2026-08-17 17:10:47.416
+!MESSAGE [Info]	[AuthManager] resolveSession: persisted store resolved a session
