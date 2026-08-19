@@ -54,48 +54,6 @@ int main ()
 	/* Initilaize the uart*/
 	uart2_tx_init();
 
-//	serial_plot_impulse_response();
-//
-//	serial_plotter();
-
-	/* Inilialize systick counter */
-    systick_counter_init();
-
-//	convolution(inputSignal_f32_1kHz_15kHz,destination_arr2,impulse_response,sig2_len,sig3_len );
-//	serialplot_outputSig_convolved(destination_arr2);
-
-    g_before = SysTick->VAL;
-
-	 arm_conv_f32( inputSignal_f32_1kHz_15kHz,sig2_len,impulse_response,sig3_len,destination_arr3);
-	 //serialplot_outputSig_convolved(destination_arr3);
-
-
-   g_after = SysTick->VAL;
-
-   /*Compute time taken*/
-   g_time_taken = g_before - g_after;
-
-   g_seconds = SINGLE_CYCLE * g_time_taken;
-
-   g_milliseconds = g_seconds *SEC_TO_MSEC ;
-
-   //my algo
-   systick_counter_init();
-   g_my_before = SysTick->VAL;
-
-   convolution(inputSignal_f32_1kHz_15kHz,destination_arr2,impulse_response,sig2_len,sig3_len );
-
-   g_my_after = SysTick->VAL;
-
-   g_my_time_taken = g_my_before - g_my_after;
-
-     g_my_seconds = SINGLE_CYCLE * g_my_time_taken;
-
-     g_my_milliseconds = g_my_seconds *SEC_TO_MSEC ;
-
-     //how much times cimsis algo is better?
-     times_faster = g_my_milliseconds / g_milliseconds;
-	/*Using CMSIS Library*/
 	while(1)
 	{
 		//printf("Hello from stm32...\n\r");
