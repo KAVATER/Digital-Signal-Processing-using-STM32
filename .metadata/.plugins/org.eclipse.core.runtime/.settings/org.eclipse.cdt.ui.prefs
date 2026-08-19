@@ -44,6 +44,7 @@ pp_directive=0,0,255
 pp_directive,defaultValueBeforeOverriddenFromCSS=127,0,85
 pp_header=163,21,21
 pp_header,defaultValueBeforeOverriddenFromCSS=42,0,255
+scalability.detect=false
 semanticHighlighting.class.bold=false
 semanticHighlighting.class.color=43,145,175
 semanticHighlighting.class.color,defaultValueBeforeOverriddenFromCSS=0,80,50

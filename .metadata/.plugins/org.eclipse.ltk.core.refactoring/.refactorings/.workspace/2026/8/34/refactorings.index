@@ -13,3 +13,6 @@
 1787057185303	Copy Project 'Convolution'
 1787057200585	Delete resource 'Convolution_CMSIS/Debug'
 1787057217243	Delete resource 'Convolution_CMSIS/Convolution Debug.launch'
+1787128842157	Copy Project 'Convolution_CMSIS'
+1787128855114	Delete resource 'Running Sum/Debug'
+1787128859592	Delete resource 'Running Sum/Convolution_CMSIS Debug.launch'
