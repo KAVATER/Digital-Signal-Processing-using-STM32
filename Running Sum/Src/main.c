@@ -36,16 +36,10 @@ float imp_rsp_sample;
 static void fpu_enable(void);
 static void serial_plotter(void);
 
-uint32_t g_before, g_after, g_time_taken;
-float32_t g_seconds, g_milliseconds;
+float32_t output_arr[sig2_len];
 
-uint32_t g_my_before, g_my_after, g_my_time_taken;
-float32_t g_my_seconds, g_my_milliseconds;
-
-const float SINGLE_CYCLE = 0.0000000625; //62.5 x 10^9
-const int SEC_TO_MSEC = 10;
-
-float times_faster = 0;
+void cal_running_sum(float32_t *sig_arr, float32_t *sig_dest_arr, uint32_t sig_len);
+void plot_running_sum(float32_t* destination_array);
 
 int main ()
 {
@@ -54,6 +48,8 @@ int main ()
 	/* Initilaize the uart*/
 	uart2_tx_init();
 
+	cal_running_sum(inputSignal_f32_1kHz_15kHz,output_arr, sig2_len );
+	plot_running_sum(output_arr);
 	while(1)
 	{
 		//printf("Hello from stm32...\n\r");
@@ -63,6 +59,38 @@ int main ()
 
 	}
 }
+
+void cal_running_sum(float32_t *sig_arr, float32_t *sig_dest_arr, uint32_t sig_len)
+{
+   for(int i = 0; i< sig_len; i++)
+   {
+	   sig_dest_arr[i] = sig_arr[i] + sig_dest_arr[i-1];
+   }
+}
+void plot_running_sum(float32_t* destination_array)
+{
+//	for(int i=0; i<sig2_len+sig3_len; i++)
+//		{
+//		    printf("%f\r\n",destination_array[i] );
+//			//printf("%ld\r\n", (long)(_5hz_signal[i] * 100000));
+//			sudo_delay(9000);
+//		}
+	for(int i=0; i<sig2_len+sig3_len; i++)
+	    {
+	        long val = (long)(destination_array[i] * 100000);
+	        long int_part  = val / 100000;
+	        long frac_part = labs(val % 100000);
+
+	        if (val < 0 && int_part == 0) {
+	            printf("-%ld.%05ld\r\n", int_part, frac_part);
+	        } else {
+	            printf("%ld.%05ld\r\n", int_part, frac_part);
+	        }
+
+	        sudo_delay(9000);
+	    }
+}
+
 void serialplot_outputSig_convolved(float32_t* destination_array)
 {
 //	for(int i=0; i<sig2_len+sig3_len; i++)
