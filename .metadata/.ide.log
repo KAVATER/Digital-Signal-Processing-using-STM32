@@ -28,3 +28,8 @@
 2026-08-19 11:54:42,566 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: conversation/preconditionsNotification
 2026-08-19 11:54:42,566 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
 2026-08-19 14:17:22,086 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-08-19 14:17:36,806 [INFO] Activator:177 - 
+
+
+2026-08-19 14:17:36,808 [INFO] Activator:178 - !SESSION log4j initialized
+2026-08-19 14:17:46,351 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
