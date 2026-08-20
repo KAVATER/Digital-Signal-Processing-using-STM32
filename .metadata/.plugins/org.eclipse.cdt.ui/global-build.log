@@ -1,261 +1,242 @@
-17:59:44 **** Incremental Build of configuration Debug for project DFT ****
+13:11:30 **** Incremental Build of configuration Debug for project DFT ****
 make -j8 all 
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
 In file included from ../Src/main.c:1:
 ..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
    51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       |         ^~~~~~~~~~~~~
 <command-line>: note: this is the location of the previous definition
-../Src/main.c:318:13: warning: 'serial_plot_impulse_response' defined but not used [-Wunused-function]
-  318 | static void serial_plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:310:13: warning: 'plot_impulse_response' defined but not used [-Wunused-function]
-  310 | static void plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:296:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
-  296 | static void plot_input_signal(void)
-      |             ^~~~~~~~~~~~~~~~~
-../Src/main.c:286:13: warning: 'serial_plotter' defined but not used [-Wunused-function]
-  286 | static void serial_plotter(void)
-      |             ^~~~~~~~~~~~~~
+In file included from ../Inc/uart.h:3,
+                 from ../Src/uart.c:1:
+..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
+   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      |         ^~~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
 arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: DFT.elf
  
 arm-none-eabi-size  DFT.elf 
 arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
    text	   data	    bss	    dec	    hex	filename
-  29840	   1736	   8432	  40008	   9c48	DFT.elf
+  30648	   3016	   9712	  43376	   a970	DFT.elf
 Finished building: default.size.stdout
  
 Finished building: DFT.list
  
-17:59:47 **** Incremental Build of configuration Debug for project DFT ****
-make -j8 all 
-arm-none-eabi-size  DFT.elf 
-   text	   data	    bss	    dec	    hex	filename
-  29840	   1736	   8432	  40008	   9c48	DFT.elf
-Finished building: default.size.stdout
- 
-18:07:44 **** Incremental Build of configuration Debug for project DFT ****
+13:11:57 **** Incremental Build of configuration Debug for project DFT ****
 make -j8 all 
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
 arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
 In file included from ../Src/main.c:1:
 ..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
    51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       |         ^~~~~~~~~~~~~
 <command-line>: note: this is the location of the previous definition
-../Src/main.c:318:13: warning: 'serial_plot_impulse_response' defined but not used [-Wunused-function]
-  318 | static void serial_plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:310:13: warning: 'plot_impulse_response' defined but not used [-Wunused-function]
-  310 | static void plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:296:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
-  296 | static void plot_input_signal(void)
-      |             ^~~~~~~~~~~~~~~~~
-../Src/main.c:286:13: warning: 'serial_plotter' defined but not used [-Wunused-function]
-  286 | static void serial_plotter(void)
-      |             ^~~~~~~~~~~~~~
+In file included from ../Inc/uart.h:3,
+                 from ../Src/uart.c:1:
+..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
+   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      |         ^~~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
 arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: DFT.elf
  
 arm-none-eabi-size  DFT.elf 
 arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
    text	   data	    bss	    dec	    hex	filename
-  29840	   1732	   8420	  39992	   9c38	DFT.elf
+  30648	   3016	   9712	  43376	   a970	DFT.elf
 Finished building: default.size.stdout
  
 Finished building: DFT.list
  
-18:22:30 **** Incremental Build of configuration Debug for project DFT ****
+13:18:52 **** Incremental Build of configuration Debug for project DFT ****
 make -j8 all 
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
 arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
 In file included from ../Src/main.c:1:
 ..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
    51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       |         ^~~~~~~~~~~~~
 <command-line>: note: this is the location of the previous definition
-../Src/main.c:318:13: warning: 'serial_plot_impulse_response' defined but not used [-Wunused-function]
-  318 | static void serial_plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:310:13: warning: 'plot_impulse_response' defined but not used [-Wunused-function]
-  310 | static void plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:296:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
-  296 | static void plot_input_signal(void)
-      |             ^~~~~~~~~~~~~~~~~
-../Src/main.c:286:13: warning: 'serial_plotter' defined but not used [-Wunused-function]
-  286 | static void serial_plotter(void)
-      |             ^~~~~~~~~~~~~~
+In file included from ../Inc/uart.h:3,
+                 from ../Src/uart.c:1:
+..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
+   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      |         ^~~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
 arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: DFT.elf
  
 arm-none-eabi-size  DFT.elf 
 arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
    text	   data	    bss	    dec	    hex	filename
-  29976	   1732	   8420	  40128	   9cc0	DFT.elf
+  30640	   3016	   9712	  43368	   a968	DFT.elf
 Finished building: default.size.stdout
  
 Finished building: DFT.list
  
-18:23:05 **** Incremental Build of configuration Debug for project DFT ****
+13:20:12 **** Incremental Build of configuration Debug for project DFT ****
 make -j8 all 
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
 arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
 In file included from ../Src/main.c:1:
 ..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
    51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       |         ^~~~~~~~~~~~~
 <command-line>: note: this is the location of the previous definition
-../Src/main.c:318:13: warning: 'serial_plot_impulse_response' defined but not used [-Wunused-function]
-  318 | static void serial_plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:310:13: warning: 'plot_impulse_response' defined but not used [-Wunused-function]
-  310 | static void plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:296:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
-  296 | static void plot_input_signal(void)
-      |             ^~~~~~~~~~~~~~~~~
-../Src/main.c:286:13: warning: 'serial_plotter' defined but not used [-Wunused-function]
-  286 | static void serial_plotter(void)
-      |             ^~~~~~~~~~~~~~
+In file included from ../Inc/uart.h:3,
+                 from ../Src/uart.c:1:
+..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
+   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      |         ^~~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
 arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: DFT.elf
  
 arm-none-eabi-size  DFT.elf 
 arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
    text	   data	    bss	    dec	    hex	filename
-  29976	   1736	   8432	  40144	   9cd0	DFT.elf
+  30640	   3016	   9712	  43368	   a968	DFT.elf
 Finished building: default.size.stdout
  
 Finished building: DFT.list
  
-18:24:33 **** Incremental Build of configuration Debug for project DFT ****
+13:29:00 **** Incremental Build of configuration Debug for project DFT ****
 make -j8 all 
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
 arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
 In file included from ../Src/main.c:1:
 ..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
    51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       |         ^~~~~~~~~~~~~
 <command-line>: note: this is the location of the previous definition
-../Src/main.c:318:13: warning: 'serial_plot_impulse_response' defined but not used [-Wunused-function]
-  318 | static void serial_plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:310:13: warning: 'plot_impulse_response' defined but not used [-Wunused-function]
-  310 | static void plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:296:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
-  296 | static void plot_input_signal(void)
-      |             ^~~~~~~~~~~~~~~~~
-../Src/main.c:286:13: warning: 'serial_plotter' defined but not used [-Wunused-function]
-  286 | static void serial_plotter(void)
-      |             ^~~~~~~~~~~~~~
+In file included from ../Inc/uart.h:3,
+                 from ../Src/uart.c:1:
+..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
+   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      |         ^~~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
 arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: DFT.elf
  
 arm-none-eabi-size  DFT.elf 
 arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
    text	   data	    bss	    dec	    hex	filename
-  29976	   1736	   8432	  40144	   9cd0	DFT.elf
+  30824	   3016	  12912	  46752	   b6a0	DFT.elf
 Finished building: default.size.stdout
  
 Finished building: DFT.list
  
-18:30:27 **** Incremental Build of configuration Debug for project DFT ****
+13:29:17 **** Incremental Build of configuration Debug for project DFT ****
 make -j8 all 
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
 arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
 In file included from ../Src/main.c:1:
 ..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
    51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       |         ^~~~~~~~~~~~~
 <command-line>: note: this is the location of the previous definition
-../Src/main.c:320:13: warning: 'serial_plot_impulse_response' defined but not used [-Wunused-function]
-  320 | static void serial_plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:312:13: warning: 'plot_impulse_response' defined but not used [-Wunused-function]
-  312 | static void plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:298:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
-  298 | static void plot_input_signal(void)
-      |             ^~~~~~~~~~~~~~~~~
-../Src/main.c:288:13: warning: 'serial_plotter' defined but not used [-Wunused-function]
-  288 | static void serial_plotter(void)
-      |             ^~~~~~~~~~~~~~
+In file included from ../Inc/uart.h:3,
+                 from ../Src/uart.c:1:
+..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
+   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      |         ^~~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
 arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: DFT.elf
  
 arm-none-eabi-size  DFT.elf 
 arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
    text	   data	    bss	    dec	    hex	filename
-  29752	   1736	   7792	  39280	   9970	DFT.elf
+  30824	   3016	  12912	  46752	   b6a0	DFT.elf
 Finished building: default.size.stdout
  
 Finished building: DFT.list
  
-18:33:14 **** Incremental Build of configuration Debug for project DFT ****
+13:33:48 **** Incremental Build of configuration Debug for project DFT ****
 make -j8 all 
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
 arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
+In file included from ../Inc/uart.h:3,
+                 from ../Src/uart.c:1:
+..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
+   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      |         ^~~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
 In file included from ../Src/main.c:1:
 ..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
    51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       |         ^~~~~~~~~~~~~
 <command-line>: note: this is the location of the previous definition
-../Src/main.c:322:13: warning: 'serial_plot_impulse_response' defined but not used [-Wunused-function]
-  322 | static void serial_plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:314:13: warning: 'plot_impulse_response' defined but not used [-Wunused-function]
-  314 | static void plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:300:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
-  300 | static void plot_input_signal(void)
-      |             ^~~~~~~~~~~~~~~~~
-../Src/main.c:290:13: warning: 'serial_plotter' defined but not used [-Wunused-function]
-  290 | static void serial_plotter(void)
-      |             ^~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: DFT.elf
  
 arm-none-eabi-size  DFT.elf 
 arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
    text	   data	    bss	    dec	    hex	filename
-  29936	   1736	   7792	  39464	   9a28	DFT.elf
+  30840	   3016	  12912	  46768	   b6b0	DFT.elf
 Finished building: default.size.stdout
  
 Finished building: DFT.list
  
-18:39:01 **** Incremental Build of configuration Debug for project DFT ****
+13:35:51 **** Incremental Build of configuration Debug for project DFT ****
 make -j8 all 
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
 arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
+In file included from ../Inc/uart.h:3,
+                 from ../Src/uart.c:1:
+..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
+   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      |         ^~~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
 In file included from ../Src/main.c:1:
 ..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
    51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       |         ^~~~~~~~~~~~~
 <command-line>: note: this is the location of the previous definition
-../Src/main.c:322:13: warning: 'serial_plot_impulse_response' defined but not used [-Wunused-function]
-  322 | static void serial_plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:314:13: warning: 'plot_impulse_response' defined but not used [-Wunused-function]
-  314 | static void plot_impulse_response(void)
-      |             ^~~~~~~~~~~~~~~~~~~~~
-../Src/main.c:300:13: warning: 'plot_input_signal' defined but not used [-Wunused-function]
-  300 | static void plot_input_signal(void)
-      |             ^~~~~~~~~~~~~~~~~
-../Src/main.c:290:13: warning: 'serial_plotter' defined but not used [-Wunused-function]
-  290 | static void serial_plotter(void)
-      |             ^~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: DFT.elf
  
 arm-none-eabi-size  DFT.elf 
 arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
    text	   data	    bss	    dec	    hex	filename
-  30016	   1736	   8432	  40184	   9cf8	DFT.elf
+  30176	   3016	  11632	  44824	   af18	DFT.elf
+Finished building: default.size.stdout
+ 
+Finished building: DFT.list
+ 
+13:39:39 **** Incremental Build of configuration Debug for project DFT ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
+In file included from ../Src/main.c:1:
+..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
+   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      |         ^~~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
+In file included from ../Inc/uart.h:3,
+                 from ../Src/uart.c:1:
+..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
+   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      |         ^~~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
+arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: DFT.elf
+ 
+arm-none-eabi-size  DFT.elf 
+arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
+   text	   data	    bss	    dec	    hex	filename
+  30424	   3016	  11632	  45072	   b010	DFT.elf
 Finished building: default.size.stdout
  
 Finished building: DFT.list

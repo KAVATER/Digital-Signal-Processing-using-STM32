@@ -16,17 +16,16 @@
 extern float _5hz_signal[sig1_len];
 extern float32_t inputSignal_f32_1kHz_15kHz[sig2_len];
 extern float32_t  impulse_response[sig3_len];
+extern float32_t  _640_points_ecg_[sig_ecg_len];
 
-static void plot_impulse_response(void);
-static void serial_plot_impulse_response(void);
+
 void convolution(float32_t* sig_arr, float32_t* destination_array,float32_t* imp_resp,
 		         uint32_t sig_src_len, uint32_t imp_resp_len);
 
 
-static void plot_input_signal(void);
-static void sudo_delay(uint16_t dly);
-float32_t destination_arr2[sig2_len + sig3_len];
-float32_t destination_arr3[sig2_len + sig3_len-1];
+
+//float32_t destination_arr2[sig2_len + sig3_len];
+//float32_t destination_arr3[sig2_len + sig3_len-1];
 
 void serialplot_outputSig_convolved(float32_t* destination_array);
 
@@ -34,9 +33,8 @@ float in_sig_sample;
 float imp_rsp_sample;
 
 static void fpu_enable(void);
-static void serial_plotter(void);
 
-float32_t output_arr[sig2_len];
+//float32_t output_arr[sig2_len];
 
 void cal_running_sum(float32_t *sig_arr, float32_t *sig_dest_arr, uint32_t sig_len);
 void plot_running_sum(float32_t* destination_array);
@@ -50,10 +48,17 @@ void plot_cal_sig_DFT_both(float32_t *real_arr,
         float32_t *imag_arr,
         uint32_t sig_len);
 
+void cal_sig_IDFT(float32_t *idft_out_arr, float32_t* sig_rex_arr,
+		         float32_t *sig_imx_arr, uint32_t idft_len);
 
-float REX[sig2_len/2];
-float IMX[sig2_len/2];
-float32_t magnitude[sig2_len/2];
+static void sudo_delay(uint16_t dly);
+void plot_ecg(float32_t *arr,uint32_t sign_len);
+
+float REX[sig_ecg_len/2];
+float IMX[sig_ecg_len/2];
+float32_t magnitude[sig_ecg_len/2];
+void  mag_plot(float32_t *arr, uint32_t sig_len);
+float32_t idft_out_arr[sig_ecg_len];
 
 int main ()
 {
@@ -62,22 +67,21 @@ int main ()
 	/* Initilaize the uart*/
 	uart2_tx_init();
 
- cal_sig_DFT(inputSignal_f32_1kHz_15kHz, REX, IMX, sig2_len);
+	plot_ecg(_640_points_ecg_,sig_ecg_len);
 
- get_dft_output_mag(sig2_len);
+	cal_sig_DFT(_640_points_ecg_,REX ,
+			IMX, sig_ecg_len);
 
- plot_cal_sig_DFT(magnitude,sig2_len);
+//	get_dft_output_mag(sig_ecg_len);
+//
+//	mag_plot(magnitude,sig_ecg_len/2);
 
- //plot_cal_sig_DFT(REX, sig2_len);
-// plot_cal_sig_DFT_both(REX,IMX,sig2_len);
+	cal_sig_IDFT(idft_out_arr,REX,IMX,sig_ecg_len);
+
+	plot_ecg(idft_out_arr, sig_ecg_len);
 
 	while(1)
 	{
-		//printf("Hello from stm32...\n\r");
-		//plot_input_signal();
-		//serial_plotter();
-		//plot_impulse_response();
-
 	}
 }
 
@@ -91,6 +95,39 @@ void get_dft_output_mag(uint32_t sig_len)
 		);
 	}
 
+}
+
+void cal_sig_IDFT(float32_t *idft_out_arr, float32_t* sig_rex_arr,
+		         float32_t *sig_imx_arr, uint32_t idft_len)
+{
+	/*Normalize amplitude*/
+  for(int i = 1; i<idft_len/2; i++)
+  {
+	 sig_rex_arr[i] = sig_rex_arr[i]/(idft_len/2);
+	 sig_imx_arr[i] = -sig_rex_arr[i]/(idft_len/2);
+  }
+
+  //Index 0
+  sig_rex_arr[0] = sig_rex_arr[0]/(idft_len);
+  sig_imx_arr[0] = -sig_rex_arr[0]/(idft_len);
+
+  //Index 1
+  sig_rex_arr[idft_len/2] = sig_rex_arr[idft_len/2]/(idft_len);
+  sig_imx_arr[idft_len/2] = -sig_imx_arr[idft_len/2]/(idft_len);
+
+  for(int j = 1; j<idft_len; j++)
+  {
+	  idft_out_arr[j] = 0;
+  }
+
+  for(int k = 0; k<idft_len/2;k++)
+  {
+	  for(int i = 0; i <  idft_len;i ++)
+	  {
+		  idft_out_arr[i] = idft_out_arr[i] + sig_rex_arr[k]*cos(2*PI*k*i/idft_len);
+		  idft_out_arr[i] = idft_out_arr[i] + sig_rex_arr[k]*sin(2*PI*k*i/idft_len);
+	  }
+  }
 }
 
 void cal_sig_DFT(float32_t *sig_arr, float32_t* sig_rex_arr,
@@ -109,13 +146,47 @@ void cal_sig_DFT(float32_t *sig_arr, float32_t* sig_rex_arr,
   {
 	  for(j = 0; j<sig_len; j++)
 	  {
-		  sig_rex_arr[k]  = sig_rex_arr[k] + sig_arr[j]*cos(2*PI*k*j/sig_len);
-		  sig_imx_arr[k]  = sig_imx_arr[k] + sig_arr[j]*sin(2*PI*k*j/sig_len);
+		  sig_rex_arr[k]  = sig_rex_arr[k] + sig_arr[j]*cos(2*PI*k*j/sig_len);//real part
+		  sig_imx_arr[k]  = sig_imx_arr[k] + sig_arr[j]*sin(2*PI*k*j/sig_len);//imaginary part
 	  }
   }
 
 }
+void plot_ecg(float32_t *arr,uint32_t sig_len)
+{
+	for(int i=0; i<sig_len; i++)
+		    {
+		        long val = (long)(arr[i] * 100000);
+		        long int_part  = val / 100000;
+		        long frac_part = labs(val % 100000);
 
+		        if (val < 0 && int_part == 0) {
+		            printf("-%ld.%05ld\r\n", int_part, frac_part);
+		        } else {
+		            printf("%ld.%05ld\r\n", int_part, frac_part);
+		        }
+
+		        //sudo_delay(9000);
+		    }
+
+}
+void  mag_plot(float32_t *arr, uint32_t sig_len)
+{
+	for(int i=0; i<sig_len; i++)
+			    {
+			        long val = (long)(arr[i] * 100000);
+			        long int_part  = val / 100000;
+			        long frac_part = labs(val % 100000);
+
+			        if (val < 0 && int_part == 0) {
+			            printf("-%ld.%05ld\r\n", int_part, frac_part);
+			        } else {
+			            printf("%ld.%05ld\r\n", int_part, frac_part);
+			        }
+
+			       // sudo_delay(9000);
+			    }
+}
 void plot_cal_sig_DFT(float32_t *arr,uint32_t sig_len)
 {
 	sig_len = sig_len/2;
@@ -132,7 +203,7 @@ void plot_cal_sig_DFT(float32_t *arr,uint32_t sig_len)
 		            printf("%ld.%05ld\r\n", int_part, frac_part);
 		        }
 
-		        sudo_delay(9000);
+		  //      sudo_delay(9000);
 		    }
 }
 
@@ -171,108 +242,9 @@ void plot_cal_sig_DFT_both(float32_t *real_arr,
     }
 }
 
-void cal_running_sum(float32_t *sig_arr, float32_t *sig_dest_arr, uint32_t sig_len)
+static void sudo_delay(uint16_t dly)
 {
-   for(int i = 0; i< sig_len; i++)
-   {
-	   sig_dest_arr[i] = sig_arr[i] + sig_dest_arr[i-1];
-   }
-}
-void plot_running_sum(float32_t* destination_array)
-{
-//	for(int i=0; i<sig2_len+sig3_len; i++)
-//		{
-//		    printf("%f\r\n",destination_array[i] );
-//			//printf("%ld\r\n", (long)(_5hz_signal[i] * 100000));
-//			sudo_delay(9000);
-//		}
-	for(int i=0; i<sig2_len+sig3_len; i++)
-	    {
-	        long val = (long)(destination_array[i] * 100000);
-	        long int_part  = val / 100000;
-	        long frac_part = labs(val % 100000);
-
-	        if (val < 0 && int_part == 0) {
-	            printf("-%ld.%05ld\r\n", int_part, frac_part);
-	        } else {
-	            printf("%ld.%05ld\r\n", int_part, frac_part);
-	        }
-
-	        sudo_delay(9000);
-	    }
-}
-
-void serialplot_outputSig_convolved(float32_t* destination_array)
-{
-//	for(int i=0; i<sig2_len+sig3_len; i++)
-//		{
-//		    printf("%f\r\n",destination_array[i] );
-//			//printf("%ld\r\n", (long)(_5hz_signal[i] * 100000));
-//			sudo_delay(9000);
-//		}
-	for(int i=0; i<sig2_len+sig3_len; i++)
-	    {
-	        long val = (long)(destination_array[i] * 100000);
-	        long int_part  = val / 100000;
-	        long frac_part = labs(val % 100000);
-
-	        if (val < 0 && int_part == 0) {
-	            printf("-%ld.%05ld\r\n", int_part, frac_part);
-	        } else {
-	            printf("%ld.%05ld\r\n", int_part, frac_part);
-	        }
-
-	        sudo_delay(9000);
-	    }
-}
-//void convolution(float32_t* sig_arr, float32_t* destination_array,float32_t* imp_resp,
-//		uint32_t sig_src_len, uint32_t imp_resp_len)
-//{
-//	uint32_t i,j;
-//	/*compute output signal length*/
-//	uint32_t final_sig_len = sig_src_len + imp_resp_len -1;
-//
-//	//clear output signal buffer
-//	for(i=0;i< final_sig_len; i++)
-//	{
-//		destination_array[i] = 0;
-//	}
-//	//performing convolution
-//	//Take every input sample x[i], multiply it by every impulse-response sample h[j],
-//	//and put that contribution at output location i+j.
-//
-//	for(i = 0; i< final_sig_len; i++)
-//	{
-//		for(j = 0; j< imp_resp_len;j++)
-//		{
-//			destination_array[i+j] = destination_array[i+j] + sig_arr[i]*imp_resp[j];
-//		}
-//	}
-//}
-void convolution(float32_t *sig_arr,
-                 float32_t *destination_array,
-                 float32_t *imp_resp,
-                 uint32_t sig_src_len,
-                 uint32_t imp_resp_len)
-{
-    uint32_t i, j;
-
-    uint32_t final_sig_len =
-        sig_src_len + imp_resp_len - 1;
-
-    for (i = 0; i < final_sig_len; i++)
-    {
-        destination_array[i] = 0.0f;
-    }
-
-    for (i = 0; i < sig_src_len; i++)
-    {
-        for (j = 0; j < imp_resp_len; j++)
-        {
-            destination_array[i + j] +=
-                sig_arr[i] * imp_resp[j];
-        }
-    }
+	for(volatile int j = 0; j<dly; j++){}
 }
 
 static void fpu_enable(void)
@@ -285,47 +257,4 @@ static void fpu_enable(void)
 //	SCB->CPACR |= (1U<<21);
 //	SCB->CPACR |= (1U<<22);
 //	SCB->CPACR |= (1U<<23);
-}
-
-static void serial_plotter(void)
-{
-	for(int i=0; i<sig2_len; i++)
-	{
-	    printf("%f\r\n",inputSignal_f32_1kHz_15kHz[i] );
-		//printf("%ld\r\n", (long)(_5hz_signal[i] * 100000));
-		sudo_delay(9000);
-	}
-}
-
-static void plot_input_signal(void)
-{
-	int i;
-	for(i=0; i<sig2_len; i++)
-	{
-		in_sig_sample = inputSignal_f32_1kHz_15kHz[i];
-		sudo_delay(9000);
-	}
-}
-static void sudo_delay(uint16_t dly)
-{
-	for(volatile int j = 0; j<dly; j++){}
-}
-
-static void plot_impulse_response(void)
-{
-	for(int i = 0; i< sig3_len; i++)
-	{
-		imp_rsp_sample = impulse_response[i];
-		sudo_delay(9000);
-	}
-}
-static void serial_plot_impulse_response(void)
-{
-	for(int i=0; i<sig3_len; i++)
-		{
-		    printf("%f\r\n",impulse_response[i] );
-			//printf("%ld\r\n", (long)(_5hz_signal[i] * 100000));
-			sudo_delay(9000);
-		}
-
 }

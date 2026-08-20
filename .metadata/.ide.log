@@ -1,35 +1,55 @@
-2026-08-19 11:54:31,350 [INFO] Activator:177 - 
+2026-08-20 11:35:09,236 [INFO] Activator:177 - 
 
 
-2026-08-19 11:54:31,355 [INFO] Activator:178 - !SESSION log4j initialized
-2026-08-19 11:54:36,725 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
-2026-08-19 11:54:40,631 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 19, 2026 11:54:40 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
-2026-08-19 11:54:40,632 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: copilot/hook/didChange
-2026-08-19 11:54:40,633 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
-2026-08-19 11:54:40,634 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 19, 2026 11:54:40 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
-2026-08-19 11:54:40,635 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: copilot/hook/didChange
-2026-08-19 11:54:40,637 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
-2026-08-19 11:54:40,869 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 19, 2026 11:54:40 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
-2026-08-19 11:54:40,870 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: didChangeStatus/v2
-2026-08-19 11:54:40,870 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
-2026-08-19 11:54:42,539 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 19, 2026 11:54:42 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
-2026-08-19 11:54:42,540 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: statusNotification
-2026-08-19 11:54:42,541 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
-2026-08-19 11:54:42,542 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 19, 2026 11:54:42 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
-2026-08-19 11:54:42,543 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: didChangeStatus
-2026-08-19 11:54:42,543 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
-2026-08-19 11:54:42,544 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 19, 2026 11:54:42 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
-2026-08-19 11:54:42,545 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: didChangeStatus/v2
-2026-08-19 11:54:42,546 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
-2026-08-19 11:54:42,547 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 19, 2026 11:54:42 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
-2026-08-19 11:54:42,548 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: copilot/quotaChange
-2026-08-19 11:54:42,548 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
-2026-08-19 11:54:42,564 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Aug 19, 2026 11:54:42 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
-2026-08-19 11:54:42,566 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] WARNING: Unsupported notification method: conversation/preconditionsNotification
-2026-08-19 11:54:42,566 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
-2026-08-19 14:17:22,086 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
-2026-08-19 14:17:36,806 [INFO] Activator:177 - 
+2026-08-20 11:35:09,240 [INFO] Activator:178 - !SESSION log4j initialized
+2026-08-20 11:35:15,692 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
+2026-08-20 11:39:47,144 [INFO] Activator:177 - 
 
 
-2026-08-19 14:17:36,808 [INFO] Activator:178 - !SESSION log4j initialized
-2026-08-19 14:17:46,351 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
+2026-08-20 11:39:47,151 [INFO] Activator:178 - !SESSION log4j initialized
+2026-08-20 11:39:57,921 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
+2026-08-20 12:33:09,470 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 12:33:09,473 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 12:33:09,476 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:18:53,352 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:18:53,358 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:18:53,362 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:18:53,483 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:18:53,487 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:18:53,492 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:20:25,372 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:20:25,374 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:20:25,376 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:20:25,406 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:20:25,409 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:20:25,412 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:13,229 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:13,232 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:13,234 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:13,266 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:13,270 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:13,273 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:18,544 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:18,548 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:18,552 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:20,847 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:20,850 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:29:20,852 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:33:48,857 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:33:48,860 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:33:48,864 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:33:49,990 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:33:49,992 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:33:49,994 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:35:52,189 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:35:52,193 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:35:52,196 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:35:55,689 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:35:55,692 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:35:55,697 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:39:39,956 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:39:39,959 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:39:39,961 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:39:40,439 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:39:40,442 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2026-08-20 13:39:40,444 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com

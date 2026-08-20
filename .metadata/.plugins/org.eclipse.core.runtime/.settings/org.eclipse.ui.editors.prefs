@@ -1,4 +1,4 @@
-AbstractTextEditor.Color.Background=247,252,248
+AbstractTextEditor.Color.Background=246,250,253
 AbstractTextEditor.Color.Background,defaultValueBeforeOverriddenFromCSS=255,255,255
 AbstractTextEditor.Color.Background.SystemDefault=false
 AbstractTextEditor.Color.Background.SystemDefault,defaultValueBeforeOverriddenFromCSS=true
@@ -18,7 +18,7 @@ PHPWriteOccurrenceIndicationColor=240,216,168
 asOccurencesIndicationColor=212,212,212
 currentIPColor=238,238,238
 currentIPColor,defaultValueBeforeOverriddenFromCSS=198,219,174
-currentLineColor=221,244,226
+currentLineColor=220,235,249
 currentLineColor,defaultValueBeforeOverriddenFromCSS=232,242,254
 deletionIndicationColor=155,86,86
 deletionIndicationColor,defaultValueBeforeOverriddenFromCSS=0,0,0

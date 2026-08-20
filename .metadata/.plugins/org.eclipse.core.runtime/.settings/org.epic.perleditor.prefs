@@ -1,4 +1,4 @@
-AbstractTextEditor.Color.Background=247,252,248
+AbstractTextEditor.Color.Background=246,250,253
 AbstractTextEditor.Color.Background.SystemDefault=false
 AbstractTextEditor.Color.BackgroundBold=false
 AbstractTextEditor.Color.Foreground=0,0,0
@@ -10,7 +10,7 @@ comment1Color=0,128,0
 comment1ColorBold=false
 comment2Color=0,128,0
 comment2ColorBold=false
-currentLineColor=221,244,226
+currentLineColor=220,235,249
 currentLineColorBold=false
 eclipse.preferences.version=1
 errorIndicationColor=43,145,175
