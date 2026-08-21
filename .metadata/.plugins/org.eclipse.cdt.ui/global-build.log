@@ -1,243 +1,94 @@
-13:11:30 **** Incremental Build of configuration Debug for project DFT ****
+17:21:45 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
 make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
-In file included from ../Src/main.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-In file included from ../Inc/uart.h:3,
-                 from ../Src/uart.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: DFT.elf
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: FIFO_DataStructure.elf
  
-arm-none-eabi-size  DFT.elf 
-arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
+arm-none-eabi-size  FIFO_DataStructure.elf 
+arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
    text	   data	    bss	    dec	    hex	filename
-  30648	   3016	   9712	  43376	   a970	DFT.elf
+  24940	    468	   2052	  27460	   6b44	FIFO_DataStructure.elf
 Finished building: default.size.stdout
  
-Finished building: DFT.list
+Finished building: FIFO_DataStructure.list
  
-13:11:57 **** Incremental Build of configuration Debug for project DFT ****
+17:21:48 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
 make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
-In file included from ../Src/main.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-In file included from ../Inc/uart.h:3,
-                 from ../Src/uart.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: DFT.elf
- 
-arm-none-eabi-size  DFT.elf 
-arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
+arm-none-eabi-size  FIFO_DataStructure.elf 
    text	   data	    bss	    dec	    hex	filename
-  30648	   3016	   9712	  43376	   a970	DFT.elf
+  24940	    468	   2052	  27460	   6b44	FIFO_DataStructure.elf
 Finished building: default.size.stdout
  
-Finished building: DFT.list
- 
-13:18:52 **** Incremental Build of configuration Debug for project DFT ****
+17:22:13 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
 make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
-In file included from ../Src/main.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-In file included from ../Inc/uart.h:3,
-                 from ../Src/uart.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: DFT.elf
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: FIFO_DataStructure.elf
  
-arm-none-eabi-size  DFT.elf 
-arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
+arm-none-eabi-size  FIFO_DataStructure.elf 
+arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
    text	   data	    bss	    dec	    hex	filename
-  30640	   3016	   9712	  43368	   a968	DFT.elf
+  24940	    468	   2052	  27460	   6b44	FIFO_DataStructure.elf
 Finished building: default.size.stdout
  
-Finished building: DFT.list
+Finished building: FIFO_DataStructure.list
  
-13:20:12 **** Incremental Build of configuration Debug for project DFT ****
+17:23:08 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
 make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
-In file included from ../Src/main.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-In file included from ../Inc/uart.h:3,
-                 from ../Src/uart.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: DFT.elf
- 
-arm-none-eabi-size  DFT.elf 
-arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
+arm-none-eabi-size  FIFO_DataStructure.elf 
    text	   data	    bss	    dec	    hex	filename
-  30640	   3016	   9712	  43368	   a968	DFT.elf
+  24940	    468	   2052	  27460	   6b44	FIFO_DataStructure.elf
 Finished building: default.size.stdout
  
-Finished building: DFT.list
- 
-13:29:00 **** Incremental Build of configuration Debug for project DFT ****
+17:23:20 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
 make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
-In file included from ../Src/main.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-In file included from ../Inc/uart.h:3,
-                 from ../Src/uart.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: DFT.elf
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: FIFO_DataStructure.elf
  
-arm-none-eabi-size  DFT.elf 
-arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
+arm-none-eabi-size  FIFO_DataStructure.elf 
+arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
    text	   data	    bss	    dec	    hex	filename
-  30824	   3016	  12912	  46752	   b6a0	DFT.elf
+  24860	    468	   2052	  27380	   6af4	FIFO_DataStructure.elf
 Finished building: default.size.stdout
  
-Finished building: DFT.list
+Finished building: FIFO_DataStructure.list
  
-13:29:17 **** Incremental Build of configuration Debug for project DFT ****
+17:41:45 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
 make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
-In file included from ../Src/main.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-In file included from ../Inc/uart.h:3,
-                 from ../Src/uart.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: DFT.elf
- 
-arm-none-eabi-size  DFT.elf 
-arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
-   text	   data	    bss	    dec	    hex	filename
-  30824	   3016	  12912	  46752	   b6a0	DFT.elf
-Finished building: default.size.stdout
- 
-Finished building: DFT.list
- 
-13:33:48 **** Incremental Build of configuration Debug for project DFT ****
-make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
-In file included from ../Inc/uart.h:3,
-                 from ../Src/uart.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-In file included from ../Src/main.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: DFT.elf
- 
-arm-none-eabi-size  DFT.elf 
-arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
-   text	   data	    bss	    dec	    hex	filename
-  30840	   3016	  12912	  46768	   b6b0	DFT.elf
-Finished building: default.size.stdout
- 
-Finished building: DFT.list
- 
-13:35:51 **** Incremental Build of configuration Debug for project DFT ****
-make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
-In file included from ../Inc/uart.h:3,
-                 from ../Src/uart.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-In file included from ../Src/main.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: DFT.elf
- 
-arm-none-eabi-size  DFT.elf 
-arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
-   text	   data	    bss	    dec	    hex	filename
-  30176	   3016	  11632	  44824	   af18	DFT.elf
-Finished building: default.size.stdout
- 
-Finished building: DFT.list
- 
-13:39:39 **** Incremental Build of configuration Debug for project DFT ****
-make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/signals.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/signals.d" -MT"Src/signals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/signals.o"
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT -c -I../Inc -I"..//chip_headers/DSP/Include" -I"..//chip_headers/CMSIS/Include" -I"..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
-In file included from ../Src/main.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-In file included from ../Inc/uart.h:3,
-                 from ../Src/uart.c:1:
-..//chip_headers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:51:9: warning: "__FPU_PRESENT" redefined
-   51 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      |         ^~~~~~~~~~~~~
-<command-line>: note: this is the location of the previous definition
-arm-none-eabi-gcc -o "DFT.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\DFT\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DFT.map" -Wl,--gc-sections -static -L"D:\DSP\DFT\chip_headers\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: DFT.elf
- 
-arm-none-eabi-size  DFT.elf 
-arm-none-eabi-objdump -h -S DFT.elf  > "DFT.list"
-   text	   data	    bss	    dec	    hex	filename
-  30424	   3016	  11632	  45072	   b010	DFT.elf
-Finished building: default.size.stdout
- 
-Finished building: DFT.list
- 
+arm-none-eabi-gcc "../Core/Src/fifo.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fifo.d" -MT"Core/Src/fifo.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fifo.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+In file included from ../Core/Src/fifo.c:1:
+../Core/Inc/fifo.h:8:9: error: unknown type name 'uint32_t'
+    8 | typedef uint32_t rx_DataType;
+      |         ^~~~~~~~
+../Core/Inc/fifo.h:1:1: note: 'uint32_t' is defined in header '<stdint.h>'; this is probably fixable by adding '#include <stdint.h>'
+  +++ |+#include <stdint.h>
+    1 | #ifndef _FIFO_H_
+../Core/Src/fifo.c:9:10: error: return type defaults to 'int' [-Wimplicit-int]
+    9 | volatile rx_fifo_init(void)
+      |          ^~~~~~~~~~~~
+../Core/Src/fifo.c:15:1: error: unknown type name 'uint8_t'
+   15 | uint8_t rx_fifo_put(rx_DataType data)
+      | ^~~~~~~
+../Core/Src/fifo.c:2:1: note: 'uint8_t' is defined in header '<stdint.h>'; this is probably fixable by adding '#include <stdint.h>'
+    1 | #include "fifo.h"
+  +++ |+#include <stdint.h>
+    2 | 
+../Core/Src/fifo.c: In function 'rx_fifo_put':
+../Core/Src/fifo.c:22:44: error: 'RXFIFOSIZE' undeclared (first use in this function); did you mean 'RXFIFO_Size'?
+   22 |         if(rx_next_put_pt  == &RXFIFO_Size[RXFIFOSIZE])
+      |                                            ^~~~~~~~~~
+      |                                            RXFIFO_Size
+../Core/Src/fifo.c:22:44: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/fifo.c: In function 'rx_fifo_init':
+../Core/Src/fifo.c:12:1: warning: control reaches end of non-void function [-Wreturn-type]
+   12 | }
+      | ^
+../Core/Src/fifo.c: In function 'rx_fifo_put':
+../Core/Src/fifo.c:36:1: warning: control reaches end of non-void function [-Wreturn-type]
+   36 | }
+      | ^
+make: *** [Core/Src/subdir.mk:49: Core/Src/fifo.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j8 all" terminated with exit code 2. Build might be incomplete.

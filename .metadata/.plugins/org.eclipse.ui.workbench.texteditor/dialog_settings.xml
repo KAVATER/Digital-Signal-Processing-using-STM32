@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="arm_conv_f32"/>
+		<item key="selection" value="plot_signal"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="sig_src_len"/>
-			<item value="destination"/>
-			<item value="heap"/>
-			<item value="320"/>
-			<item value="301"/>
-			<item value="stm32f407"/>
-			<item value="gpioaen"/>
-			<item value="stm32f401"/>
+			<item value="plot_signal"/>
+			<item value="plot_ecg"/>
+			<item value="output"/>
+			<item value="while"/>
+			<item value="huart1"/>
+			<item value="signals"/>
+			<item value="sudo_delay"/>
+			<item value="fpu"/>
 		</list>
 		<list key="replacehistory">
 		</list>
+	</section>
+	<section name="org.eclipse.cdt.internal.ui.preferences.CTemplatePreferencePage$CEditTemplateDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="294"/>
+		<item key="DIALOG_Y_ORIGIN" value="127"/>
+		<item key="DIALOG_WIDTH" value="692"/>
+		<item key="DIALOG_HEIGHT" value="350"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 	</section>
 </section>
