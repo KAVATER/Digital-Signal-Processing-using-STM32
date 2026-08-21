@@ -1,4 +1,66 @@
-17:21:45 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
+18:48:19 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
+make -j8 all 
+arm-none-eabi-size  FIFO_DataStructure.elf 
+   text	   data	    bss	    dec	    hex	filename
+  25676	    468	   3260	  29404	   72dc	FIFO_DataStructure.elf
+Finished building: default.size.stdout
+ 
+18:48:21 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
+make -j8 all 
+arm-none-eabi-size  FIFO_DataStructure.elf 
+   text	   data	    bss	    dec	    hex	filename
+  25676	    468	   3260	  29404	   72dc	FIFO_DataStructure.elf
+Finished building: default.size.stdout
+ 
+18:50:40 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/adc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/adc.d" -MT"Core/Src/adc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/adc.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:201:30: warning: format '%u' expects argument of type 'unsigned int', but argument 2 has type 'rx_DataType' {aka 'long unsigned int'} [-Wformat=]
+  201 |                     printf("%u\r\n", val);
+      |                             ~^       ~~~
+      |                              |       |
+      |                              |       rx_DataType {aka long unsigned int}
+      |                              unsigned int
+      |                             %lu
+arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: FIFO_DataStructure.elf
+ 
+arm-none-eabi-size  FIFO_DataStructure.elf 
+arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
+   text	   data	    bss	    dec	    hex	filename
+  25596	    468	   3260	  29324	   728c	FIFO_DataStructure.elf
+Finished building: default.size.stdout
+ 
+Finished building: FIFO_DataStructure.list
+ 
+18:51:52 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:192:15: warning: unused variable 'val' [-Wunused-variable]
+  192 |   rx_DataType val;
+      |               ^~~
+arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: FIFO_DataStructure.elf
+ 
+arm-none-eabi-size  FIFO_DataStructure.elf 
+arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
+   text	   data	    bss	    dec	    hex	filename
+  25396	    468	   3260	  29124	   71c4	FIFO_DataStructure.elf
+Finished building: default.size.stdout
+ 
+Finished building: FIFO_DataStructure.list
+ 
+18:52:21 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
+make -j8 all 
+arm-none-eabi-size  FIFO_DataStructure.elf 
+   text	   data	    bss	    dec	    hex	filename
+  25396	    468	   3260	  29124	   71c4	FIFO_DataStructure.elf
+Finished building: default.size.stdout
+ 
+18:54:36 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -7,88 +69,31 @@ Finished building target: FIFO_DataStructure.elf
 arm-none-eabi-size  FIFO_DataStructure.elf 
 arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
    text	   data	    bss	    dec	    hex	filename
-  24940	    468	   2052	  27460	   6b44	FIFO_DataStructure.elf
+  25412	    468	   3268	  29148	   71dc	FIFO_DataStructure.elf
 Finished building: default.size.stdout
  
 Finished building: FIFO_DataStructure.list
  
-17:21:48 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
-make -j8 all 
-arm-none-eabi-size  FIFO_DataStructure.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24940	    468	   2052	  27460	   6b44	FIFO_DataStructure.elf
-Finished building: default.size.stdout
- 
-17:22:13 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
+18:56:19 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: FIFO_DataStructure.elf
- 
-arm-none-eabi-size  FIFO_DataStructure.elf 
-arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
-   text	   data	    bss	    dec	    hex	filename
-  24940	    468	   2052	  27460	   6b44	FIFO_DataStructure.elf
-Finished building: default.size.stdout
- 
-Finished building: FIFO_DataStructure.list
- 
-17:23:08 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
-make -j8 all 
-arm-none-eabi-size  FIFO_DataStructure.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24940	    468	   2052	  27460	   6b44	FIFO_DataStructure.elf
-Finished building: default.size.stdout
- 
-17:23:20 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: FIFO_DataStructure.elf
- 
-arm-none-eabi-size  FIFO_DataStructure.elf 
-arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
-   text	   data	    bss	    dec	    hex	filename
-  24860	    468	   2052	  27380	   6af4	FIFO_DataStructure.elf
-Finished building: default.size.stdout
- 
-Finished building: FIFO_DataStructure.list
- 
-17:41:45 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/fifo.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fifo.d" -MT"Core/Src/fifo.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fifo.o"
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-In file included from ../Core/Src/fifo.c:1:
-../Core/Inc/fifo.h:8:9: error: unknown type name 'uint32_t'
-    8 | typedef uint32_t rx_DataType;
-      |         ^~~~~~~~
-../Core/Inc/fifo.h:1:1: note: 'uint32_t' is defined in header '<stdint.h>'; this is probably fixable by adding '#include <stdint.h>'
-  +++ |+#include <stdint.h>
-    1 | #ifndef _FIFO_H_
-../Core/Src/fifo.c:9:10: error: return type defaults to 'int' [-Wimplicit-int]
-    9 | volatile rx_fifo_init(void)
-      |          ^~~~~~~~~~~~
-../Core/Src/fifo.c:15:1: error: unknown type name 'uint8_t'
-   15 | uint8_t rx_fifo_put(rx_DataType data)
-      | ^~~~~~~
-../Core/Src/fifo.c:2:1: note: 'uint8_t' is defined in header '<stdint.h>'; this is probably fixable by adding '#include <stdint.h>'
-    1 | #include "fifo.h"
-  +++ |+#include <stdint.h>
-    2 | 
-../Core/Src/fifo.c: In function 'rx_fifo_put':
-../Core/Src/fifo.c:22:44: error: 'RXFIFOSIZE' undeclared (first use in this function); did you mean 'RXFIFO_Size'?
-   22 |         if(rx_next_put_pt  == &RXFIFO_Size[RXFIFOSIZE])
-      |                                            ^~~~~~~~~~
-      |                                            RXFIFO_Size
-../Core/Src/fifo.c:22:44: note: each undeclared identifier is reported only once for each function it appears in
-../Core/Src/fifo.c: In function 'rx_fifo_init':
-../Core/Src/fifo.c:12:1: warning: control reaches end of non-void function [-Wreturn-type]
-   12 | }
-      | ^
-../Core/Src/fifo.c: In function 'rx_fifo_put':
-../Core/Src/fifo.c:36:1: warning: control reaches end of non-void function [-Wreturn-type]
-   36 | }
-      | ^
-make: *** [Core/Src/subdir.mk:49: Core/Src/fifo.o] Error 1
-make: *** Waiting for unfinished jobs....
+../Core/Src/main.c: In function 'HAL_ADC_ConvCpltCallback':
+../Core/Src/main.c:134:14: error: assignment to 'rx_DataType' {aka 'long unsigned int'} from 'rx_DataType *' {aka 'long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
+  134 |          val = (rx_DataType*)HAL_ADC_GetValue(hadc1);
+      |              ^
+make: *** [Core/Src/subdir.mk:49: Core/Src/main.o] Error 1
 "make -j8 all" terminated with exit code 2. Build might be incomplete.
+18:56:35 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: FIFO_DataStructure.elf
+ 
+arm-none-eabi-size  FIFO_DataStructure.elf 
+arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
+   text	   data	    bss	    dec	    hex	filename
+  25412	    468	   3268	  29148	   71dc	FIFO_DataStructure.elf
+Finished building: default.size.stdout
+ 
+Finished building: FIFO_DataStructure.list
+ 

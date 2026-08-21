@@ -9474,3 +9474,169 @@ COM16
 
 !ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 17:46:39.490
 !MESSAGE port: COM16
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-21 18:48:22.913
+!MESSAGE SWV configuration; base: 4500000; minDiv: 1; maxDiv: 2147483647; maxSWO: 4500000; limit: 2147483647 => SWO: 4500000; CPU: 168000000; div: 37
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.614
+!MESSAGE Executed PowerShell command powershell.exe -Command "Get-CimInstance -ClassName Win32_SerialPort | Select-Object -ExpandProperty DeviceID":
+                                   
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   kushp@KUSH_PC
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠔⠉⠀⣄⠀⠀⠀⠀⢀⣀⠤⠐⠚⠙   
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠐⠁⠀⠀⠀⠀⢀⡇⠐⠉⠀⠀⠀⠀⠀⠀⠀    Windows 11 Home Single Language (25H2) x86_64
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠊⠁⠀⠈⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⡀⡐⡌⢆    11th Gen Intel(R) Core(TM) i5-1135G7 (8) @ 2.42 GHz
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠃⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠪⢨⢊⠂   󰚗 0G4GH1 (A00)
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠁⠀⡀⠀⠀⠀⢀⠠⢄⢄⢔⢖⠲⣤⢤⣄⠀⢪⢘⠌⠀    12.75 GiB / 15.73 GiB (81%)
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠁⠠⠠⣄⠀⠐⠃⢈⠀⢢⠡⡣⠫⡅⡯⠛⠚⠹⠕⠀⠀⡘    131.43 GiB / 236.15 GiB (56%) - NTFS
+⠀⠀⠀⠀⠀⠀⠀⣰⡢⠐⠈⡠⡑⠜⢛⢃⠠⠀⠨⠠⠑⢈⠁⡑⠃⠀⠀⠀⠀⠀⡔⠁    98.71 GiB / 156.25 GiB (63%) - NTFS
+⠀⠀⠀⠀⠀⠀⠀⠁⠅⢌⠠⠂⠁⠀⠘⢈⠡⠂⠠⠀⠂⠀⠂⠀⠀⠀⠀⠀⠀⣈⣃⠀    197.56 GiB / 461.00 GiB (43%) - NTFS
+⠀⠀⠀⠀⠀⠀⠀⡠⠘⠁⠀⠀⠀⠀⠀⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢒⠝⢌⠢⡑    115.60 GiB / 194.24 GiB (60%) - NTFS
+⠀⠀⠀⠀⠀⠄⠂⠀⠀⠀⠀⠀⣀⡼⡕⡪⢋⠕⡡⠣⡩⠪⡑⢍⠫⡫⠫⣖⢯⢦⠵⠜   
+⠀⠀⠀⢀⠊⠀⠀⠀⠀⠀⠀⣠⢍⠢⡊⣔⢡⢊⠔⡑⢌⠬⢌⠢⡃⡊⡪⣷⢫⠨⡱⡀   ● ● ● ● ● ● ● ●
+⠀⠀⠀⢲⠀⠀⠀⠀⠀⢀⠰⡟⡢⢣⠨⡂⡪⢐⢑⢌⠢⡑⡔⠵⠊⠂⠊⢿⠑⠕⣈⡇
+⠀⠀⠀⠘⢤⠀⠀⠀⠀⠈⠀⢳⠨⠢⡑⠌⡢⢑⠰⢐⡵⠚⠁⠀⠀⠀⠀⠈⡄⠀⠈⠀
+⠀⠀⠀⠀⠀⠈⠓⠠⢄⡀⡤⠀⠛⣔⡈⠢⢨⠔⠚⠁⠠⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠁⠀⠀⠈⠁⠉⠁⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀
+
+COM16
+COM10
+
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.614
+!MESSAGE port:                                    
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.615
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   kushp@KUSH_PC
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.615
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠔⠉⠀⣄⠀⠀⠀⠀⢀⣀⠤⠐⠚⠙   
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.615
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠐⠁⠀⠀⠀⠀⢀⡇⠐⠉⠀⠀⠀⠀⠀⠀⠀    Windows 11 Home Single Language (25H2) x86_64
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.615
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠊⠁⠀⠈⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⡀⡐⡌⢆    11th Gen Intel(R) Core(TM) i5-1135G7 (8) @ 2.42 GHz
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.616
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠃⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠪⢨⢊⠂   󰚗 0G4GH1 (A00)
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.616
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠁⠀⡀⠀⠀⠀⢀⠠⢄⢄⢔⢖⠲⣤⢤⣄⠀⢪⢘⠌⠀    12.75 GiB / 15.73 GiB (81%)
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.616
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠁⠠⠠⣄⠀⠐⠃⢈⠀⢢⠡⡣⠫⡅⡯⠛⠚⠹⠕⠀⠀⡘    131.43 GiB / 236.15 GiB (56%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.616
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⣰⡢⠐⠈⡠⡑⠜⢛⢃⠠⠀⠨⠠⠑⢈⠁⡑⠃⠀⠀⠀⠀⠀⡔⠁    98.71 GiB / 156.25 GiB (63%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.616
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠁⠅⢌⠠⠂⠁⠀⠘⢈⠡⠂⠠⠀⠂⠀⠂⠀⠀⠀⠀⠀⠀⣈⣃⠀    197.56 GiB / 461.00 GiB (43%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.616
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⡠⠘⠁⠀⠀⠀⠀⠀⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢒⠝⢌⠢⡑    115.60 GiB / 194.24 GiB (60%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.616
+!MESSAGE port: ⠀⠀⠀⠀⠀⠄⠂⠀⠀⠀⠀⠀⣀⡼⡕⡪⢋⠕⡡⠣⡩⠪⡑⢍⠫⡫⠫⣖⢯⢦⠵⠜   
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.616
+!MESSAGE port: ⠀⠀⠀⢀⠊⠀⠀⠀⠀⠀⠀⣠⢍⠢⡊⣔⢡⢊⠔⡑⢌⠬⢌⠢⡃⡊⡪⣷⢫⠨⡱⡀   ● ● ● ● ● ● ● ●
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.616
+!MESSAGE port: ⠀⠀⠀⢲⠀⠀⠀⠀⠀⢀⠰⡟⡢⢣⠨⡂⡪⢐⢑⢌⠢⡑⡔⠵⠊⠂⠊⢿⠑⠕⣈⡇
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.617
+!MESSAGE port: ⠀⠀⠀⠘⢤⠀⠀⠀⠀⠈⠀⢳⠨⠢⡑⠌⡢⢑⠰⢐⡵⠚⠁⠀⠀⠀⠀⠈⡄⠀⠈⠀
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.617
+!MESSAGE port: ⠀⠀⠀⠀⠀⠈⠓⠠⢄⡀⡤⠀⠛⣔⡈⠢⢨⠔⠚⠁⠠⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⠀
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.617
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠁⠀⠀⠈⠁⠉⠁⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.617
+!MESSAGE port: 
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.617
+!MESSAGE port: COM16
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-21 18:48:29.617
+!MESSAGE port: COM10
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-21 18:50:42.606
+!MESSAGE SWV configuration; base: 4500000; minDiv: 1; maxDiv: 2147483647; maxSWO: 4500000; limit: 2147483647 => SWO: 4500000; CPU: 168000000; div: 37
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 4 0 2026-08-21 18:51:51.787
+!MESSAGE SWV Client received I/O Exception: Connection reset... trying to reconnect
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 4 0 2026-08-21 18:51:51.792
+!MESSAGE SWVClient - Failed to connect to Host: localhost Port: 2332
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 4 0 2026-08-21 18:51:51.793
+!MESSAGE Failed to reconnect and read data
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:601)
+	at java.base/sun.nio.ch.Net.connect(Net.java:590)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at java.base/java.net.Socket.connect(Socket.java:686)
+	at java.base/java.net.Socket.<init>(Socket.java:555)
+	at java.base/java.net.Socket.<init>(Socket.java:324)
+	at com.st.stm32cube.ide.mcu.debug.swv.core.SWVClient.connect(SWVClient.java:168)
+	at com.st.stm32cube.ide.mcu.debug.swv.core.SWVClient.getNextByte(SWVClient.java:283)
+	at com.st.stm32cube.ide.mcu.debug.swv.core.SWVClient.run(SWVClient.java:313)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-21 18:51:54.306
+!MESSAGE SWV configuration; base: 4500000; minDiv: 1; maxDiv: 2147483647; maxSWO: 4500000; limit: 2147483647 => SWO: 4500000; CPU: 168000000; div: 37
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-21 18:52:22.504
+!MESSAGE SWV configuration; base: 4500000; minDiv: 1; maxDiv: 2147483647; maxSWO: 4500000; limit: 2147483647 => SWO: 4500000; CPU: 168000000; div: 37
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-21 18:54:40.095
+!MESSAGE SWV configuration; base: 4500000; minDiv: 1; maxDiv: 2147483647; maxSWO: 4500000; limit: 2147483647 => SWO: 4500000; CPU: 168000000; div: 37
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 4 2026-08-21 18:54:48.181
+!MESSAGE NullPointerException while trying to calculated source lookup path. This can be ignored if it occurs while terminating a debug session. See Bug 500988.
+!STACK 0
+java.lang.NullPointerException: Cannot read the array length because "containers" is null
+	at org.eclipse.cdt.dsf.gdb.launching.GdbSourceLookupDirector.collectSubstitutionsPaths(GdbSourceLookupDirector.java:102)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbSourceLookupDirector.collectSubstitutionsPaths(GdbSourceLookupDirector.java:146)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbSourceLookupDirector.getSubstitutionsPaths(GdbSourceLookupDirector.java:72)
+	at org.eclipse.cdt.dsf.gdb.service.GDBSourceLookup.getSubstitutionsPaths(GDBSourceLookup.java:124)
+	at org.eclipse.cdt.dsf.gdb.service.GDBSourceLookup.sourceContainersChanged(GDBSourceLookup.java:139)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbSourceLookupParticipant.sourceContainersChangedOnDispatchThread(GdbSourceLookupParticipant.java:120)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbSourceLookupParticipant$1.run(GdbSourceLookupParticipant.java:85)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 4 0 2026-08-21 18:56:19.439
+!MESSAGE SWV Client received I/O Exception: Connection reset... trying to reconnect
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 4 0 2026-08-21 18:56:19.443
+!MESSAGE SWVClient - Failed to connect to Host: localhost Port: 2332
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 4 0 2026-08-21 18:56:19.444
+!MESSAGE Failed to reconnect and read data
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:601)
+	at java.base/sun.nio.ch.Net.connect(Net.java:590)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at java.base/java.net.Socket.connect(Socket.java:686)
+	at java.base/java.net.Socket.<init>(Socket.java:555)
+	at java.base/java.net.Socket.<init>(Socket.java:324)
+	at com.st.stm32cube.ide.mcu.debug.swv.core.SWVClient.connect(SWVClient.java:168)
+	at com.st.stm32cube.ide.mcu.debug.swv.core.SWVClient.getNextByte(SWVClient.java:283)
+	at com.st.stm32cube.ide.mcu.debug.swv.core.SWVClient.run(SWVClient.java:313)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-21 18:56:38.345
+!MESSAGE SWV configuration; base: 4500000; minDiv: 1; maxDiv: 2147483647; maxSWO: 4500000; limit: 2147483647 => SWO: 4500000; CPU: 168000000; div: 37
