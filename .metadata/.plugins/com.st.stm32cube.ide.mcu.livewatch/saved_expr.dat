@@ -10,3 +10,7 @@ g_my_milliseconds
 times_faster
 REX
 IMX
+adc_buff
+val
+RX_FIFO
+flag

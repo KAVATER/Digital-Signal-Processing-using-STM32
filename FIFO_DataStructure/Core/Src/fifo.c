@@ -2,60 +2,66 @@
 
 rx_DataType RX_FIFO[RXFIFO_Size];
 
-volatile rx_DataType * rx_put_pt;
-volatile rx_DataType * rx_get_pt;
+volatile rx_DataType *rx_put_pt;
+volatile rx_DataType *rx_get_pt;
 
-// Initializing fifo
- void rx_fifo_init(void)
+void rx_fifo_init(void)
 {
-	rx_put_pt = rx_get_pt = &RX_FIFO[0];
+    rx_put_pt = rx_get_pt = &RX_FIFO[0];
 }
-rx_DataType volatile *rx_next_put_pt;
-//putting data into rx fifo
+
 uint8_t rx_fifo_put(rx_DataType data)
 {
+    volatile rx_DataType *rx_next_put_pt = rx_put_pt + 1;
 
+    /* Wrap around if at end */
+    if (rx_next_put_pt == &RX_FIFO[RXFIFO_Size])
+    {
+        rx_next_put_pt = &RX_FIFO[0];
+    }
 
-	rx_next_put_pt = rx_put_pt +1;
+    /* Check if FIFO is full */
+    if (rx_next_put_pt == rx_get_pt)
+    {
+        return RXFIFO_Fail;
+    }
 
-	/*Check if at end*/
-	if(rx_next_put_pt  == &RX_FIFO[RXFIFO_Size])
-	{
-		//wrap around
-		rx_next_put_pt = &RX_FIFO[0];
-	}
-	if(rx_next_put_pt ==rx_get_pt)
-	{
-		return(RXFIFO_Fail);
-	}
-	else
-	{
-		//put data into fifo
-		*(rx_put_pt) = data;
-		rx_put_pt = rx_next_put_pt;
-		return (RXFIFO_Done);
-
-	}
+    /* Put data and advance pointer */
+    *rx_put_pt = data;
+    rx_put_pt = rx_next_put_pt;
+    return RXFIFO_Done;
 }
 
-//get data from fifo
-uint8_t rx_fifo_get(rx_DataType * datapt)
+uint8_t rx_fifo_get(rx_DataType *datapt)
 {
-	if(rx_put_pt == rx_get_pt)
-	{
-		//fifo empty
-		return (RXFIFO_Fail);
-	}
+    /* Check if FIFO is empty */
+    if (rx_put_pt == rx_get_pt)
+    {
+        return RXFIFO_Fail;
+    }
 
-	//get the data
-	*datapt = *(rx_get_pt++);
-	rx_get_pt++;
+    /* Get data and advance pointer — ONLY ONE INCREMENT! */
+    *datapt = *rx_get_pt;
+    rx_get_pt++;
 
-	//check if at the end
-	if(rx_get_pt == &RX_FIFO[RXFIFO_Size])
-	{
-		//wrap around
-		rx_get_pt = &RX_FIFO[0];
-	}
-	return (RXFIFO_Done);
+    /* Wrap around if at end */
+    if (rx_get_pt == &RX_FIFO[RXFIFO_Size])
+    {
+        rx_get_pt = &RX_FIFO[0];
+    }
+
+    return RXFIFO_Done;
+}
+
+bool rx_fifo_is_empty(void)
+{
+    return (rx_put_pt == rx_get_pt);
+}
+
+bool rx_fifo_is_full(void)
+{
+    volatile rx_DataType *next = rx_put_pt + 1;
+    if (next == &RX_FIFO[RXFIFO_Size])
+        next = &RX_FIFO[0];
+    return (next == rx_get_pt);
 }

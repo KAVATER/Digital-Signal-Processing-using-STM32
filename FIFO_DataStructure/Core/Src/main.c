@@ -131,10 +131,15 @@ uint16_t sample = 0;
 rx_DataType val = 0;
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 {
+	if(flag == 0)
+	{
 	 val = (rx_DataType)HAL_ADC_GetValue(hadc1);
 	rx_fifo_put(val);          // fast, non-blocking — just a memory write
+	flag = 1;
+	}
 	HAL_ADC_Start_IT(hadc1);    // re-arm for the next conversion
 }
+rx_DataType rx_data;
 /* USER CODE END 0 */
 
 /**
@@ -181,15 +186,20 @@ int main(void)
   rx_fifo_init();
   HAL_ADC_Start_IT(&hadc1);
 
-//  for(int i = 0;i<adc_buff_len; i++)
-//  {
-//	  rx_fifo_put(sample);
-//  }
-//  for(int i = 0;i<adc_buff_len; i++)
-//  {
-//	  rx_fifo_get(&rx_data);
-//	    adc_buff[i] = sample;
-//  }
+
+  /* Fill FIFO with dummy samples */
+  for (int i = 0; i < adc_buff_len; i++)
+  {
+      rx_fifo_put(sample);
+  }
+  /* Drain FIFO into adc_buff — ONE BY ONE */
+      for (int i = 0; i < adc_buff_len; i++)
+      {
+          if (rx_fifo_get(&rx_data) == RXFIFO_Done)
+          {
+              adc_buff[i] = rx_data;   /* ← use rx_data, not sample! */
+          }
+      }
 
   while (1)
   {
@@ -197,13 +207,14 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-//	        if (rx_fifo_get(&val) == RXFIFO_Done)
-//	        {
-//	            printf("%u\r\n", val);
-//               HAL_Delay(10);
-//	        }
-	 // printf("%u\r\n",sample);
-	 // HAL_Delay(500);
+	  if (flag == 1)
+	       {
+	            for (int i = 0; i < adc_buff_len; i++)
+	            {
+	               printf("%d\r\n",adc_buff[i]);
+	            }
+	           flag = 0;
+	      }
   }
   /* USER CODE END 3 */
 }
