@@ -129,7 +129,7 @@ volatile uint8_t flag = 0;
 uint16_t sample = 0;
 
 rx_DataType val = 0;
-uint32_t sample_count = 0;
+uint32_t sample_count = 0;	
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 {
@@ -296,7 +296,6 @@ void plot_signal(float32_t *arr,uint32_t sig_len)
 		        } else {
 		            printf("%ld.%05ld\r\n", int_part, frac_part);
 		        }
-
 		        HAL_Delay(50);
 		    }
 
@@ -315,6 +314,7 @@ void moving_avg(float32_t* sig_src_arr, float32_t* sig_out_arr, uint32_t signal_
 		sig_out_arr[i] = sig_out_arr[i]/filter_pts;
 	}
 }
+
 /* USER CODE END 4 */
 
 /**
