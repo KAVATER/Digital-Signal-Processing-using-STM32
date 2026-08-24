@@ -74,8 +74,8 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 #define FFT_BUFFER_SIZE 2048
 
-float FFT_Buff_In[FFT_BUFFER_SIZE];
-float FFT_Buff_Out[FFT_BUFFER_SIZE];
+float FFT_Buff_In[sig_ecg_len];
+float FFT_Buff_Out[sig_ecg_len];
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 {
@@ -124,8 +124,11 @@ int main(void)
   HAL_ADC_Start_IT(&hadc1);
 
   //Initlilizing fft
-  arm_rfft_fast_init_f32(&fftHandler, FFT_BUFFER_SIZE);
+  arm_rfft_fast_init_f32(&fftHandler, sig_ecg_len);
 
+  arm_rfft_fast_f32(&fftHandler,_640_points_ecg_,FFT_Buff_Out, 0);
+
+  plot_signal(FFT_Buff_Out, sig_ecg_len);
 
   while (1)
   {
