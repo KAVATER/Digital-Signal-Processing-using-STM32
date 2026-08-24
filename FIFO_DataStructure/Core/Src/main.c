@@ -36,7 +36,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define adc_buff_len 100
+#define adc_buff_len 256
 uint16_t adc_buff[adc_buff_len];
 
 extern float _5hz_signal[sig1_len];
@@ -115,28 +115,37 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-int _write(int fd, char *ptr, int len)
-{
-	if(fd==1 || fd==2)
-	{
-		if (HAL_UART_Transmit(&huart2, (uint8_t *)ptr, len, HAL_MAX_DELAY) == HAL_OK)
-			return len;
-		return -1;
-	}
-	return -1;
-}
+//int _write(int fd, char *ptr, int len)
+//{
+//	if(fd==1 || fd==2)
+//	{
+//		if (HAL_UART_Transmit(&huart2, (uint8_t *)ptr, len, HAL_MAX_DELAY) == HAL_OK)
+//			return len;
+//		return -1;
+//	}
+//	return -1;
+//}
 volatile uint8_t flag = 0;
 uint16_t sample = 0;
 
 rx_DataType val = 0;
+uint32_t sample_count = 0;
+
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 {
-	if(flag == 0)
-	{
+
 	 val = (rx_DataType)HAL_ADC_GetValue(hadc1);
 	rx_fifo_put(val);          // fast, non-blocking — just a memory write
-	flag = 1;
+
+
+	sample_count++;
+
+	if(sample_count >= adc_buff_len)
+	{
+		flag = 1;
+		sample_count = 0;
 	}
+
 	HAL_ADC_Start_IT(hadc1);    // re-arm for the next conversion
 }
 rx_DataType rx_data;
@@ -187,20 +196,13 @@ int main(void)
   HAL_ADC_Start_IT(&hadc1);
 
 
-  /* Fill FIFO with dummy samples */
-  for (int i = 0; i < adc_buff_len; i++)
-  {
-      rx_fifo_put(sample);
-  }
-  /* Drain FIFO into adc_buff — ONE BY ONE */
-      for (int i = 0; i < adc_buff_len; i++)
-      {
-          if (rx_fifo_get(&rx_data) == RXFIFO_Done)
-          {
-              adc_buff[i] = rx_data;   /* ← use rx_data, not sample! */
-          }
-      }
+//  /* Fill FIFO with dummy samples */
+//  for (int i = 0; i < adc_buff_len; i++)
+//  {
+//      rx_fifo_put(sample);
+//  }
 
+  char bf[50];
   while (1)
   {
     /* USER CODE END WHILE */
@@ -209,11 +211,26 @@ int main(void)
 
 	  if (flag == 1)
 	       {
+
+		  /* Drain FIFO into adc_buff — ONE BY ONE */
+		       for (int i = 0; i < adc_buff_len; i++)
+		       {
+		           if (rx_fifo_get(&rx_data) == RXFIFO_Done)
+		           {
+		               adc_buff[i] = rx_data;   /* ← use rx_data, not sample! */
+		           }
+		       }
+
 	            for (int i = 0; i < adc_buff_len; i++)
 	            {
-	               printf("%d\r\n",adc_buff[i]);
+	               //printf("%d\r\n",adc_buff[i]);
+	            	sprintf(bf,"%d\r\n",adc_buff[i]);
+	            	HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
 	            }
 	           flag = 0;
+
+		 // printf("%d\r\n",rx_data);
+		//  printf("%d\r\n", val);
 	      }
   }
   /* USER CODE END 3 */

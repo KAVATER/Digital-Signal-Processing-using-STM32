@@ -29,3 +29,8 @@
 1787300660295	Copy Project 'Window Filter'
 1787300697589	Delete resource 'FIFO_DataStructure/Debug'
 1787300701433	Delete resource 'FIFO_DataStructure/Window Filter Debug.launch'
+1787398995137	Copy Project 'FIFO_DataStructure'
+1787399020877	Delete resource 'Baground_thread/Debug'
+1787399275403	Delete resource 'Baground_thread/FIFO_DataStructure Debug.launch'
+1787400412494	Delete resource 'Baground_thread/Core/Inc/time.h'
+1787401528535	Delete resource 'Baground_thread'

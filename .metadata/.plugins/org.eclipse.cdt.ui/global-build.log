@@ -1,42 +1,9 @@
-16:17:10 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
+12:34:25 **** Incremental Build of configuration Debug for project Rectangle_to_Polar&ViceVersa ****
 make -j8 all 
-arm-none-eabi-size  FIFO_DataStructure.elf 
-   text	   data	    bss	    dec	    hex	filename
-  25732	    468	   2780	  28980	   7134	FIFO_DataStructure.elf
-Finished building: default.size.stdout
- 
-16:17:18 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
-make -j8 all 
-arm-none-eabi-size  FIFO_DataStructure.elf 
-   text	   data	    bss	    dec	    hex	filename
-  25732	    468	   2780	  28980	   7134	FIFO_DataStructure.elf
-Finished building: default.size.stdout
- 
-16:20:57 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: FIFO_DataStructure.elf
- 
-arm-none-eabi-size  FIFO_DataStructure.elf 
-arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
-   text	   data	    bss	    dec	    hex	filename
-  25588	    468	   2780	  28836	   70a4	FIFO_DataStructure.elf
-Finished building: default.size.stdout
- 
-Finished building: FIFO_DataStructure.list
- 
-16:22:19 **** Incremental Build of configuration Debug for project FIFO_DataStructure ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/DSP/FIFO_DataStructure/DSP/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "FIFO_DataStructure.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"D:\DSP\FIFO_DataStructure\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FIFO_DataStructure.map" -Wl,--gc-sections -static -L"D:\DSP\FIFO_DataStructure\DSP\Lib\GCC" -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: FIFO_DataStructure.elf
- 
-arm-none-eabi-size  FIFO_DataStructure.elf 
-arm-none-eabi-objdump -h -S FIFO_DataStructure.elf  > "FIFO_DataStructure.list"
-   text	   data	    bss	    dec	    hex	filename
-  25732	    468	   2780	  28980	   7134	FIFO_DataStructure.elf
-Finished building: default.size.stdout
- 
-Finished building: FIFO_DataStructure.list
- 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:29:10: fatal error: arm_math.h: No such file or directory
+   29 | #include "arm_math.h"
+      |          ^~~~~~~~~~~~
+compilation terminated.
+make: *** [Core/Src/subdir.mk:43: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
