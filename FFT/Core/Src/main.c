@@ -36,12 +36,19 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
+#define FFT_BUFFER_SIZE  2048 //power to 2 //(fir_len+ ECG_mudy_len)
+#define FILTER_Taps fir_len
+
 extern float _5hz_signal[sig1_len];
 
 extern float32_t inputSignal_f32_1kHz_15kHz[sig2_len];
 extern float32_t  impulse_response[sig3_len];
 extern float32_t  _640_points_ecg_[sig_ecg_len];
+extern float32_t ecg_mudy_sig[ECG_mudy_len];
+extern float32_t fir_filter[fir_len];
 
+float32_t padded_filter[FFT_BUFF_SIZE];
+float32_t overlap[FILTER_TAPS - 1];
 
 /* USER CODE END PTD */
 
@@ -49,7 +56,7 @@ extern float32_t  _640_points_ecg_[sig_ecg_len];
 /* USER CODE BEGIN PD */
 
 void plot_signal(float32_t *arr,uint32_t sign_len);
-
+arm_rfft_fast_instance_f32 fftHandler;
 
 /* USER CODE END PD */
 
@@ -72,10 +79,12 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#define FFT_BUFFER_SIZE 2048
 
-float FFT_Buff_In[sig_ecg_len];
-float FFT_Buff_Out[sig_ecg_len];
+
+float FFT_Buff_In[FFT_BUFFER_SIZE];
+float FFT_Buff_Out[FFT_BUFFER_SIZE];
+float fft_magnitude[FFT_BUFFER_SIZE / 2];
+
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 {
@@ -123,18 +132,60 @@ int main(void)
   /*Initializing fifo*/
   HAL_ADC_Start_IT(&hadc1);
 
+//zero padding  of input signal
+  for (uint32_t i = 0; i < ECG_mudy_len; i++) {
+      FFT_Buff_In[i] = ecg_mudy_sig[i];
+  }
+  //zero padding
+  for(uint32_t j=ECG_mudy_len+1; j< FFT_BUFFER_SIZE;j++)
+  {
+	  FFT_Buff_In[j] = 0;
+  }
+
+  //zero padding of filter
+  for (uint32_t i = 0; i < filter_len; i++) {
+        padded_filter[i] = fir_filter[i];
+    }
+  for(int i= filter_len+1; i< FFT_BUFFER_SIZE; i++)
+  {
+	  padded_filter[i] = 0;
+  }
+
   //Initlilizing fft
-  arm_rfft_fast_init_f32(&fftHandler, sig_ecg_len);
 
-  arm_rfft_fast_f32(&fftHandler,_640_points_ecg_,FFT_Buff_Out, 0);
+		arm_rfft_fast_init_f32(&fftHandler, FFT_BUFFER_SIZE);
 
-  plot_signal(FFT_Buff_Out, sig_ecg_len);
+     /* FFT of input buffer */
+    arm_rfft_fast_f32(&fftHandler,FFT_Buff_In,FFT_Buff_In, 0);
+
+    arm_rfft_fast_f32(&fftHandler,padded_filter,padded_filter,0);
+
+      // DC bin (index 0): pure real
+      FFT_Buff_Out[0] = FFT_Buff_In[0] * padded_filter[0];
+
+      // Nyquist bin (index 1): pure real
+      FFT_Buff_Out[1] = FFT_Buff_In[1] * padded_filter[1];
+
+      // Remaining bins: complex (Re, Im) pairs starting at index 2
+      for (int i = 2; i < FFT_BUFFER_SIZE; i += 2)
+      {
+          float32_t a = FFT_Buff_In[i];        // Re{X[k]}
+          float32_t b = FFT_Buff_In[i + 1];    // Im{X[k]}
+          float32_t c = padded_filter[i];     // Re{H[k]}
+          float32_t d = padded_filter[i + 1]; // Im{H[k]}
+
+          // (a + jb) * (c + jd) = (ac - bd) + j(ad + bc)
+          FFT_Buff_Out[i]     = a * c - b * d;   // Re{Y[k]}
+          FFT_Buff_Out[i + 1] = a * d + b * c;   // Im{Y[k]}
+      }
 
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+
 
   /* USER CODE END 3 */
 }
@@ -187,24 +238,29 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void plot_signal(float32_t *arr,uint32_t sig_len)
+void plot_signal(float32_t *arr, uint32_t sig_len)
 {
-	for(int i=0; i<sig_len; i++)
-		    {
-		        long val = (long)(arr[i] * 100000);
-		        long int_part  = val / 100000;
-		        long frac_part = labs(val % 100000);
+    char tx_buf[32];
+    uint16_t len;
 
-		        if (val < 0 && int_part == 0) {
-		            printf("-%ld.%05ld\r\n", int_part, frac_part);
-		        } else {
-		            printf("%ld.%05ld\r\n", int_part, frac_part);
-		        }
-		        HAL_Delay(50);
-		    }
+    sig_len = sig_len / 2;
 
+    for (uint32_t i = 0; i < sig_len; i++)
+    {
+        long val = (long)(arr[i] * 100000.0f);
+        long int_part  = val / 100000;
+        long frac_part = labs(val % 100000);
+
+        if (val < 0 && int_part == 0) {
+            len = snprintf(tx_buf, sizeof(tx_buf), "-%ld.%05ld\r\n", int_part, frac_part);
+        } else {
+            len = snprintf(tx_buf, sizeof(tx_buf), "%ld.%05ld\r\n", int_part, frac_part);
+        }
+
+        HAL_UART_Transmit(&huart2, (uint8_t*)tx_buf, len, HAL_MAX_DELAY);
+        HAL_Delay(50);
+    }
 }
-
 /* USER CODE END 4 */
 
 /**
