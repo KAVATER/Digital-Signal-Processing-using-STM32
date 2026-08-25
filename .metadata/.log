@@ -2774,3 +2774,228 @@ COM15
 
 !ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 17:40:48.256
 !MESSAGE port: COM15
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.991
+!MESSAGE Executed PowerShell command powershell.exe -Command "Get-CimInstance -ClassName Win32_SerialPort | Select-Object -ExpandProperty DeviceID":
+                                   
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   kushp@KUSH_PC
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠔⠉⠀⣄⠀⠀⠀⠀⢀⣀⠤⠐⠚⠙   
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠐⠁⠀⠀⠀⠀⢀⡇⠐⠉⠀⠀⠀⠀⠀⠀⠀    Windows 11 Home Single Language (25H2) x86_64
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠊⠁⠀⠈⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⡀⡐⡌⢆    11th Gen Intel(R) Core(TM) i5-1135G7 (8) @ 2.42 GHz
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠃⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠪⢨⢊⠂   󰚗 0G4GH1 (A00)
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠁⠀⡀⠀⠀⠀⢀⠠⢄⢄⢔⢖⠲⣤⢤⣄⠀⢪⢘⠌⠀    13.81 GiB / 15.73 GiB (88%)
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠁⠠⠠⣄⠀⠐⠃⢈⠀⢢⠡⡣⠫⡅⡯⠛⠚⠹⠕⠀⠀⡘    139.32 GiB / 236.15 GiB (59%) - NTFS
+⠀⠀⠀⠀⠀⠀⠀⣰⡢⠐⠈⡠⡑⠜⢛⢃⠠⠀⠨⠠⠑⢈⠁⡑⠃⠀⠀⠀⠀⠀⡔⠁    102.00 GiB / 156.25 GiB (65%) - NTFS
+⠀⠀⠀⠀⠀⠀⠀⠁⠅⢌⠠⠂⠁⠀⠘⢈⠡⠂⠠⠀⠂⠀⠂⠀⠀⠀⠀⠀⠀⣈⣃⠀    197.56 GiB / 461.00 GiB (43%) - NTFS
+⠀⠀⠀⠀⠀⠀⠀⡠⠘⠁⠀⠀⠀⠀⠀⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢒⠝⢌⠢⡑    121.87 GiB / 194.24 GiB (63%) - NTFS
+⠀⠀⠀⠀⠀⠄⠂⠀⠀⠀⠀⠀⣀⡼⡕⡪⢋⠕⡡⠣⡩⠪⡑⢍⠫⡫⠫⣖⢯⢦⠵⠜    20.00 KiB / 3.03 MiB (1%) - FAT [External]
+⠀⠀⠀⢀⠊⠀⠀⠀⠀⠀⠀⣠⢍⠢⡊⣔⢡⢊⠔⡑⢌⠬⢌⠢⡃⡊⡪⣷⢫⠨⡱⡀   
+⠀⠀⠀⢲⠀⠀⠀⠀⠀⢀⠰⡟⡢⢣⠨⡂⡪⢐⢑⢌⠢⡑⡔⠵⠊⠂⠊⢿⠑⠕⣈⡇   ● ● ● ● ● ● ● ●
+⠀⠀⠀⠘⢤⠀⠀⠀⠀⠈⠀⢳⠨⠢⡑⠌⡢⢑⠰⢐⡵⠚⠁⠀⠀⠀⠀⠈⡄⠀⠈⠀
+⠀⠀⠀⠀⠀⠈⠓⠠⢄⡀⡤⠀⠛⣔⡈⠢⢨⠔⠚⠁⠠⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠁⠀⠀⠈⠁⠉⠁⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀
+
+COM15
+COM10
+
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.992
+!MESSAGE port:                                    
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.992
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   kushp@KUSH_PC
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.992
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠔⠉⠀⣄⠀⠀⠀⠀⢀⣀⠤⠐⠚⠙   
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.992
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠐⠁⠀⠀⠀⠀⢀⡇⠐⠉⠀⠀⠀⠀⠀⠀⠀    Windows 11 Home Single Language (25H2) x86_64
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.992
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠊⠁⠀⠈⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⡀⡐⡌⢆    11th Gen Intel(R) Core(TM) i5-1135G7 (8) @ 2.42 GHz
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.992
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠃⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠪⢨⢊⠂   󰚗 0G4GH1 (A00)
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.992
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠁⠀⡀⠀⠀⠀⢀⠠⢄⢄⢔⢖⠲⣤⢤⣄⠀⢪⢘⠌⠀    13.81 GiB / 15.73 GiB (88%)
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.993
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠁⠠⠠⣄⠀⠐⠃⢈⠀⢢⠡⡣⠫⡅⡯⠛⠚⠹⠕⠀⠀⡘    139.32 GiB / 236.15 GiB (59%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.993
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⣰⡢⠐⠈⡠⡑⠜⢛⢃⠠⠀⠨⠠⠑⢈⠁⡑⠃⠀⠀⠀⠀⠀⡔⠁    102.00 GiB / 156.25 GiB (65%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.993
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠁⠅⢌⠠⠂⠁⠀⠘⢈⠡⠂⠠⠀⠂⠀⠂⠀⠀⠀⠀⠀⠀⣈⣃⠀    197.56 GiB / 461.00 GiB (43%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.993
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⡠⠘⠁⠀⠀⠀⠀⠀⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢒⠝⢌⠢⡑    121.87 GiB / 194.24 GiB (63%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.993
+!MESSAGE port: ⠀⠀⠀⠀⠀⠄⠂⠀⠀⠀⠀⠀⣀⡼⡕⡪⢋⠕⡡⠣⡩⠪⡑⢍⠫⡫⠫⣖⢯⢦⠵⠜    20.00 KiB / 3.03 MiB (1%) - FAT [External]
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.994
+!MESSAGE port: ⠀⠀⠀⢀⠊⠀⠀⠀⠀⠀⠀⣠⢍⠢⡊⣔⢡⢊⠔⡑⢌⠬⢌⠢⡃⡊⡪⣷⢫⠨⡱⡀   
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.994
+!MESSAGE port: ⠀⠀⠀⢲⠀⠀⠀⠀⠀⢀⠰⡟⡢⢣⠨⡂⡪⢐⢑⢌⠢⡑⡔⠵⠊⠂⠊⢿⠑⠕⣈⡇   ● ● ● ● ● ● ● ●
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.994
+!MESSAGE port: ⠀⠀⠀⠘⢤⠀⠀⠀⠀⠈⠀⢳⠨⠢⡑⠌⡢⢑⠰⢐⡵⠚⠁⠀⠀⠀⠀⠈⡄⠀⠈⠀
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.994
+!MESSAGE port: ⠀⠀⠀⠀⠀⠈⠓⠠⢄⡀⡤⠀⠛⣔⡈⠢⢨⠔⠚⠁⠠⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⠀
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.994
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠁⠀⠀⠈⠁⠉⠁⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.994
+!MESSAGE port: 
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.994
+!MESSAGE port: COM15
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:20:30.995
+!MESSAGE port: COM10
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-25 18:20:46.916
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 168000000; div: 84
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-25 18:22:11.460
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 168000000; div: 84
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-25 18:28:32.750
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 168000000; div: 84
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 4 2026-08-25 18:29:17.357
+!MESSAGE NullPointerException while trying to calculated source lookup path. This can be ignored if it occurs while terminating a debug session. See Bug 500988.
+!STACK 0
+java.lang.NullPointerException: Cannot read the array length because "containers" is null
+	at org.eclipse.cdt.dsf.gdb.launching.GdbSourceLookupDirector.collectSubstitutionsPaths(GdbSourceLookupDirector.java:102)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbSourceLookupDirector.collectSubstitutionsPaths(GdbSourceLookupDirector.java:146)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbSourceLookupDirector.getSubstitutionsPaths(GdbSourceLookupDirector.java:72)
+	at org.eclipse.cdt.dsf.gdb.service.GDBSourceLookup.getSubstitutionsPaths(GDBSourceLookup.java:124)
+	at org.eclipse.cdt.dsf.gdb.service.GDBSourceLookup.sourceContainersChanged(GDBSourceLookup.java:139)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbSourceLookupParticipant.sourceContainersChangedOnDispatchThread(GdbSourceLookupParticipant.java:120)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbSourceLookupParticipant$1.run(GdbSourceLookupParticipant.java:85)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-25 18:29:59.136
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 168000000; div: 84
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2026-08-25 18:30:03.730
+!MESSAGE Error in final launch sequence:
+
+Device debug script
+!STACK 1
+org.eclipse.core.runtime.CoreException: Device debug script
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:254)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:111)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:99)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.launch(DSFDelegate.java:337)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:778)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:689)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1052)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1254)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Contains: Device debug script
+!SUBENTRY 1 org.eclipse.cdt.dsf 4 0 2026-08-25 18:30:03.731
+!MESSAGE Device debug script
+!SUBENTRY 2 com.st.stm32cube.ide.mcu.debug.launch 4 0 2026-08-25 18:30:03.731
+!MESSAGE Device debug script
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-25 18:36:06.486
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 168000000; div: 84
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-25 18:37:33.227
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 168000000; div: 84
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2026-08-25 18:45:00.697
+!MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 168000000; div: 84
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.213
+!MESSAGE Executed PowerShell command powershell.exe -Command "Get-CimInstance -ClassName Win32_SerialPort | Select-Object -ExpandProperty DeviceID":
+                                   
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   kushp@KUSH_PC
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠔⠉⠀⣄⠀⠀⠀⠀⢀⣀⠤⠐⠚⠙   
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠐⠁⠀⠀⠀⠀⢀⡇⠐⠉⠀⠀⠀⠀⠀⠀⠀    Windows 11 Home Single Language (25H2) x86_64
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠊⠁⠀⠈⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⡀⡐⡌⢆    11th Gen Intel(R) Core(TM) i5-1135G7 (8) @ 2.42 GHz
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠃⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠪⢨⢊⠂   󰚗 0G4GH1 (A00)
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠁⠀⡀⠀⠀⠀⢀⠠⢄⢄⢔⢖⠲⣤⢤⣄⠀⢪⢘⠌⠀    13.71 GiB / 15.73 GiB (87%)
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠁⠠⠠⣄⠀⠐⠃⢈⠀⢢⠡⡣⠫⡅⡯⠛⠚⠹⠕⠀⠀⡘    139.33 GiB / 236.15 GiB (59%) - NTFS
+⠀⠀⠀⠀⠀⠀⠀⣰⡢⠐⠈⡠⡑⠜⢛⢃⠠⠀⠨⠠⠑⢈⠁⡑⠃⠀⠀⠀⠀⠀⡔⠁    102.00 GiB / 156.25 GiB (65%) - NTFS
+⠀⠀⠀⠀⠀⠀⠀⠁⠅⢌⠠⠂⠁⠀⠘⢈⠡⠂⠠⠀⠂⠀⠂⠀⠀⠀⠀⠀⠀⣈⣃⠀    197.56 GiB / 461.00 GiB (43%) - NTFS
+⠀⠀⠀⠀⠀⠀⠀⡠⠘⠁⠀⠀⠀⠀⠀⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢒⠝⢌⠢⡑    121.87 GiB / 194.24 GiB (63%) - NTFS
+⠀⠀⠀⠀⠀⠄⠂⠀⠀⠀⠀⠀⣀⡼⡕⡪⢋⠕⡡⠣⡩⠪⡑⢍⠫⡫⠫⣖⢯⢦⠵⠜    20.00 KiB / 3.03 MiB (1%) - FAT [External]
+⠀⠀⠀⢀⠊⠀⠀⠀⠀⠀⠀⣠⢍⠢⡊⣔⢡⢊⠔⡑⢌⠬⢌⠢⡃⡊⡪⣷⢫⠨⡱⡀   
+⠀⠀⠀⢲⠀⠀⠀⠀⠀⢀⠰⡟⡢⢣⠨⡂⡪⢐⢑⢌⠢⡑⡔⠵⠊⠂⠊⢿⠑⠕⣈⡇   ● ● ● ● ● ● ● ●
+⠀⠀⠀⠘⢤⠀⠀⠀⠀⠈⠀⢳⠨⠢⡑⠌⡢⢑⠰⢐⡵⠚⠁⠀⠀⠀⠀⠈⡄⠀⠈⠀
+⠀⠀⠀⠀⠀⠈⠓⠠⢄⡀⡤⠀⠛⣔⡈⠢⢨⠔⠚⠁⠠⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠁⠀⠀⠈⠁⠉⠁⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀
+
+COM15
+
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.214
+!MESSAGE port:                                    
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.214
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   kushp@KUSH_PC
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.214
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠔⠉⠀⣄⠀⠀⠀⠀⢀⣀⠤⠐⠚⠙   
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.214
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠐⠁⠀⠀⠀⠀⢀⡇⠐⠉⠀⠀⠀⠀⠀⠀⠀    Windows 11 Home Single Language (25H2) x86_64
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.215
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠊⠁⠀⠈⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⡀⡐⡌⢆    11th Gen Intel(R) Core(TM) i5-1135G7 (8) @ 2.42 GHz
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.215
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠃⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠪⢨⢊⠂   󰚗 0G4GH1 (A00)
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.215
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠁⠀⡀⠀⠀⠀⢀⠠⢄⢄⢔⢖⠲⣤⢤⣄⠀⢪⢘⠌⠀    13.71 GiB / 15.73 GiB (87%)
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.215
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠁⠠⠠⣄⠀⠐⠃⢈⠀⢢⠡⡣⠫⡅⡯⠛⠚⠹⠕⠀⠀⡘    139.33 GiB / 236.15 GiB (59%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.215
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⣰⡢⠐⠈⡠⡑⠜⢛⢃⠠⠀⠨⠠⠑⢈⠁⡑⠃⠀⠀⠀⠀⠀⡔⠁    102.00 GiB / 156.25 GiB (65%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.215
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠁⠅⢌⠠⠂⠁⠀⠘⢈⠡⠂⠠⠀⠂⠀⠂⠀⠀⠀⠀⠀⠀⣈⣃⠀    197.56 GiB / 461.00 GiB (43%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.215
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⡠⠘⠁⠀⠀⠀⠀⠀⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢒⠝⢌⠢⡑    121.87 GiB / 194.24 GiB (63%) - NTFS
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.216
+!MESSAGE port: ⠀⠀⠀⠀⠀⠄⠂⠀⠀⠀⠀⠀⣀⡼⡕⡪⢋⠕⡡⠣⡩⠪⡑⢍⠫⡫⠫⣖⢯⢦⠵⠜    20.00 KiB / 3.03 MiB (1%) - FAT [External]
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.216
+!MESSAGE port: ⠀⠀⠀⢀⠊⠀⠀⠀⠀⠀⠀⣠⢍⠢⡊⣔⢡⢊⠔⡑⢌⠬⢌⠢⡃⡊⡪⣷⢫⠨⡱⡀   
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.216
+!MESSAGE port: ⠀⠀⠀⢲⠀⠀⠀⠀⠀⢀⠰⡟⡢⢣⠨⡂⡪⢐⢑⢌⠢⡑⡔⠵⠊⠂⠊⢿⠑⠕⣈⡇   ● ● ● ● ● ● ● ●
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.216
+!MESSAGE port: ⠀⠀⠀⠘⢤⠀⠀⠀⠀⠈⠀⢳⠨⠢⡑⠌⡢⢑⠰⢐⡵⠚⠁⠀⠀⠀⠀⠈⡄⠀⠈⠀
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.216
+!MESSAGE port: ⠀⠀⠀⠀⠀⠈⠓⠠⢄⡀⡤⠀⠛⣔⡈⠢⢨⠔⠚⠁⠠⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⠀
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.216
+!MESSAGE port: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠁⠀⠀⠈⠁⠉⠁⠀⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.216
+!MESSAGE port: 
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-08-25 18:48:37.217
+!MESSAGE port: COM15

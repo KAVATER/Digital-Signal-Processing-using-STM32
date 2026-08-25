@@ -145,7 +145,7 @@ int main(void)
   for (uint32_t i = 0; i < fir_len; i++) {
         padded_filter[i] = fir_filter[i];
     }
-  for(int i= fir_len+1; i< FFT_BUFFER_SIZE; i++)
+  for(int i= fir_len; i< FFT_BUFFER_SIZE; i++)
   {
 	  padded_filter[i] = 0;
   }
@@ -181,7 +181,7 @@ int main(void)
       //inverse fft
       arm_rfft_fast_f32(&fftHandler, FFT_Buff_Out, FFT_Buff_Out, 1);
 
-      plot_signal(ecg_mudy_sig,fir_len);
+      plot_signal(ecg_mudy_sig,ECG_mudy_len);
       plot_signal(FFT_Buff_Out, FFT_BUFFER_SIZE);
 
 
