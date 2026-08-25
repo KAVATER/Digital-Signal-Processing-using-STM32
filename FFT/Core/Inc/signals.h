@@ -9,6 +9,8 @@
 #define sig_ecg_len 640
 #define mixed_sig_len 1001
 #define ECG_mudy_len 1800
+#define fir_len  483
+
 
 
 extern float _5hz_signal[sig1_len];

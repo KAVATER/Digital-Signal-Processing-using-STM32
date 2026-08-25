@@ -47,8 +47,7 @@ extern float32_t  _640_points_ecg_[sig_ecg_len];
 extern float32_t ecg_mudy_sig[ECG_mudy_len];
 extern float32_t fir_filter[fir_len];
 
-float32_t padded_filter[FFT_BUFF_SIZE];
-float32_t overlap[FILTER_TAPS - 1];
+float32_t padded_filter[FFT_BUFFER_SIZE];
 
 /* USER CODE END PTD */
 
@@ -143,10 +142,10 @@ int main(void)
   }
 
   //zero padding of filter
-  for (uint32_t i = 0; i < filter_len; i++) {
+  for (uint32_t i = 0; i < fir_len; i++) {
         padded_filter[i] = fir_filter[i];
     }
-  for(int i= filter_len+1; i< FFT_BUFFER_SIZE; i++)
+  for(int i= fir_len+1; i< FFT_BUFFER_SIZE; i++)
   {
 	  padded_filter[i] = 0;
   }
@@ -178,6 +177,13 @@ int main(void)
           FFT_Buff_Out[i]     = a * c - b * d;   // Re{Y[k]}
           FFT_Buff_Out[i + 1] = a * d + b * c;   // Im{Y[k]}
       }
+
+      //inverse fft
+      arm_rfft_fast_f32(&fftHandler, FFT_Buff_Out, FFT_Buff_Out, 1);
+
+      plot_signal(ecg_mudy_sig,fir_len);
+      plot_signal(FFT_Buff_Out, FFT_BUFFER_SIZE);
+
 
   while (1)
   {
@@ -243,7 +249,7 @@ void plot_signal(float32_t *arr, uint32_t sig_len)
     char tx_buf[32];
     uint16_t len;
 
-    sig_len = sig_len / 2;
+   // sig_len = sig_len / 2;
 
     for (uint32_t i = 0; i < sig_len; i++)
     {
