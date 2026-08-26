@@ -1,45 +1,3 @@
-/* USER CODE BEGIN Includes */
-#include "fifo.h"
-/* USER CODE END Includes */
-
-/* USER CODE BEGIN PV */
-rx_DataType rx_data;   /* single variable to hold one FIFO item */
-/* USER CODE END PV */
-
-int main(void)
-{
-    /* ... init code ... */
-    rx_fifo_init();
-    HAL_ADC_Start_IT(&hadc1);
-
-    /* Fill FIFO with dummy samples */
-    for (int i = 0; i < adc_buff_len; i++)
-    {
-        rx_fifo_put(sample);
-    }
-
-    /* Drain FIFO into adc_buff — ONE BY ONE */
-    for (int i = 0; i < adc_buff_len; i++)
-    {
-        if (rx_fifo_get(&rx_data) == RXFIFO_Done)
-        {
-            adc_buff[i] = rx_data;   /* ← use rx_data, not sample! */
-        }
-    }
-
-    while (1)
-    {
-        if (flag == 1)
-        {
-            for (int i = 0; i < adc_buff_len; i++)
-            {
-                /* Process adc_buff[i] here */
-            }
-            flag = 0;
-        }
-    }
-}
-
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -70,71 +28,89 @@ int main(void)
 #include "signals.h"
 #include "stdio.h"
 #include "arm_math.h"
+//#include ARM_MATH_CM4
 #include <math.h>
 #include "stdlib.h"
-#define moving_avg_pts 11
-#include "fifo.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define adc_buff_len 100
-uint16_t adc_buff[adc_buff_len];
+
+#define FILTER_Taps fir_len   /* currently unused, left in case it's needed later */
+
+#define input_sig_len ECG_mudy_len
+#define filter_len fir_len
 
 extern float _5hz_signal[sig1_len];
 
 extern float32_t inputSignal_f32_1kHz_15kHz[sig2_len];
- float32_t inputSignal_f32_1kHz_15kHz_out[sig2_len];
-
 extern float32_t  impulse_response[sig3_len];
 extern float32_t  _640_points_ecg_[sig_ecg_len];
+extern float32_t ecg_mudy_sig[ECG_mudy_len];
+extern float32_t fir_filter[fir_len];
 
+/* ============================================================================
+ * FIX (root cause of every "variably modified '...' at file scope" error):
+ *
+ * The arrays below (padded_filter, FFT_Buff_In, FFT_Buff_Out, ...) are GLOBAL
+ * arrays. C only allows a global/file-scope array's size to be a genuine
+ * compile-time integer constant expression. The original code sized them
+ * with "fft_len", an ordinary uint32_t variable that only got its value at
+ * runtime inside main() (via next_power_of_2()) - that is a variable-length
+ * array, and VLAs are only legal as LOCAL variables inside a function body,
+ * never at file scope. Hence the build errors.
+ *
+ * Fix: compute the FFT length entirely with the preprocessor/compile-time
+ * constant arithmetic below, so it truly is a constant expression usable in
+ * a file-scope array declarator.
+ * ============================================================================ */
 
+/* ---- Compile-time "round up to next power of two" -------------------------
+ * Classic bit-smearing trick: OR each bit down into all bits below it, then
+ * add 1. Works purely with constant arithmetic, so the result can be used
+ * as an array size. */
+#define _B2(x)   ( (x)      | ((x) >> 1)  )
+#define _B4(x)   ( _B2(x)   | (_B2(x) >> 2)  )
+#define _B8(x)   ( _B4(x)   | (_B4(x) >> 4)  )
+#define _B16(x)  ( _B8(x)   | (_B8(x) >> 8)  )
+#define _B32(x)  ( _B16(x)  | (_B16(x) >> 16) )
+#define NEXT_POW2(x)  (_B32((x) - 1) + 1)
 
-void convolution(float32_t* sig_arr, float32_t* destination_array,float32_t* imp_resp,
-		         uint32_t sig_src_len, uint32_t imp_resp_len);
+/* Length needed for a full ("linear") convolution of the ECG signal with the
+ * FIR filter: len(x) + len(h) - 1.
+ *
+ * NOTE: renamed from the original "L" to "LINEAR_CONV_LEN". A macro named
+ * "L" would have been substituted INSIDE the prototype
+ * "uint32_t next_power_of_2(uint32_t L)" below, mangling the parameter name -
+ * a subtle bug waiting to happen even after fixing the file-scope issue. */
+#define LINEAR_CONV_LEN  (input_sig_len + filter_len - 1)
 
+/* Smallest power-of-two FFT length that can hold the full linear convolution
+ * without circular-convolution wrap-around (this is a classic
+ * overlap-save / fast-convolution-via-FFT length requirement). Computed at
+ * compile time now - no more runtime "fft_len" needed for sizing. */
+#define FFT_BUFFER_SIZE  NEXT_POW2(LINEAR_CONV_LEN)
 
-void serialplot_outputSig_convolved(float32_t* destination_array);
+/* arm_rfft_fast_f32 (CMSIS-DSP, f32 variant) only supports power-of-two
+ * lengths from 32 to 4096. Catch an unsupported combination of signal /
+ * filter lengths at BUILD time instead of arm_rfft_fast_init_f32() silently
+ * returning an error status at runtime. */
+#if (FFT_BUFFER_SIZE < 32) || (FFT_BUFFER_SIZE > 4096)
+#error "FFT_BUFFER_SIZE is outside the range supported by arm_rfft_fast_f32 (32-4096). Check input_sig_len/filter_len in signals.h."
+#endif
 
-float in_sig_sample;
-float imp_rsp_sample;
-
+float32_t padded_filter[FFT_BUFFER_SIZE];
+float32_t FFT_Buff_In[FFT_BUFFER_SIZE];
+float32_t FFT_Buff_Out[FFT_BUFFER_SIZE];
+float32_t FFT_Buff_Out_original[LINEAR_CONV_LEN];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-void cal_running_sum(float32_t *sig_arr, float32_t *sig_dest_arr, uint32_t sig_len);
-void plot_running_sum(float32_t* destination_array);
-
-void cal_sig_DFT(float32_t *sig_arr, float32_t* sig_rex_arr,
-		         float32_t *sig_imx_arr, uint32_t sig_len);
-void plot_cal_sig_DFT(float32_t *arr1,uint32_t sig_len);
-void get_dft_output_mag(uint32_t sig_len);
-
-void plot_cal_sig_DFT_both(float32_t *real_arr,
-        float32_t *imag_arr,
-        uint32_t sig_len);
-
-void cal_sig_IDFT(float32_t *idft_out_arr, float32_t* sig_rex_arr,
-		         float32_t *sig_imx_arr, uint32_t idft_len);
-
-
 void plot_signal(float32_t *arr,uint32_t sign_len);
+arm_rfft_fast_instance_f32 fftHandler;
 
-float REX[sig_ecg_len/2];
-float IMX[sig_ecg_len/2];
-float32_t magnitude[sig_ecg_len/2];
-void  mag_plot(float32_t *arr, uint32_t sig_len);
-float32_t idft_out_arr[sig_ecg_len];
-
-extern float32_t impulse_response_matLab[101];
-extern float32_t mixed_sig[mixed_sig_len];
-float32_t output_sig_matLab[mixed_sig_len+101-1];
-
-void moving_avg(float32_t* sig_src_arr, float32_t* sig_out_arr, uint32_t signal_len,
-		       uint32_t filter_pts);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -157,37 +133,27 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-int _write(int fd, char *ptr, int len)
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
-	if(fd==1 || fd==2)
-	{
-		if (HAL_UART_Transmit(&huart2, (uint8_t *)ptr, len, HAL_MAX_DELAY) == HAL_OK)
-			return len;
-		return -1;
-	}
-	return -1;
+  /* FIX: parameter renamed from "hadc1" to "hadc". The global ADC handle
+   * declared in adc.h is ALSO called "hadc1" - using the same name for this
+   * parameter shadowed the global inside this function, which is a classic
+   * source of confusing bugs if this callback gets filled in later. */
 }
-volatile uint8_t flag = 0;
-uint16_t sample = 0;
-volatile uint16_t adc_sample_count = 0;   /* counts samples pushed into the FIFO since the last drain */
 
-rx_DataType val = 0;
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
+/* FIX: this function was declared to return float32_t but never returned a
+ * value (that's the "control reaches end of non-void function" warning),
+ * and it ignored its own "output_buff" argument in favor of the global
+ * FFT_Buff_Out. It's now void and actually uses the parameter that's passed
+ * in, so it behaves correctly no matter which buffer is passed to it. */
+void reduce_to_original_len(float32_t *output_buff)
 {
-	val = (rx_DataType)HAL_ADC_GetValue(hadc1);
-
-	if (rx_fifo_put(val) == RXFIFO_Done)   // fast, non-blocking — just a memory write
-	{
-		adc_sample_count++;
-		if (adc_sample_count >= adc_buff_len)   // FIFO holds a full batch -> tell main() to drain + print
-		{
-			flag = 1;
-			adc_sample_count = 0;
-		}
-	}
-	HAL_ADC_Start_IT(hadc1);    // re-arm for the next conversion
+    for (uint32_t i = 0; i < LINEAR_CONV_LEN; i++)
+    {
+        FFT_Buff_Out_original[i] = output_buff[i];
+    }
 }
-rx_DataType rx_data;
+
 /* USER CODE END 0 */
 
 /**
@@ -198,7 +164,9 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  /* fft_len / next_power_of_2() removed: FFT_BUFFER_SIZE is now a compile-
+   * time constant (see PTD section above), so there's nothing left to
+   * compute here at runtime. */
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -222,17 +190,98 @@ int main(void)
   MX_USART2_UART_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-
-//  moving_avg(inputSignal_f32_1kHz_15kHz, inputSignal_f32_1kHz_15kHz_out, sig2_len, moving_avg_pts);
-//  plot_signal( inputSignal_f32_1kHz_15kHz_out,sig2_len );
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  /*Initializing fifo*/
-  rx_fifo_init();
   HAL_ADC_Start_IT(&hadc1);
+
+  /* ===== copy input signal, then zero-pad the rest of the FFT buffer ===== */
+  for (uint32_t i = 0; i < input_sig_len; i++) {
+      FFT_Buff_In[i] = ecg_mudy_sig[i];
+  }
+  /* FIX: was "j = input_sig_len + 1", which skipped index [input_sig_len]
+   * entirely and left it as uninitialized garbage. Zero-padding must start
+   * right after the last real sample, i.e. at index "input_sig_len". */
+  for (uint32_t j = input_sig_len; j < FFT_BUFFER_SIZE; j++)
+  {
+      FFT_Buff_In[j] = 0;
+  }
+
+  /* ===== copy filter coefficients, then zero-pad the rest ===== */
+  for (uint32_t i = 0; i < filter_len; i++) {
+        /* FIX: was "filter_len[i]". filter_len is a MACRO FOR A LENGTH
+         * (expands to fir_len, an integer), not the coefficient array -
+         * subscripting it made no sense and wouldn't compile. The actual
+         * coefficient array is fir_filter[]. */
+        padded_filter[i] = fir_filter[i];
+    }
+  for (uint32_t i = filter_len; i < FFT_BUFFER_SIZE; i++)
+  {
+	  padded_filter[i] = 0;
+  }
+
+        /* ===== Initializing fft ===== */
+  /* FIX: now checking the return status. arm_rfft_fast_init_f32 fails for
+   * any length outside {32,64,...,4096}; previously that failure was
+   * silently ignored and the FFT would just produce garbage. */
+  if (arm_rfft_fast_init_f32(&fftHandler, FFT_BUFFER_SIZE) != ARM_MATH_SUCCESS)
+  {
+      Error_Handler();
+  }
+
+              /* FFT of input buffer (in-place: arm_rfft_fast_f32 supports p == pOut) */
+    arm_rfft_fast_f32(&fftHandler,FFT_Buff_In,FFT_Buff_In, 0);
+
+           /*FFT of padded_filter*/
+
+    arm_rfft_fast_f32(&fftHandler,padded_filter,padded_filter,0);
+
+      /* ===== Multiply the two spectra (frequency-domain = fast convolution) =====
+       * arm_rfft_fast_f32's packed output format:
+       *   index 0        -> DC bin, purely real
+       *   index 1        -> Nyquist bin, purely real
+       *   index 2..N-1    -> complex (Re, Im) pairs for the remaining bins
+       */
+
+      // DC bin (index 0): pure real
+
+      FFT_Buff_Out[0] = FFT_Buff_In[0] * padded_filter[0];
+
+      // Nyquist bin (index 1): pure real
+
+      FFT_Buff_Out[1] = FFT_Buff_In[1] * padded_filter[1];
+
+      // Remaining bins: complex (Re, Im) pairs starting at index 2
+      for (uint32_t i = 2; i < FFT_BUFFER_SIZE; i += 2)
+      {
+          float32_t a = FFT_Buff_In[i];        // Re{X[k]}
+          float32_t b = FFT_Buff_In[i + 1];    // Im{X[k]}
+          float32_t c = padded_filter[i];     // Re{H[k]}
+          float32_t d = padded_filter[i + 1]; // Im{H[k]}
+
+         /* ===== (a + jb) * (c + jd) = (ac - bd) + j(ad + bc) ===== */
+          FFT_Buff_Out[i]     = a * c - b * d;   // Re{Y[k]}
+          FFT_Buff_Out[i + 1] = a * d + b * c;   // Im{Y[k]}
+      }
+
+      /* ===== Inverse FFT: back to the time domain ===== */
+      arm_rfft_fast_f32(&fftHandler, FFT_Buff_Out, FFT_Buff_Out, 1);
+
+      /* ===== Trim the zero-padded FFT result down to the true linear-
+       * convolution length (input_len + filter_len - 1) ===== */
+      reduce_to_original_len(FFT_Buff_Out);
+
+      /* ===== compensate fir group delay =====
+       * TODO: a linear-phase FIR filter with "filter_len" taps delays the
+       * output by (filter_len - 1) / 2 samples. If you want the filtered
+       * signal time-aligned with the original ECG, discard that many
+       * samples from the front of FFT_Buff_Out_original before using it. */
+
+      /* ===== Plotting ===== */
+//      plot_signal(ecg_mudy_sig,input_sig_len);
+//      plot_signal(FFT_Buff_Out_original_len,L);
 
   while (1)
   {
@@ -240,26 +289,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  if (flag == 1)
-	       {
-	            /* Drain the FIFO into adc_buff — ONE BY ONE */
-	            for (int i = 0; i < adc_buff_len; i++)
-	            {
-	                if (rx_fifo_get(&rx_data) == RXFIFO_Done)
-	                {
-	                    adc_buff[i] = rx_data;
-	                }
-	            }
-
-	            /* Now display the whole buffer at once */
-	            for (int i = 0; i < adc_buff_len; i++)
-	            {
-	               printf("%d\r\n",adc_buff[i]);
-	            }
-	           flag = 0;
-	      }
-  }
   /* USER CODE END 3 */
+}
 }
 
 /**
@@ -309,37 +340,28 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void plot_signal(float32_t *arr,uint32_t sig_len)
+void plot_signal(float32_t *arr, uint32_t sig_len)
 {
-	for(int i=0; i<sig_len; i++)
-		    {
-		        long val = (long)(arr[i] * 100000);
-		        long int_part  = val / 100000;
-		        long frac_part = labs(val % 100000);
+    char tx_buf[32];
+    uint16_t len;
 
-		        if (val < 0 && int_part == 0) {
-		            printf("-%ld.%05ld\r\n", int_part, frac_part);
-		        } else {
-		            printf("%ld.%05ld\r\n", int_part, frac_part);
-		        }
+   // sig_len = sig_len / 2;
 
-		        HAL_Delay(50);
-		    }
+    for (uint32_t i = 0; i < sig_len; i++)
+    {
+        long val = (long)(arr[i] * 100000.0f);
+        long int_part  = val / 100000;
+        long frac_part = labs(val % 100000);
 
-}
+        if (val < 0 && int_part == 0) {
+            len = snprintf(tx_buf, sizeof(tx_buf), "-%ld.%05ld\r\n", int_part, frac_part);
+        } else {
+            len = snprintf(tx_buf, sizeof(tx_buf), "%ld.%05ld\r\n", int_part, frac_part);
+        }
 
-void moving_avg(float32_t* sig_src_arr, float32_t* sig_out_arr, uint32_t signal_len,
-		       uint32_t filter_pts)
-{
-	for(int i = floor(filter_pts/2); i<(signal_len - (filter_pts/2))-1; i++)
-	{
-		sig_out_arr[i] = 0;
-		for(int j = -(floor(filter_pts/2)); j<floor(filter_pts/2); j++)
-		{
-			sig_out_arr[i] = sig_out_arr[i] + sig_src_arr[i+j];
-		}
-		sig_out_arr[i] = sig_out_arr[i]/filter_pts;
-	}
+        HAL_UART_Transmit(&huart2, (uint8_t*)tx_buf, len, HAL_MAX_DELAY);
+        HAL_Delay(50);
+    }
 }
 /* USER CODE END 4 */
 

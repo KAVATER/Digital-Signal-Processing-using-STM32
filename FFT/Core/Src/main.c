@@ -36,8 +36,10 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
-#define FFT_BUFFER_SIZE  2048 //power to 2 //(fir_len+ ECG_mudy_len)
 #define FILTER_Taps fir_len
+
+#define input_sig_len ECG_mudy_len
+#define filter_len fir_len
 
 extern float _5hz_signal[sig1_len];
 
@@ -47,8 +49,67 @@ extern float32_t  _640_points_ecg_[sig_ecg_len];
 extern float32_t ecg_mudy_sig[ECG_mudy_len];
 extern float32_t fir_filter[fir_len];
 
-float32_t padded_filter[FFT_BUFFER_SIZE];
 
+/* ---- Compile-time "round up to next power of two" -------------------------
+ * Classic bit-smearing trick: OR each bit down into all bits below it, then
+ * add 1. Works purely with constant arithmetic, so the result can be used
+ * as an array size. */
+#define _B2(x)   ( (x)      | ((x) >> 1)  )
+#define _B4(x)   ( _B2(x)   | (_B2(x) >> 2)  )
+#define _B8(x)   ( _B4(x)   | (_B4(x) >> 4)  )
+#define _B16(x)  ( _B8(x)   | (_B8(x) >> 8)  )
+#define _B32(x)  ( _B16(x)  | (_B16(x) >> 16) )
+#define NEXT_POW2(x)  (_B32((x) - 1) + 1)
+
+/* ===== OR ===== */
+
+//uint32_t next_power_of_2(uint32_t x)
+//{
+//    if (x == 0) return 1;
+//
+//    x = x - 1;          // step 1: back off by one (so exact powers of 2 stay unchanged)
+//
+//    // step 2: "smear" the highest set bit downward into every bit below it,
+//    // by repeatedly OR-ing the number with a right-shifted copy of itself
+//    x = x | (x >> 1);
+//    x = x | (x >> 2);
+//    x = x | (x >> 4);
+//    x = x | (x >> 8);
+//    x = x | (x >> 16);
+//    // at this point x is all 1-bits, e.g. 0b00011111 (31)
+//
+//    x = x + 1;           // step 3: turn "all 1s" into the actual power of two
+//
+//    return x;
+//}
+
+/* Length needed for a full ("linear") convolution of the ECG signal with the
+ * FIR filter: len(x) + len(h) - 1.
+ *
+ * NOTE: renamed from the original "L" to "LINEAR_CONV_LEN". A macro named
+ * "L" would have been substituted INSIDE the prototype
+ * "uint32_t next_power_of_2(uint32_t L)" below, mangling the parameter name -
+ * a subtle bug waiting to happen even after fixing the file-scope issue. */
+#define LINEAR_CONV_LEN  (input_sig_len + filter_len - 1)
+
+/* Smallest power-of-two FFT length that can hold the full linear convolution
+ * without circular-convolution wrap-around (this is a classic
+ * overlap-save / fast-convolution-via-FFT length requirement). Computed at
+ * compile time now - no more runtime "fft_len" needed for sizing. */
+#define FFT_BUFFER_SIZE  NEXT_POW2(LINEAR_CONV_LEN)
+
+/* arm_rfft_fast_f32 (CMSIS-DSP, f32 variant) only supports power-of-two
+ * lengths from 32 to 4096. Catch an unsupported combination of signal /
+ * filter lengths at BUILD time instead of arm_rfft_fast_init_f32() silently
+ * returning an error status at runtime. */
+#if (FFT_BUFFER_SIZE < 32) || (FFT_BUFFER_SIZE > 4096)
+#error "FFT_BUFFER_SIZE is outside the range supported by arm_rfft_fast_f32 (32-4096). Check input_sig_len/filter_len in signals.h."
+#endif
+
+float32_t padded_filter[FFT_BUFFER_SIZE];
+float32_t FFT_Buff_In[FFT_BUFFER_SIZE];
+float32_t FFT_Buff_Out[FFT_BUFFER_SIZE];
+float32_t FFT_Buff_Out_original[LINEAR_CONV_LEN];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -79,15 +140,20 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-
-float FFT_Buff_In[FFT_BUFFER_SIZE];
-float FFT_Buff_Out[FFT_BUFFER_SIZE];
-float fft_magnitude[FFT_BUFFER_SIZE / 2];
-
-
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
+
 }
+
+void reduce_to_original_len(float32_t *output_buff)
+{
+    for (uint32_t i = 0; i < LINEAR_CONV_LEN; i++)
+	{
+        FFT_Buff_Out_original[i] = output_buff[i];
+	}
+}
+
+
 
 /* USER CODE END 0 */
 
@@ -128,70 +194,87 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  /*Initializing fifo*/
   HAL_ADC_Start_IT(&hadc1);
 
-//zero padding  of input signal
-  for (uint32_t i = 0; i < ECG_mudy_len; i++) {
+  /* ===== copy input signal, then zero-pad the rest of the FFT buffer ===== */
+  for (uint32_t i = 0; i < input_sig_len; i++) {
       FFT_Buff_In[i] = ecg_mudy_sig[i];
   }
-  //zero padding
-  for(uint32_t j=ECG_mudy_len+1; j< FFT_BUFFER_SIZE;j++)
+
+  for (uint32_t j = input_sig_len; j < FFT_BUFFER_SIZE; j++)
   {
 	  FFT_Buff_In[j] = 0;
   }
 
-  //zero padding of filter
-  for (uint32_t i = 0; i < fir_len; i++) {
+  /* ===== copy filter coefficients, then zero-pad the rest ===== */
+  for (uint32_t i = 0; i < filter_len; i++) {
+
         padded_filter[i] = fir_filter[i];
     }
-  for(int i= fir_len; i< FFT_BUFFER_SIZE; i++)
+  for (uint32_t i = filter_len; i < FFT_BUFFER_SIZE; i++)
   {
 	  padded_filter[i] = 0;
   }
 
-  //Initlilizing fft
+        /* ===== Initializing fft  any length outside {32,64,...,4096} ===== */
 
-		arm_rfft_fast_init_f32(&fftHandler, FFT_BUFFER_SIZE);
+  if (arm_rfft_fast_init_f32(&fftHandler, FFT_BUFFER_SIZE) != ARM_MATH_SUCCESS)
+  {
+      Error_Handler();
+  }
 
-     /* FFT of input buffer */
+              /* FFT of input buffer (in-place: arm_rfft_fast_f32 supports p == pOut) */
     arm_rfft_fast_f32(&fftHandler,FFT_Buff_In,FFT_Buff_In, 0);
+
+           /*FFT of padded_filter*/
 
     arm_rfft_fast_f32(&fftHandler,padded_filter,padded_filter,0);
 
+      /* ===== Multiply the two spectra (frequency-domain = fast convolution) =====
+       * arm_rfft_fast_f32's packed output format:
+       *   index 0        -> DC bin, purely real
+       *   index 1        -> Nyquist bin, purely real
+       *   index 2..N-1    -> complex (Re, Im) pairs for the remaining bins
+       */
       // DC bin (index 0): pure real
+
       FFT_Buff_Out[0] = FFT_Buff_In[0] * padded_filter[0];
 
       // Nyquist bin (index 1): pure real
+
       FFT_Buff_Out[1] = FFT_Buff_In[1] * padded_filter[1];
 
       // Remaining bins: complex (Re, Im) pairs starting at index 2
-      for (int i = 2; i < FFT_BUFFER_SIZE; i += 2)
+      for (uint32_t i = 2; i < FFT_BUFFER_SIZE; i += 2)
       {
           float32_t a = FFT_Buff_In[i];        // Re{X[k]}
           float32_t b = FFT_Buff_In[i + 1];    // Im{X[k]}
           float32_t c = padded_filter[i];     // Re{H[k]}
           float32_t d = padded_filter[i + 1]; // Im{H[k]}
 
-          // (a + jb) * (c + jd) = (ac - bd) + j(ad + bc)
+         /* ===== (a + jb) * (c + jd) = (ac - bd) + j(ad + bc) ===== */
           FFT_Buff_Out[i]     = a * c - b * d;   // Re{Y[k]}
           FFT_Buff_Out[i + 1] = a * d + b * c;   // Im{Y[k]}
       }
 
-      //inverse fft
+      /* ===== Inverse FFT: back to the time domain ===== */
       arm_rfft_fast_f32(&fftHandler, FFT_Buff_Out, FFT_Buff_Out, 1);
 
-      plot_signal(ecg_mudy_sig,ECG_mudy_len);
-      plot_signal(FFT_Buff_Out, FFT_BUFFER_SIZE);
+      /* ===== Trim the zero-padded FFT result down to the true linear-
+       * convolution length (input_len + filter_len - 1) ===== */
+      reduce_to_original_len(FFT_Buff_Out);
 
+      /* ===== compensate fir group delay =====
+
+      /* ===== Plotting ===== */
+      plot_signal(ecg_mudy_sig, input_sig_len);           // 1) original noisy ECG signal
+      plot_signal(FFT_Buff_Out_original, LINEAR_CONV_LEN); // 2) FFT-filtered output signal
 
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-
 
   /* USER CODE END 3 */
 }
@@ -267,6 +350,11 @@ void plot_signal(float32_t *arr, uint32_t sig_len)
         HAL_Delay(50);
     }
 }
+//void plot_signal_side_by_side(float32_t *arr, uint32_t sig_len)
+//{
+//
+//}
+
 /* USER CODE END 4 */
 
 /**
