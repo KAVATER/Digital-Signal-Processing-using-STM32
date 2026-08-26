@@ -28,7 +28,6 @@
 #include "signals.h"
 #include "stdio.h"
 #include "arm_math.h"
-//#include ARM_MATH_CM4
 #include <math.h>
 #include "stdlib.h"
 /* USER CODE END Includes */
@@ -117,6 +116,9 @@ float32_t FFT_Buff_Out_original[LINEAR_CONV_LEN];
 
 void plot_signal(float32_t *arr,uint32_t sign_len);
 arm_rfft_fast_instance_f32 fftHandler;
+
+static uint16_t format_sample(float32_t sample, char *dst, uint16_t dst_size);
+void plot_signal_2(float32_t *arr1, uint32_t len1, float32_t *arr2, uint32_t len2);
 
 /* USER CODE END PD */
 
@@ -267,8 +269,10 @@ int main(void)
       /* ===== compensate fir group delay =====
 
       /* ===== Plotting ===== */
-      plot_signal(ecg_mudy_sig, input_sig_len);           // 1) original noisy ECG signal
-      plot_signal(FFT_Buff_Out_original, LINEAR_CONV_LEN); // 2) FFT-filtered output signal
+//      plot_signal(ecg_mudy_sig, input_sig_len);           // 1) original noisy ECG signal
+//      plot_signal(FFT_Buff_Out_original, LINEAR_CONV_LEN); // 2) FFT-filtered output signal
+
+      plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_original, LINEAR_CONV_LEN);
 
   while (1)
   {
@@ -350,10 +354,46 @@ void plot_signal(float32_t *arr, uint32_t sig_len)
         HAL_Delay(50);
     }
 }
-//void plot_signal_side_by_side(float32_t *arr, uint32_t sig_len)
-//{
-//
-//}
+static uint16_t format_sample(float32_t sample, char *dst, uint16_t dst_size)
+{
+    long val = (long)(sample * 100000.0f);
+    long int_part  = val / 100000;
+    long frac_part = labs(val % 100000);
+
+    if (val < 0 && int_part == 0) {
+        return snprintf(dst, dst_size, "-%ld.%05ld", int_part, frac_part);
+    } else {
+        return snprintf(dst, dst_size, "%ld.%05ld", int_part, frac_part);
+    }
+}
+void plot_signal_2(float32_t *arr1, uint32_t len1, float32_t *arr2, uint32_t len2)
+{
+    char tx_buf[40];
+    char val_buf[16];
+    uint16_t len;
+    uint32_t max_len = (len1 > len2) ? len1 : len2;
+
+    for (uint32_t i = 0; i < max_len; i++)
+    {
+        if (i < len1) {
+            format_sample(arr1[i], val_buf, sizeof(val_buf));
+        } else {
+            val_buf[0] = '\0';   // ran out of samples for signal 1 - leave blank
+        }
+        len = snprintf(tx_buf, sizeof(tx_buf), "%s,", val_buf);
+
+        if (i < len2) {
+            format_sample(arr2[i], val_buf, sizeof(val_buf));
+        } else {
+            val_buf[0] = '\0';   // ran out of samples for signal 2 - leave blank
+        }
+        len += snprintf(tx_buf + len, sizeof(tx_buf) - len, "%s\r\n", val_buf);
+
+        HAL_UART_Transmit(&huart2, (uint8_t*)tx_buf, len, HAL_MAX_DELAY);
+        HAL_Delay(50);
+    }
+}
+
 
 /* USER CODE END 4 */
 
