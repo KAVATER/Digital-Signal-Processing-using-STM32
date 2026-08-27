@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define RXFIFO_Size     256
+#define RXFIFO_Size     500
 #define RXFIFO_Fail     0
 #define RXFIFO_Done     1
 

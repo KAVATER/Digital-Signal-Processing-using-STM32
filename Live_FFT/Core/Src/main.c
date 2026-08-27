@@ -253,7 +253,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  HAL_ADC_Start_IT(&hadc1);
+  //HAL_ADC_Start_IT(&hadc1);
 
   adc_ready = 1;
 
@@ -353,6 +353,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  /* ===== ADC buffer fill ===== */
+
 	  if (flag == 1)
 	 	      {
 	 	          int received = 0;
@@ -379,7 +380,9 @@ int main(void)
 	 	          flag = 0;
 	 	      }
 	 	    }
+
 	  /* ===== ADC Testing Code ===== */
+
 //	  HAL_ADC_Start(&hadc1);
 //	  HAL_ADC_PollForConversion(&hadc1, 1);
 //	  val = HAL_ADC_GetValue(&hadc1);
