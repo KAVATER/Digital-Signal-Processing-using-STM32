@@ -28,7 +28,6 @@
 #include "signals.h"
 #include "stdio.h"
 #include "arm_math.h"
-//#include ARM_MATH_CM4
 #include <math.h>
 #include "stdlib.h"
 /* USER CODE END Includes */
@@ -36,7 +35,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
-#define FILTER_Taps fir_len   /* currently unused, left in case it's needed later */
+#define FILTER_Taps fir_len
 
 #define input_sig_len ECG_mudy_len
 #define filter_len fir_len
@@ -49,21 +48,6 @@ extern float32_t  _640_points_ecg_[sig_ecg_len];
 extern float32_t ecg_mudy_sig[ECG_mudy_len];
 extern float32_t fir_filter[fir_len];
 
-/* ============================================================================
- * FIX (root cause of every "variably modified '...' at file scope" error):
- *
- * The arrays below (padded_filter, FFT_Buff_In, FFT_Buff_Out, ...) are GLOBAL
- * arrays. C only allows a global/file-scope array's size to be a genuine
- * compile-time integer constant expression. The original code sized them
- * with "fft_len", an ordinary uint32_t variable that only got its value at
- * runtime inside main() (via next_power_of_2()) - that is a variable-length
- * array, and VLAs are only legal as LOCAL variables inside a function body,
- * never at file scope. Hence the build errors.
- *
- * Fix: compute the FFT length entirely with the preprocessor/compile-time
- * constant arithmetic below, so it truly is a constant expression usable in
- * a file-scope array declarator.
- * ============================================================================ */
 
 /* ---- Compile-time "round up to next power of two" -------------------------
  * Classic bit-smearing trick: OR each bit down into all bits below it, then
@@ -75,6 +59,28 @@ extern float32_t fir_filter[fir_len];
 #define _B16(x)  ( _B8(x)   | (_B8(x) >> 8)  )
 #define _B32(x)  ( _B16(x)  | (_B16(x) >> 16) )
 #define NEXT_POW2(x)  (_B32((x) - 1) + 1)
+
+/* ===== OR ===== */
+
+//uint32_t next_power_of_2(uint32_t x)
+//{
+//    if (x == 0) return 1;
+//
+//    x = x - 1;          // step 1: back off by one (so exact powers of 2 stay unchanged)
+//
+//    // step 2: "smear" the highest set bit downward into every bit below it,
+//    // by repeatedly OR-ing the number with a right-shifted copy of itself
+//    x = x | (x >> 1);
+//    x = x | (x >> 2);
+//    x = x | (x >> 4);
+//    x = x | (x >> 8);
+//    x = x | (x >> 16);
+//    // at this point x is all 1-bits, e.g. 0b00011111 (31)
+//
+//    x = x + 1;           // step 3: turn "all 1s" into the actual power of two
+//
+//    return x;
+//}
 
 /* Length needed for a full ("linear") convolution of the ECG signal with the
  * FIR filter: len(x) + len(h) - 1.
@@ -103,6 +109,20 @@ float32_t padded_filter[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_In[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_Out[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_Out_original[LINEAR_CONV_LEN];
+
+/* Group delay of a symmetric (linear-phase) FIR filter, in samples:
+ * (taps - 1) / 2. This only comes out to an exact integer sample count
+ * when filter_len is ODD (457 is odd, so this is fine as-is). If you ever
+ * redesign the filter with an EVEN number of taps, this offset becomes a
+ * half-sample fractional delay that a simple index shift can't fix - watch
+ * for that if fir_len changes. */
+#define GROUP_DELAY  ((filter_len - 1) / 2)
+
+/* Time-aligned filtered output: FFT_Buff_Out_original[n + GROUP_DELAY] is
+ * what actually corresponds to input sample n, once the filter's inherent
+ * delay is removed. Same length as the input signal, so it plots directly
+ * against ecg_mudy_sig sample-for-sample with no offset. */
+float32_t FFT_Buff_Out_aligned[input_sig_len];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -110,6 +130,9 @@ float32_t FFT_Buff_Out_original[LINEAR_CONV_LEN];
 
 void plot_signal(float32_t *arr,uint32_t sign_len);
 arm_rfft_fast_instance_f32 fftHandler;
+
+static uint16_t format_sample(float32_t sample, char *dst, uint16_t dst_size);
+void plot_signal_2(float32_t *arr1, uint32_t len1, float32_t *arr2, uint32_t len2);
 
 /* USER CODE END PD */
 
@@ -135,24 +158,18 @@ void SystemClock_Config(void);
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
-  /* FIX: parameter renamed from "hadc1" to "hadc". The global ADC handle
-   * declared in adc.h is ALSO called "hadc1" - using the same name for this
-   * parameter shadowed the global inside this function, which is a classic
-   * source of confusing bugs if this callback gets filled in later. */
+
 }
 
-/* FIX: this function was declared to return float32_t but never returned a
- * value (that's the "control reaches end of non-void function" warning),
- * and it ignored its own "output_buff" argument in favor of the global
- * FFT_Buff_Out. It's now void and actually uses the parameter that's passed
- * in, so it behaves correctly no matter which buffer is passed to it. */
 void reduce_to_original_len(float32_t *output_buff)
 {
     for (uint32_t i = 0; i < LINEAR_CONV_LEN; i++)
-    {
+	{
         FFT_Buff_Out_original[i] = output_buff[i];
-    }
+	}
 }
+
+
 
 /* USER CODE END 0 */
 
@@ -164,9 +181,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  /* fft_len / next_power_of_2() removed: FFT_BUFFER_SIZE is now a compile-
-   * time constant (see PTD section above), so there's nothing left to
-   * compute here at runtime. */
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -201,20 +216,15 @@ int main(void)
   for (uint32_t i = 0; i < input_sig_len; i++) {
       FFT_Buff_In[i] = ecg_mudy_sig[i];
   }
-  /* FIX: was "j = input_sig_len + 1", which skipped index [input_sig_len]
-   * entirely and left it as uninitialized garbage. Zero-padding must start
-   * right after the last real sample, i.e. at index "input_sig_len". */
+
   for (uint32_t j = input_sig_len; j < FFT_BUFFER_SIZE; j++)
   {
-      FFT_Buff_In[j] = 0;
+	  FFT_Buff_In[j] = 0;
   }
 
   /* ===== copy filter coefficients, then zero-pad the rest ===== */
   for (uint32_t i = 0; i < filter_len; i++) {
-        /* FIX: was "filter_len[i]". filter_len is a MACRO FOR A LENGTH
-         * (expands to fir_len, an integer), not the coefficient array -
-         * subscripting it made no sense and wouldn't compile. The actual
-         * coefficient array is fir_filter[]. */
+
         padded_filter[i] = fir_filter[i];
     }
   for (uint32_t i = filter_len; i < FFT_BUFFER_SIZE; i++)
@@ -222,10 +232,8 @@ int main(void)
 	  padded_filter[i] = 0;
   }
 
-        /* ===== Initializing fft ===== */
-  /* FIX: now checking the return status. arm_rfft_fast_init_f32 fails for
-   * any length outside {32,64,...,4096}; previously that failure was
-   * silently ignored and the FFT would just produce garbage. */
+        /* ===== Initializing fft  any length outside {32,64,...,4096} ===== */
+
   if (arm_rfft_fast_init_f32(&fftHandler, FFT_BUFFER_SIZE) != ARM_MATH_SUCCESS)
   {
       Error_Handler();
@@ -244,7 +252,6 @@ int main(void)
        *   index 1        -> Nyquist bin, purely real
        *   index 2..N-1    -> complex (Re, Im) pairs for the remaining bins
        */
-
       // DC bin (index 0): pure real
 
       FFT_Buff_Out[0] = FFT_Buff_In[0] * padded_filter[0];
@@ -274,14 +281,29 @@ int main(void)
       reduce_to_original_len(FFT_Buff_Out);
 
       /* ===== compensate fir group delay =====
-       * TODO: a linear-phase FIR filter with "filter_len" taps delays the
-       * output by (filter_len - 1) / 2 samples. If you want the filtered
-       * signal time-aligned with the original ECG, discard that many
-       * samples from the front of FFT_Buff_Out_original before using it. */
+       * FIX: this comment was previously left unclosed (no "*/"), which
+       * silently swallowed the next comment block - harmless by luck, but
+       * worth fixing. More importantly, the compensation itself was never
+       * actually implemented - that's done below now.
+       *
+       * FFT_Buff_Out_original[n] is the FULL linear convolution result -
+       * sample n of it corresponds to input sample (n - GROUP_DELAY), not
+       * input sample n. Shifting by GROUP_DELAY here is what turns "the
+       * filter's raw output" into "the filtered version of the input,
+       * time-aligned so sample n lines up with ecg_mudy_sig[n]". Without
+       * this, comparing the two signals index-for-index (as plot_signal_2
+       * does) compares two different points in the heartbeat - which is
+       * almost certainly why the filtered trace on your scope looked wrong. */
+      for (uint32_t n = 0; n < input_sig_len; n++)
+      {
+          FFT_Buff_Out_aligned[n] = FFT_Buff_Out_original[n + GROUP_DELAY];
+      }
 
-      /* ===== Plotting ===== */
-//      plot_signal(ecg_mudy_sig,input_sig_len);
-//      plot_signal(FFT_Buff_Out_original_len,L);
+      /* ===== Plotting =====
+       * Both signals are now input_sig_len samples long and time-aligned,
+       * so they plot directly against each other with no index offset and
+       * no blank-padding needed from plot_signal_2's mismatched-length path. */
+      plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
 
   while (1)
   {
@@ -363,6 +385,47 @@ void plot_signal(float32_t *arr, uint32_t sig_len)
         HAL_Delay(50);
     }
 }
+static uint16_t format_sample(float32_t sample, char *dst, uint16_t dst_size)
+{
+    long val = (long)(sample * 100000.0f);
+    long int_part  = val / 100000;
+    long frac_part = labs(val % 100000);
+
+    if (val < 0 && int_part == 0) {
+        return snprintf(dst, dst_size, "-%ld.%05ld", int_part, frac_part);
+    } else {
+        return snprintf(dst, dst_size, "%ld.%05ld", int_part, frac_part);
+    }
+}
+void plot_signal_2(float32_t *arr1, uint32_t len1, float32_t *arr2, uint32_t len2)
+{
+    char tx_buf[40];
+    char val_buf[16];
+    uint16_t len;
+    uint32_t max_len = (len1 > len2) ? len1 : len2;
+
+    for (uint32_t i = 0; i < max_len; i++)
+    {
+        if (i < len1) {
+            format_sample(arr1[i], val_buf, sizeof(val_buf));
+        } else {
+            val_buf[0] = '\0';   // ran out of samples for signal 1 - leave blank
+        }
+        len = snprintf(tx_buf, sizeof(tx_buf), "%s,", val_buf);
+
+        if (i < len2) {
+            format_sample(arr2[i], val_buf, sizeof(val_buf));
+        } else {
+            val_buf[0] = '\0';   // ran out of samples for signal 2 - leave blank
+        }
+        len += snprintf(tx_buf + len, sizeof(tx_buf) - len, "%s\r\n", val_buf);
+
+        HAL_UART_Transmit(&huart2, (uint8_t*)tx_buf, len, HAL_MAX_DELAY);
+        HAL_Delay(50);
+    }
+}
+
+
 /* USER CODE END 4 */
 
 /**

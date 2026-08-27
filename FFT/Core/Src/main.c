@@ -109,6 +109,18 @@ float32_t padded_filter[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_In[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_Out[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_Out_original[LINEAR_CONV_LEN];
+/* Group delay of a symmetric (linear-phase) FIR filter, in samples:
+ * (taps - 1) / 2. This only comes out to an exact integer sample count
+ * when filter_len is ODD (457 is odd, so this is fine as-is). If you ever
+ * redesign the filter with an EVEN number of taps, this offset becomes a
+ * half-sample fractional delay that a simple index shift can't fix - watch
+ * for that if fir_len changes. */
+#define GROUP_DELAY  ((filter_len - 1) / 2)
+/* Time-aligned filtered output: FFT_Buff_Out_original[n + GROUP_DELAY] is
+ * what actually corresponds to input sample n, once the filter's inherent
+ * delay is removed. Same length as the input signal, so it plots directly
+ * against ecg_mudy_sig sample-for-sample with no offset. */
+float32_t FFT_Buff_Out_aligned[input_sig_len];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -266,13 +278,18 @@ int main(void)
        * convolution length (input_len + filter_len - 1) ===== */
       reduce_to_original_len(FFT_Buff_Out);
 
-      /* ===== compensate fir group delay =====
+      /* ===== compensate fir group delay ===== */
 
-      /* ===== Plotting ===== */
-//      plot_signal(ecg_mudy_sig, input_sig_len);           // 1) original noisy ECG signal
-//      plot_signal(FFT_Buff_Out_original, LINEAR_CONV_LEN); // 2) FFT-filtered output signal
+      for (uint32_t n = 0; n < input_sig_len; n++)
+      {
+          FFT_Buff_Out_aligned[n] = FFT_Buff_Out_original[n + GROUP_DELAY];
+      }
 
-      plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_original, LINEAR_CONV_LEN);
+      /* ===== Plotting =====
+       * Both signals are now input_sig_len samples long and time-aligned,
+       * so they plot directly against each other with no index offset and
+       * no blank-padding needed from plot_signal_2's mismatched-length path. */
+      plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
 
   while (1)
   {
