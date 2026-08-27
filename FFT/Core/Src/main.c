@@ -133,6 +133,8 @@ arm_rfft_fast_instance_f32 fftHandler;
 
 static uint16_t format_sample(float32_t sample, char *dst, uint16_t dst_size);
 void plot_signal_2(float32_t *arr1, uint32_t len1, float32_t *arr2, uint32_t len2);
+ void plot_signal_3(float32_t *arr1, uint32_t len1, float32_t *arr2, uint32_t len2,float32_t *arr3, uint32_t len3);
+
 
 /* USER CODE END PD */
 
@@ -289,17 +291,18 @@ int main(void)
 
 
       /* ===== Convolution to cross check the fft result ===== */
-  // arm_conv_f32(ecg_mudy_sig, input_sig_len, fir_filter, filter_len, conv_out);
+   arm_conv_f32(ecg_mudy_sig, input_sig_len, fir_filter, filter_len, conv_out);
 
    /* Same group-delay compensation as the FFT path, so both traces are
     * directly comparable: same length (input_sig_len), same time alignment. */
-//   for (uint32_t n = 0; n < input_sig_len; n++)
-//   {
-//       conv_out_aligned[n] = conv_out[n + GROUP_DELAY];
-//   }
+   for (uint32_t n = 0; n < input_sig_len; n++)
+   {
+       conv_out_aligned[n] = conv_out[n + GROUP_DELAY];
+   }
       /* ===== Plotting ===== */
 
-      plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
+    //  plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
+      plot_signal_3(ecg_mudy_sig, input_sig_len, conv_out_aligned,input_sig_len,FFT_Buff_Out_aligned, input_sig_len );
 
   while (1)
   {
@@ -417,6 +420,66 @@ void plot_signal_2(float32_t *arr1, uint32_t len1, float32_t *arr2, uint32_t len
         len += snprintf(tx_buf + len, sizeof(tx_buf) - len, "%s\r\n", val_buf);
 
         HAL_UART_Transmit(&huart2, (uint8_t*)tx_buf, len, HAL_MAX_DELAY);
+        HAL_Delay(50);
+    }
+}
+void plot_signal_3(float32_t *arr1, uint32_t len1,
+                  float32_t *arr2, uint32_t len2,
+                  float32_t *arr3, uint32_t len3)
+{
+    char tx_buf[80];
+    char val_buf[24];
+    uint16_t len;
+
+    uint32_t max_len = len1;
+
+    if (len2 > max_len)
+        max_len = len2;
+
+    if (len3 > max_len)
+        max_len = len3;
+
+    for (uint32_t i = 0; i < max_len; i++)
+    {
+        len = 0;
+
+        /* Signal 1 */
+        if (i < len1)
+        {
+            format_sample(arr1[i], val_buf, sizeof(val_buf));
+            len += snprintf(tx_buf + len,
+                            sizeof(tx_buf) - len,
+                            "%s,", val_buf);
+        }
+
+        /* Signal 2 */
+        if (i < len2)
+        {
+            format_sample(arr2[i], val_buf, sizeof(val_buf));
+            len += snprintf(tx_buf + len,
+                            sizeof(tx_buf) - len,
+                            "%s,", val_buf);
+        }
+
+        /* Signal 3 */
+        if (i < len3)
+        {
+            format_sample(arr3[i], val_buf, sizeof(val_buf));
+            len += snprintf(tx_buf + len,
+                            sizeof(tx_buf) - len,
+                            "%s", val_buf);
+        }
+
+        /* New line */
+        len += snprintf(tx_buf + len,
+                        sizeof(tx_buf) - len,
+                        "\r\n");
+
+        HAL_UART_Transmit(&huart2,
+                          (uint8_t *)tx_buf,
+                          len,
+                          HAL_MAX_DELAY);
+
         HAL_Delay(50);
     }
 }
