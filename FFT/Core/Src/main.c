@@ -109,6 +109,8 @@ float32_t padded_filter[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_In[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_Out[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_Out_original[LINEAR_CONV_LEN];
+float32_t conv_out[LINEAR_CONV_LEN];
+float32_t conv_out_aligned[input_sig_len];   /* group-delay-compensated, same length as input */
 /* Group delay of a symmetric (linear-phase) FIR filter, in samples:
  * (taps - 1) / 2. This only comes out to an exact integer sample count
  * when filter_len is ODD (457 is odd, so this is fine as-is). If you ever
@@ -285,11 +287,19 @@ int main(void)
           FFT_Buff_Out_aligned[n] = FFT_Buff_Out_original[n + GROUP_DELAY];
       }
 
-      /* ===== Plotting =====
-       * Both signals are now input_sig_len samples long and time-aligned,
-       * so they plot directly against each other with no index offset and
-       * no blank-padding needed from plot_signal_2's mismatched-length path. */
-      plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
+
+      /* ===== Convolution to cross check the fft result ===== */
+   arm_conv_f32(ecg_mudy_sig, input_sig_len, fir_filter, filter_len, conv_out);
+
+   /* Same group-delay compensation as the FFT path, so both traces are
+    * directly comparable: same length (input_sig_len), same time alignment. */
+   for (uint32_t n = 0; n < input_sig_len; n++)
+   {
+       conv_out_aligned[n] = conv_out[n + GROUP_DELAY];
+   }
+      /* ===== Plotting ===== */
+
+      plot_signal_2(conv_out_aligned, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
 
   while (1)
   {
