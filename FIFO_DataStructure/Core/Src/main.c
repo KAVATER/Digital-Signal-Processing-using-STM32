@@ -32,67 +32,17 @@
 #include "stdlib.h"
 #define moving_avg_pts 11
 #include "fifo.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define adc_buff_len 256
-uint16_t adc_buff[adc_buff_len];
-
-extern float _5hz_signal[sig1_len];
-
-extern float32_t inputSignal_f32_1kHz_15kHz[sig2_len];
- float32_t inputSignal_f32_1kHz_15kHz_out[sig2_len];
-
-extern float32_t  impulse_response[sig3_len];
-extern float32_t  _640_points_ecg_[sig_ecg_len];
-
-
-
-void convolution(float32_t* sig_arr, float32_t* destination_array,float32_t* imp_resp,
-		         uint32_t sig_src_len, uint32_t imp_resp_len);
-
-
-void serialplot_outputSig_convolved(float32_t* destination_array);
-
-float in_sig_sample;
-float imp_rsp_sample;
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-void cal_running_sum(float32_t *sig_arr, float32_t *sig_dest_arr, uint32_t sig_len);
-void plot_running_sum(float32_t* destination_array);
-
-void cal_sig_DFT(float32_t *sig_arr, float32_t* sig_rex_arr,
-		         float32_t *sig_imx_arr, uint32_t sig_len);
-void plot_cal_sig_DFT(float32_t *arr1,uint32_t sig_len);
-void get_dft_output_mag(uint32_t sig_len);
-
-void plot_cal_sig_DFT_both(float32_t *real_arr,
-        float32_t *imag_arr,
-        uint32_t sig_len);
-
-void cal_sig_IDFT(float32_t *idft_out_arr, float32_t* sig_rex_arr,
-		         float32_t *sig_imx_arr, uint32_t idft_len);
-
-
-void plot_signal(float32_t *arr,uint32_t sign_len);
-
-float REX[sig_ecg_len/2];
-float IMX[sig_ecg_len/2];
-float32_t magnitude[sig_ecg_len/2];
-void  mag_plot(float32_t *arr, uint32_t sig_len);
-float32_t idft_out_arr[sig_ecg_len];
-
-extern float32_t impulse_response_matLab[101];
-extern float32_t mixed_sig[mixed_sig_len];
-float32_t output_sig_matLab[mixed_sig_len+101-1];
-
-void moving_avg(float32_t* sig_src_arr, float32_t* sig_out_arr, uint32_t signal_len,
-		       uint32_t filter_pts);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -114,41 +64,53 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-//int _write(int fd, char *ptr, int len)
-//{
-//	if(fd==1 || fd==2)
-//	{
-//		if (HAL_UART_Transmit(&huart2, (uint8_t *)ptr, len, HAL_MAX_DELAY) == HAL_OK)
-//			return len;
-//		return -1;
-//	}
-//	return -1;
-//}
-volatile uint8_t flag = 0;
-uint16_t sample = 0;
+volatile uint8_t  flag = 0;
+uint32_t sample_count = 0;
+volatile uint32_t fifo_overflow_count = 0;   /* FIFO was full when a sample arrived */
+volatile uint32_t adc_timeout_count   = 0;   /* ADC didn't finish converting in time */
 
 rx_DataType val = 0;
-uint32_t sample_count = 0;	
-
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
-{
-
-	 val = (rx_DataType)HAL_ADC_GetValue(hadc1);
-	rx_fifo_put(val);          // fast, non-blocking — just a memory write
-
-
-	sample_count++;
-
-	if(sample_count >= adc_buff_len)
-	{
-		flag = 1;
-		sample_count = 0;
-	}
-
-	HAL_ADC_Start_IT(hadc1);    // re-arm for the next conversion
-}
 rx_DataType rx_data;
+
+/* USER CODE BEGIN PTD */
+#define adc_buff_len 500
+rx_DataType adc_buff[adc_buff_len];   /* same type as the FIFO holds */
+/* USER CODE END PTD */
+uint32_t adc_ready = 0;
+void HAL_SYSTICK_Callback(void)
+{
+	if(!adc_ready)
+	{
+		return;
+	}
+    if (HAL_ADC_Start(&hadc1) != HAL_OK)
+    {
+        return;
+    }
+
+    if (HAL_ADC_PollForConversion(&hadc1, 1) == HAL_OK)
+    {
+        val = (rx_DataType)HAL_ADC_GetValue(&hadc1);
+
+        if (rx_fifo_put(val) == RXFIFO_Done)
+        {
+            sample_count++;
+            if (sample_count >= adc_buff_len)
+            {
+                flag = 1;
+                sample_count = 0;
+            }
+        }
+        else
+        {
+            fifo_overflow_count++;   /* main loop is draining too slowly */
+        }
+    }
+    else
+    {
+        adc_timeout_count++;         /* diagnostic only — should stay 0 */
+    }
+}
 /* USER CODE END 0 */
 
 /**
@@ -182,6 +144,8 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_ADC1_Init();
+  adc_ready = 1;
+
   /* USER CODE BEGIN 2 */
 
 //  moving_avg(inputSignal_f32_1kHz_15kHz, inputSignal_f32_1kHz_15kHz_out, sig2_len, moving_avg_pts);
@@ -193,46 +157,38 @@ int main(void)
 
   /*Initializing fifo*/
   rx_fifo_init();
-  HAL_ADC_Start_IT(&hadc1);
-
-
-//  /* Fill FIFO with dummy samples */
-//  for (int i = 0; i < adc_buff_len; i++)
-//  {
-//      rx_fifo_put(sample);
-//  }
-
   char bf[50];
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
 	  if (flag == 1)
-	       {
+	      {
+	          int received = 0;
 
-		  /* Drain FIFO into adc_buff — ONE BY ONE */
-		       for (int i = 0; i < adc_buff_len; i++)
-		       {
-		           if (rx_fifo_get(&rx_data) == RXFIFO_Done)
-		           {
-		               adc_buff[i] = rx_data;   /* ← use rx_data, not sample! */
-		           }
-		       }
+	          for (int i = 0; i < adc_buff_len; i++)
+	          {
+	              if (rx_fifo_get(&rx_data) == RXFIFO_Done)
+	              {
+	                  adc_buff[i] = rx_data;
+	                  received++;
+	              }
+	              else
+	              {
+	                  break;
+	              }
+	          }
 
-	            for (int i = 0; i < adc_buff_len; i++)
-	            {
-	               //printf("%d\r\n",adc_buff[i]);
-	            	sprintf(bf,"%d\r\n",adc_buff[i]);
-	            	HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
-	            }
-	           flag = 0;
+	          for (int i = 0; i < received; i++)
+	          {
+	              sprintf(bf, "%d\r\n", adc_buff[i]);
+	              HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
+	          }
 
-		 // printf("%d\r\n",rx_data);
-		//  printf("%d\r\n", val);
+	          flag = 0;
 	      }
-  }
+	    }
   /* USER CODE END 3 */
 }
 

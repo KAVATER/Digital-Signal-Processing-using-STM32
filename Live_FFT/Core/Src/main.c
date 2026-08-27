@@ -40,13 +40,9 @@
 #define input_sig_len ECG_mudy_len
 #define filter_len fir_len
 
-extern float _5hz_signal[sig1_len];
-
-extern float32_t inputSignal_f32_1kHz_15kHz[sig2_len];
-extern float32_t  impulse_response[sig3_len];
-extern float32_t  _640_points_ecg_[sig_ecg_len];
-extern float32_t ecg_mudy_sig[ECG_mudy_len];
-extern float32_t fir_filter[fir_len];
+extern const float32_t  _640_points_ecg_[sig_ecg_len];
+extern const float32_t ecg_mudy_sig[ECG_mudy_len];
+extern const float32_t fir_filter[fir_len];
 
 
 /* ---- Compile-time "round up to next power of two" -------------------------
