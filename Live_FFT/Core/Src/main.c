@@ -30,6 +30,7 @@
 #include "arm_math.h"
 #include <math.h>
 #include "stdlib.h"
+#include "fifo.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -154,10 +155,20 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
-{
+/* ===== Fifo variables ===== */
+volatile uint8_t  flag = 0;
+uint32_t sample_count = 0;
+volatile uint32_t fifo_overflow_count = 0;   /* FIFO was full when a sample arrived */
+volatile uint32_t adc_timeout_count   = 0;   /* ADC didn't finish converting in time */
 
-}
+uint16_t val = 0; //rx_DataType
+rx_DataType rx_data;
+#define adc_buff_len 500
+rx_DataType adc_buff[adc_buff_len];   /* same type as the FIFO holds */
+
+uint32_t adc_ready = 0;
+char bf[10];
+/* ===== END ===== */
 
 void reduce_to_original_len(float32_t *output_buff)
 {
@@ -166,8 +177,42 @@ void reduce_to_original_len(float32_t *output_buff)
         FFT_Buff_Out_original[i] = output_buff[i];
 	}
 }
+/* ===== Systick CallBack ===== */
+void HAL_SYSTICK_Callback(void)
+{
+	if(!adc_ready)
+	{
+		return;
+	}
+    if (HAL_ADC_Start(&hadc1) != HAL_OK)
+    {
+        return;
+    }
 
+    if (HAL_ADC_PollForConversion(&hadc1, 1) == HAL_OK)
+    {
+        val = (rx_DataType)HAL_ADC_GetValue(&hadc1);
 
+        if (rx_fifo_put(val) == RXFIFO_Done)
+        {
+            sample_count++;
+            if (sample_count >= adc_buff_len)
+            {
+                flag = 1;
+                sample_count = 0;
+            }
+        }
+        else
+        {
+            fifo_overflow_count++;   /* main loop is draining too slowly */
+        }
+    }
+    else
+    {
+        adc_timeout_count++;         /* diagnostic only — should stay 0 */
+    }
+}
+/* ===== END ===== */
 
 /* USER CODE END 0 */
 
@@ -209,6 +254,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   HAL_ADC_Start_IT(&hadc1);
+
+  adc_ready = 1;
 
   /* ===== copy input signal, then zero-pad the rest of the FFT buffer ===== */
   for (uint32_t i = 0; i < input_sig_len; i++) {
@@ -287,17 +334,17 @@ int main(void)
 
 
       /* ===== Convolution to cross check the fft result ===== */
-   arm_conv_f32(ecg_mudy_sig, input_sig_len, fir_filter, filter_len, conv_out);
+  // arm_conv_f32(ecg_mudy_sig, input_sig_len, fir_filter, filter_len, conv_out);
 
    /* Same group-delay compensation as the FFT path, so both traces are
     * directly comparable: same length (input_sig_len), same time alignment. */
-   for (uint32_t n = 0; n < input_sig_len; n++)
-   {
-       conv_out_aligned[n] = conv_out[n + GROUP_DELAY];
-   }
+//   for (uint32_t n = 0; n < input_sig_len; n++)
+//   {
+//       conv_out_aligned[n] = conv_out[n + GROUP_DELAY];
+//   }
       /* ===== Plotting ===== */
 
-        plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
+       // plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
      // plot_signal_3(ecg_mudy_sig, input_sig_len, conv_out_aligned,input_sig_len,FFT_Buff_Out_aligned, input_sig_len );
 
   while (1)
@@ -305,9 +352,44 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  /* ===== ADC buffer fill ===== */
+	  if (flag == 1)
+	 	      {
+	 	          int received = 0;
+
+	 	          for (int i = 0; i < adc_buff_len; i++)
+	 	          {
+	 	              if (rx_fifo_get(&rx_data) == RXFIFO_Done)
+	 	              {
+	 	                  adc_buff[i] = rx_data;
+	 	                  received++;
+	 	              }
+	 	              else
+	 	              {
+	 	                  break;
+	 	              }
+	 	          }
+
+	 	          for (int i = 0; i < received; i++)
+	 	          {
+	 	              sprintf(bf, "%d\r\n", adc_buff[i]);
+	 	              HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
+	 	          }
+
+	 	          flag = 0;
+	 	      }
+	 	    }
+	  /* ===== ADC Testing Code ===== */
+//	  HAL_ADC_Start(&hadc1);
+//	  HAL_ADC_PollForConversion(&hadc1, 1);
+//	  val = HAL_ADC_GetValue(&hadc1);
+//      sprintf(bf, "%d\r\n", val);
+//      HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
+
+	 /* ===== END ===== */
+
 
   /* USER CODE END 3 */
-}
 }
 
 /**
