@@ -106,18 +106,18 @@ extern float32_t fir_filter[fir_len];
 #endif
 
 float32_t padded_filter[FFT_BUFFER_SIZE];
+float32_t padded_filter2[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_In[FFT_BUFFER_SIZE];
+float32_t FFT_Buff_In2[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_Out[FFT_BUFFER_SIZE];
 float32_t FFT_Buff_Out_original[LINEAR_CONV_LEN];
 float32_t conv_out[LINEAR_CONV_LEN];
 float32_t conv_out_aligned[input_sig_len];   /* group-delay-compensated, same length as input */
-/* Group delay of a symmetric (linear-phase) FIR filter, in samples:
- * (taps - 1) / 2. This only comes out to an exact integer sample count
- * when filter_len is ODD (457 is odd, so this is fine as-is). If you ever
- * redesign the filter with an EVEN number of taps, this offset becomes a
- * half-sample fractional delay that a simple index shift can't fix - watch
- * for that if fir_len changes. */
+
+float32_t fft_time_result[FFT_BUFFER_SIZE];
+
 #define GROUP_DELAY  ((filter_len - 1) / 2)
+
 /* Time-aligned filtered output: FFT_Buff_Out_original[n + GROUP_DELAY] is
  * what actually corresponds to input sample n, once the filter's inherent
  * delay is removed. Same length as the input signal, so it plots directly
@@ -240,11 +240,11 @@ int main(void)
   }
 
               /* FFT of input buffer (in-place: arm_rfft_fast_f32 supports p == pOut) */
-    arm_rfft_fast_f32(&fftHandler,FFT_Buff_In,FFT_Buff_In, 0);
+    arm_rfft_fast_f32(&fftHandler,FFT_Buff_In,FFT_Buff_In2, 0);
 
            /*FFT of padded_filter*/
 
-    arm_rfft_fast_f32(&fftHandler,padded_filter,padded_filter,0);
+    arm_rfft_fast_f32(&fftHandler,padded_filter,padded_filter2,0);
 
       /* ===== Multiply the two spectra (frequency-domain = fast convolution) =====
        * arm_rfft_fast_f32's packed output format:
@@ -254,19 +254,19 @@ int main(void)
        */
       // DC bin (index 0): pure real
 
-      FFT_Buff_Out[0] = FFT_Buff_In[0] * padded_filter[0];
+      FFT_Buff_Out[0] = FFT_Buff_In2[0] * padded_filter2[0];
 
       // Nyquist bin (index 1): pure real
 
-      FFT_Buff_Out[1] = FFT_Buff_In[1] * padded_filter[1];
+      FFT_Buff_Out[1] = FFT_Buff_In2[1] * padded_filter2[1];
 
       // Remaining bins: complex (Re, Im) pairs starting at index 2
       for (uint32_t i = 2; i < FFT_BUFFER_SIZE; i += 2)
       {
-          float32_t a = FFT_Buff_In[i];        // Re{X[k]}
-          float32_t b = FFT_Buff_In[i + 1];    // Im{X[k]}
-          float32_t c = padded_filter[i];     // Re{H[k]}
-          float32_t d = padded_filter[i + 1]; // Im{H[k]}
+          float32_t a = FFT_Buff_In2[i];        // Re{X[k]}
+          float32_t b = FFT_Buff_In2[i + 1];    // Im{X[k]}
+          float32_t c = padded_filter2[i];     // Re{H[k]}
+          float32_t d = padded_filter2[i + 1]; // Im{H[k]}
 
          /* ===== (a + jb) * (c + jd) = (ac - bd) + j(ad + bc) ===== */
           FFT_Buff_Out[i]     = a * c - b * d;   // Re{Y[k]}
@@ -274,11 +274,11 @@ int main(void)
       }
 
       /* ===== Inverse FFT: back to the time domain ===== */
-      arm_rfft_fast_f32(&fftHandler, FFT_Buff_Out, FFT_Buff_Out, 1);
+      arm_rfft_fast_f32(&fftHandler, FFT_Buff_Out, fft_time_result, 1);
 
       /* ===== Trim the zero-padded FFT result down to the true linear-
        * convolution length (input_len + filter_len - 1) ===== */
-      reduce_to_original_len(FFT_Buff_Out);
+      reduce_to_original_len(fft_time_result);
 
       /* ===== compensate fir group delay ===== */
 
@@ -289,17 +289,17 @@ int main(void)
 
 
       /* ===== Convolution to cross check the fft result ===== */
-   arm_conv_f32(ecg_mudy_sig, input_sig_len, fir_filter, filter_len, conv_out);
+  // arm_conv_f32(ecg_mudy_sig, input_sig_len, fir_filter, filter_len, conv_out);
 
    /* Same group-delay compensation as the FFT path, so both traces are
     * directly comparable: same length (input_sig_len), same time alignment. */
-   for (uint32_t n = 0; n < input_sig_len; n++)
-   {
-       conv_out_aligned[n] = conv_out[n + GROUP_DELAY];
-   }
+//   for (uint32_t n = 0; n < input_sig_len; n++)
+//   {
+//       conv_out_aligned[n] = conv_out[n + GROUP_DELAY];
+//   }
       /* ===== Plotting ===== */
 
-      plot_signal_2(conv_out_aligned, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
+      plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
 
   while (1)
   {
