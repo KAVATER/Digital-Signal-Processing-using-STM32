@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "dma.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -215,6 +216,8 @@ void reduce_to_original_len(float32_t *output_buff)
 //}
 /* ===== END ===== */
 
+char tx_buf[8192];
+uint16_t tx_len;
 /* USER CODE END 0 */
 
 /**
@@ -246,11 +249,13 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
   rx_fifo_init();
+
 
   /* USER CODE END 2 */
 
@@ -261,7 +266,6 @@ int main(void)
 
 
       adc_ready = 1;
-      char tx_buf[64];
 
   while (1)
   {
@@ -404,19 +408,27 @@ int main(void)
 //		      	 	              HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
 //		      	 	          }
 
+		      /* ===== Format the ENTIRE block first ===== */
+		      tx_len = 0;
 		      for (int i = 0; i < received; i++)
 		      {
-		          int len = snprintf(tx_buf,
-		                             sizeof(tx_buf),
+		          tx_len += snprintf(tx_buf + tx_len,
+		                             sizeof(tx_buf) - tx_len,
 		                             "%u,%.6f\r\n",
-		                             (unsigned int)adc_buff[i],
+		                             (unsigned)adc_buff[i],
 		                             FFT_Buff_Out_aligned[i]);
-
-		          HAL_UART_Transmit(&huart2,
-		                            (uint8_t *)tx_buf,
-		                            len,
-		                            HAL_MAX_DELAY);
 		      }
+
+		      /* ===== Then fire DMA once, outside the loop ===== */
+		      if (huart2.gState == HAL_UART_STATE_READY)
+		      {
+		          HAL_UART_Transmit_DMA(&huart2, (uint8_t *)tx_buf, tx_len);
+		      }
+		      else
+		      {
+
+		      }
+
 		      /* ===== END of Plotting ===== */
 	 	          flag = 0;
 	 	      }

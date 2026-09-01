@@ -1,13 +1,56 @@
-#define NUM_TAPS   fir_len        // 4240 — keep your MATLAB filter as-is
-#define BLOCK_SIZE live_ecg_len   // 500
+#define TX_CHUNK_SAMPLES  300
+#define TX_BUF_SIZE       6144
 
-arm_fir_instance_f32 firFilter;
-float32_t firState[NUM_TAPS + BLOCK_SIZE - 1];   /* persists across blocks */
+static char tx_buf[2][TX_BUF_SIZE];
+static volatile uint8_t tx_busy = 0;
+static uint8_t tx_active = 0;
 
-/* once, before while(1) */
-arm_fir_init_f32(&firFilter, NUM_TAPS, (float32_t *)fir_filter, firState, BLOCK_SIZE);
+/* ===== In your main loop, after FFT ===== */
+int sent = 0;
+while (sent < received)
+{
+    /* Pick the idle buffer */
+    uint8_t buf_idx = tx_active ^ 1;
 
-/* per live block, inside if (flag == 1) */
-float32_t block_in[BLOCK_SIZE], block_out[BLOCK_SIZE];
-for (uint32_t i = 0; i < BLOCK_SIZE; i++) block_in[i] = (float32_t)adc_buff[i];
-arm_fir_f32(&firFilter, block_in, block_out, BLOCK_SIZE);
+    /* Wait until DMA is done with the other buffer */
+    while (tx_busy && buf_idx == (tx_active ^ 1))
+    {
+        /* Or just break and skip this chunk if you prefer non-blocking */
+    }
+
+    /* Format one chunk */
+    size_t len = 0;
+    int chunk_end = sent + TX_CHUNK_SAMPLES;
+    if (chunk_end > received) chunk_end = received;
+
+    for (int i = sent; i < chunk_end; i++)
+    {
+        if (len + 32 > TX_BUF_SIZE) break;
+        len += snprintf(tx_buf[buf_idx] + len,
+                        TX_BUF_SIZE - len,
+                        "%u,%.6f\r\n",
+                        (unsigned)adc_buff[i],
+                        FFT_Buff_Out_aligned[i]);
+    }
+
+    /* Fire DMA */
+    if (!tx_busy)
+    {
+        tx_active = buf_idx;
+        tx_busy = 1;
+        HAL_UART_Transmit_DMA(&huart2,
+                              (uint8_t *)tx_buf[tx_active],
+                              len);
+    }
+
+    sent += TX_CHUNK_SAMPLES;
+}
+
+/* ===== DMA complete callback ===== */
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+    if (huart == &huart2)
+    {
+        tx_busy = 0;
+    }
+}
