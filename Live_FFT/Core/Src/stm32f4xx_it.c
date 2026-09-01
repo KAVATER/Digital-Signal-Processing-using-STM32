@@ -41,7 +41,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+volatile uint8_t sample_tick = 0;
+extern uint32_t adc_ready;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -187,7 +188,14 @@ void SysTick_Handler(void)
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-  HAL_SYSTICK_IRQHandler(); /* ===== Systick Callback ===== */
+ // HAL_SYSTICK_IRQHandler(); /* ===== Systick Callback ===== */
+  if(!adc_ready)
+    	{
+    		return;
+    	}
+  sample_tick = 1;
+
+
   /* USER CODE END SysTick_IRQn 1 */
 }
 

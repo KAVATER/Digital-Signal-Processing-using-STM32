@@ -1,12 +1,13 @@
-/* Inverse FFT: do NOT use in-place for the inverse */
-arm_rfft_fast_f32(&fftHandler, FFT_Buff_Out, FFT_Buff_In, 1);
+#define NUM_TAPS   fir_len        // 4240 — keep your MATLAB filter as-is
+#define BLOCK_SIZE live_ecg_len   // 500
 
-/* Now the time-domain result is in FFT_Buff_In */
-reduce_to_original_len(FFT_Buff_In);
+arm_fir_instance_f32 firFilter;
+float32_t firState[NUM_TAPS + BLOCK_SIZE - 1];   /* persists across blocks */
 
-/* Compensate group delay using the new buffer */
-for (uint32_t n = 0; n < input_sig_len; n++)
-{
-    FFT_Buff_Out_aligned[n] = FFT_Buff_Out_original[n + GROUP_DELAY];
-}
+/* once, before while(1) */
+arm_fir_init_f32(&firFilter, NUM_TAPS, (float32_t *)fir_filter, firState, BLOCK_SIZE);
 
+/* per live block, inside if (flag == 1) */
+float32_t block_in[BLOCK_SIZE], block_out[BLOCK_SIZE];
+for (uint32_t i = 0; i < BLOCK_SIZE; i++) block_in[i] = (float32_t)adc_buff[i];
+arm_fir_f32(&firFilter, block_in, block_out, BLOCK_SIZE);

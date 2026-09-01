@@ -45,6 +45,7 @@ extern const float32_t  _640_points_ecg_[sig_ecg_len];
 extern const float32_t ecg_mudy_sig[ECG_mudy_len];
 extern const float32_t fir_filter[fir_len];
 
+extern volatile uint8_t sample_tick;
 
 /* ---- Compile-time "round up to next power of two" -------------------------
  * Classic bit-smearing trick: OR each bit down into all bits below it, then
@@ -178,40 +179,40 @@ void reduce_to_original_len(float32_t *output_buff)
 	}
 }
 /* ===== Systick CallBack ===== */
-void HAL_SYSTICK_Callback(void)
-{
-	if(!adc_ready)
-	{
-		return;
-	}
-    if (HAL_ADC_Start(&hadc1) != HAL_OK)
-    {
-        return;
-    }
-
-    if (HAL_ADC_PollForConversion(&hadc1, 1) == HAL_OK)
-    {
-        val = (rx_DataType)HAL_ADC_GetValue(&hadc1);
-
-        if (rx_fifo_put(val) == RXFIFO_Done)
-        {
-            sample_count++;
-            if (sample_count >= adc_buff_len)
-            {
-                flag = 1;
-                sample_count = 0;
-            }
-        }
-        else
-        {
-            fifo_overflow_count++;   /* main loop is draining too slowly */
-        }
-    }
-    else
-    {
-        adc_timeout_count++;         /* diagnostic only — should stay 0 */
-    }
-}
+//void HAL_SYSTICK_Callback(void)
+//{
+//	if(!adc_ready)
+//	{
+//		return;
+//	}
+//    if (HAL_ADC_Start(&hadc1) != HAL_OK)
+//    {
+//        return;
+//    }
+//
+//    if (HAL_ADC_PollForConversion(&hadc1, 1) == HAL_OK)
+//    {
+//        val = (rx_DataType)HAL_ADC_GetValue(&hadc1);
+//
+//        if (rx_fifo_put(val) == RXFIFO_Done)
+//        {
+//            sample_count++;
+//            if (sample_count >= adc_buff_len)
+//            {
+//                flag = 1;
+//                sample_count = 0;
+//            }
+//        }
+//        else
+//        {
+//            fifo_overflow_count++;   /* main loop is draining too slowly */
+//        }
+//    }
+//    else
+//    {
+//        adc_timeout_count++;         /* diagnostic only — should stay 0 */
+//    }
+//}
 /* ===== END ===== */
 
 /* USER CODE END 0 */
@@ -260,12 +261,35 @@ int main(void)
 
 
       adc_ready = 1;
+      char tx_buf[64];
 
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  if(sample_tick)
+	  	  {
+	  		  sample_tick = 0;
+
+	  	        if (HAL_ADC_Start(&hadc1) == HAL_OK &&
+	  	            HAL_ADC_PollForConversion(&hadc1, 1) == HAL_OK)
+	  	        {
+	  	            val = (rx_DataType)HAL_ADC_GetValue(&hadc1);
+	  	            if (rx_fifo_put(val) == RXFIFO_Done)
+	  	            {
+	  	                sample_count++;
+	  	                if (sample_count >= adc_buff_len)
+	  	                {
+	  	                    flag = 1;
+	  	                    sample_count = 0;
+	  	                }
+	  	            }
+	  	            else { fifo_overflow_count++; }
+	  	        }
+	  	        else { adc_timeout_count++; }
+
+	  	  }
 	  /* ===== ADC buffer fill ===== */
 
 	  if (flag == 1)
@@ -284,14 +308,6 @@ int main(void)
 	 	                  break;
 	 	              }
 	 	          }
-//
-//	 	          for (int i = 0; i < received; i++)
-//	 	          {
-//	 	              sprintf(bf, "%d\r\n", adc_buff[i]);
-//	 	              HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
-//	 	          }
-
-
 
 		  /* ===== copy input signal, then zero-pad the rest of the FFT buffer ===== */
 		  for (uint32_t i = 0; i < input_sig_len; i++) {
@@ -379,10 +395,29 @@ int main(void)
 		    //   }
 		          /* ===== Plotting ===== */
 
-		           // plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
+		           //plot_signal_2((float32_t*)adc_buff,adc_buff_len , FFT_Buff_Out_aligned, input_sig_len);
 		         // plot_signal_3(ecg_mudy_sig, input_sig_len, conv_out_aligned,input_sig_len,FFT_Buff_Out_aligned, input_sig_len );
 
+//			      for (int i = 0; i < received; i++)
+//		      	 	          {
+//		      	 	              sprintf(bf, "%d\r\n", adc_buff[i]);
+//		      	 	              HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
+//		      	 	          }
 
+		      for (int i = 0; i < received; i++)
+		      {
+		          int len = snprintf(tx_buf,
+		                             sizeof(tx_buf),
+		                             "%u,%.6f\r\n",
+		                             (unsigned int)adc_buff[i],
+		                             FFT_Buff_Out_aligned[i]);
+
+		          HAL_UART_Transmit(&huart2,
+		                            (uint8_t *)tx_buf,
+		                            len,
+		                            HAL_MAX_DELAY);
+		      }
+		      /* ===== END of Plotting ===== */
 	 	          flag = 0;
 	 	      }
 	 	    }
