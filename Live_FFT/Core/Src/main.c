@@ -248,6 +248,9 @@ int main(void)
   MX_USART2_UART_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
+
+  rx_fifo_init();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -255,7 +258,7 @@ int main(void)
 
   //HAL_ADC_Start_IT(&hadc1);
 
-  adc_ready = 1;
+
 
   /* ===== copy input signal, then zero-pad the rest of the FFT buffer ===== */
   for (uint32_t i = 0; i < input_sig_len; i++) {
@@ -346,6 +349,8 @@ int main(void)
 
        // plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
      // plot_signal_3(ecg_mudy_sig, input_sig_len, conv_out_aligned,input_sig_len,FFT_Buff_Out_aligned, input_sig_len );
+
+      adc_ready = 1;
 
   while (1)
   {
