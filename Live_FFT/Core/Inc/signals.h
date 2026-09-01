@@ -5,8 +5,8 @@
 
 #define sig_ecg_len 640
 #define ECG_mudy_len  608
-#define fir_len  2351
-#define live_ecg_len 500
+#define fir_len  652
+#define live_ecg_len 1500
 
 
  extern const float32_t _640_points_ecg_[sig_ecg_len];

@@ -8,8 +8,8 @@
 #define sig3_len 29
 #define sig_ecg_len 640
 #define mixed_sig_len 1001
-#define ECG_mudy_len  608
-#define fir_len  457
+#define ECG_mudy_len  1000
+#define fir_len  3153
 
 
 

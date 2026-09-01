@@ -164,7 +164,7 @@ volatile uint32_t adc_timeout_count   = 0;   /* ADC didn't finish converting in 
 
 uint16_t val = 0; //rx_DataType
 rx_DataType rx_data;
-#define adc_buff_len 500
+#define adc_buff_len 1500
 rx_DataType adc_buff[adc_buff_len];   /* same type as the FIFO holds */
 
 uint32_t adc_ready = 0;
