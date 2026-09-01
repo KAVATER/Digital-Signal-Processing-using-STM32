@@ -5,7 +5,7 @@
 
 #define sig_ecg_len 640
 #define ECG_mudy_len  608
-#define fir_len  3172
+#define fir_len  2351
 #define live_ecg_len 500
 
 
