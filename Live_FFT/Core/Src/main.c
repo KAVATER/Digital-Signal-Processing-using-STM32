@@ -38,7 +38,7 @@
 
 #define FILTER_Taps fir_len
 
-#define input_sig_len ECG_mudy_len
+#define input_sig_len live_ecg_len
 #define filter_len fir_len
 
 extern const float32_t  _640_points_ecg_[sig_ecg_len];
@@ -259,97 +259,6 @@ int main(void)
   //HAL_ADC_Start_IT(&hadc1);
 
 
-
-  /* ===== copy input signal, then zero-pad the rest of the FFT buffer ===== */
-  for (uint32_t i = 0; i < input_sig_len; i++) {
-      FFT_Buff_In[i] = ecg_mudy_sig[i];
-  }
-
-  for (uint32_t j = input_sig_len; j < FFT_BUFFER_SIZE; j++)
-  {
-	  FFT_Buff_In[j] = 0;
-  }
-
-  /* ===== copy filter coefficients, then zero-pad the rest ===== */
-  for (uint32_t i = 0; i < filter_len; i++) {
-
-        padded_filter[i] = fir_filter[i];
-    }
-  for (uint32_t i = filter_len; i < FFT_BUFFER_SIZE; i++)
-  {
-	  padded_filter[i] = 0;
-  }
-
-        /* ===== Initializing fft  any length outside {32,64,...,4096} ===== */
-
-  if (arm_rfft_fast_init_f32(&fftHandler, FFT_BUFFER_SIZE) != ARM_MATH_SUCCESS)
-  {
-      Error_Handler();
-  }
-
-              /* FFT of input buffer (in-place: arm_rfft_fast_f32 supports p == pOut) */
-    arm_rfft_fast_f32(&fftHandler,FFT_Buff_In,FFT_Buff_In2, 0);
-
-           /*FFT of padded_filter*/
-
-    arm_rfft_fast_f32(&fftHandler,padded_filter,padded_filter2,0);
-
-      /* ===== Multiply the two spectra (frequency-domain = fast convolution) =====
-       * arm_rfft_fast_f32's packed output format:
-       *   index 0        -> DC bin, purely real
-       *   index 1        -> Nyquist bin, purely real
-       *   index 2..N-1    -> complex (Re, Im) pairs for the remaining bins
-       */
-      // DC bin (index 0): pure real
-
-      FFT_Buff_Out[0] = FFT_Buff_In2[0] * padded_filter2[0];
-
-      // Nyquist bin (index 1): pure real
-
-      FFT_Buff_Out[1] = FFT_Buff_In2[1] * padded_filter2[1];
-
-      // Remaining bins: complex (Re, Im) pairs starting at index 2
-      for (uint32_t i = 2; i < FFT_BUFFER_SIZE; i += 2)
-      {
-          float32_t a = FFT_Buff_In2[i];        // Re{X[k]}
-          float32_t b = FFT_Buff_In2[i + 1];    // Im{X[k]}
-          float32_t c = padded_filter2[i];     // Re{H[k]}
-          float32_t d = padded_filter2[i + 1]; // Im{H[k]}
-
-         /* ===== (a + jb) * (c + jd) = (ac - bd) + j(ad + bc) ===== */
-          FFT_Buff_Out[i]     = a * c - b * d;   // Re{Y[k]}
-          FFT_Buff_Out[i + 1] = a * d + b * c;   // Im{Y[k]}
-      }
-
-      /* ===== Inverse FFT: back to the time domain ===== */
-      arm_rfft_fast_f32(&fftHandler, FFT_Buff_Out, fft_time_result, 1);
-
-      /* ===== Trim the zero-padded FFT result down to the true linear-
-       * convolution length (input_len + filter_len - 1) ===== */
-      reduce_to_original_len(fft_time_result);
-
-      /* ===== compensate fir group delay ===== */
-
-      for (uint32_t n = 0; n < input_sig_len; n++)
-      {
-          FFT_Buff_Out_aligned[n] = FFT_Buff_Out_original[n + GROUP_DELAY];
-      }
-
-
-      /* ===== Convolution to cross check the fft result ===== */
-  // arm_conv_f32(ecg_mudy_sig, input_sig_len, fir_filter, filter_len, conv_out);
-
-   /* Same group-delay compensation as the FFT path, so both traces are
-    * directly comparable: same length (input_sig_len), same time alignment. */
-//   for (uint32_t n = 0; n < input_sig_len; n++)
-//   {
-//       conv_out_aligned[n] = conv_out[n + GROUP_DELAY];
-//   }
-      /* ===== Plotting ===== */
-
-       // plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
-     // plot_signal_3(ecg_mudy_sig, input_sig_len, conv_out_aligned,input_sig_len,FFT_Buff_Out_aligned, input_sig_len );
-
       adc_ready = 1;
 
   while (1)
@@ -375,12 +284,104 @@ int main(void)
 	 	                  break;
 	 	              }
 	 	          }
+//
+//	 	          for (int i = 0; i < received; i++)
+//	 	          {
+//	 	              sprintf(bf, "%d\r\n", adc_buff[i]);
+//	 	              HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
+//	 	          }
 
-	 	          for (int i = 0; i < received; i++)
-	 	          {
-	 	              sprintf(bf, "%d\r\n", adc_buff[i]);
-	 	              HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
-	 	          }
+
+
+		  /* ===== copy input signal, then zero-pad the rest of the FFT buffer ===== */
+		  for (uint32_t i = 0; i < input_sig_len; i++) {
+		      FFT_Buff_In[i] = adc_buff[i];
+		  }
+
+		  for (uint32_t j = input_sig_len; j < FFT_BUFFER_SIZE; j++)
+		  {
+			  FFT_Buff_In[j] = 0;
+		  }
+
+		  /* ===== copy filter coefficients, then zero-pad the rest ===== */
+		  for (uint32_t i = 0; i < filter_len; i++) {
+
+		        padded_filter[i] = fir_filter[i];
+		    }
+		  for (uint32_t i = filter_len; i < FFT_BUFFER_SIZE; i++)
+		  {
+			  padded_filter[i] = 0;
+		  }
+
+		        /* ===== Initializing fft  any length outside {32,64,...,4096} ===== */
+
+		  if (arm_rfft_fast_init_f32(&fftHandler, FFT_BUFFER_SIZE) != ARM_MATH_SUCCESS)
+		  {
+		      Error_Handler();
+		  }
+
+		              /* FFT of input buffer (in-place: arm_rfft_fast_f32 supports p == pOut) */
+		    arm_rfft_fast_f32(&fftHandler,FFT_Buff_In,FFT_Buff_In2, 0);
+
+		           /*FFT of padded_filter*/
+
+		    arm_rfft_fast_f32(&fftHandler,padded_filter,padded_filter2,0);
+
+		      /* ===== Multiply the two spectra (frequency-domain = fast convolution) =====
+		       * arm_rfft_fast_f32's packed output format:
+		       *   index 0        -> DC bin, purely real
+		       *   index 1        -> Nyquist bin, purely real
+		       *   index 2..N-1    -> complex (Re, Im) pairs for the remaining bins
+		       */
+		      // DC bin (index 0): pure real
+
+		      FFT_Buff_Out[0] = FFT_Buff_In2[0] * padded_filter2[0];
+
+		      // Nyquist bin (index 1): pure real
+
+		      FFT_Buff_Out[1] = FFT_Buff_In2[1] * padded_filter2[1];
+
+		      // Remaining bins: complex (Re, Im) pairs starting at index 2
+		      for (uint32_t i = 2; i < FFT_BUFFER_SIZE; i += 2)
+		      {
+		          float32_t a = FFT_Buff_In2[i];        // Re{X[k]}
+		          float32_t b = FFT_Buff_In2[i + 1];    // Im{X[k]}
+		          float32_t c = padded_filter2[i];     // Re{H[k]}
+		          float32_t d = padded_filter2[i + 1]; // Im{H[k]}
+
+		         /* ===== (a + jb) * (c + jd) = (ac - bd) + j(ad + bc) ===== */
+		          FFT_Buff_Out[i]     = a * c - b * d;   // Re{Y[k]}
+		          FFT_Buff_Out[i + 1] = a * d + b * c;   // Im{Y[k]}
+		      }
+
+		      /* ===== Inverse FFT: back to the time domain ===== */
+		      arm_rfft_fast_f32(&fftHandler, FFT_Buff_Out, fft_time_result, 1);
+
+		      /* ===== Trim the zero-padded FFT result down to the true linear-
+		       * convolution length (input_len + filter_len - 1) ===== */
+		      reduce_to_original_len(fft_time_result);
+
+		      /* ===== compensate fir group delay ===== */
+
+		      for (uint32_t n = 0; n < input_sig_len; n++)
+		      {
+		          FFT_Buff_Out_aligned[n] = FFT_Buff_Out_original[n + GROUP_DELAY];
+		      }
+
+		      /* ===== Convolution to cross check the fft result ===== */
+		      // arm_conv_f32(ecg_mudy_sig, input_sig_len, fir_filter, filter_len, conv_out);
+
+		       /* Same group-delay compensation as the FFT path, so both traces are
+		        * directly comparable: same length (input_sig_len), same time alignment. */
+		    //   for (uint32_t n = 0; n < input_sig_len; n++)
+		    //   {
+		    //       conv_out_aligned[n] = conv_out[n + GROUP_DELAY];
+		    //   }
+		          /* ===== Plotting ===== */
+
+		           // plot_signal_2(ecg_mudy_sig, input_sig_len, FFT_Buff_Out_aligned, input_sig_len);
+		         // plot_signal_3(ecg_mudy_sig, input_sig_len, conv_out_aligned,input_sig_len,FFT_Buff_Out_aligned, input_sig_len );
+
 
 	 	          flag = 0;
 	 	      }
