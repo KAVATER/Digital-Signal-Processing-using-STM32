@@ -266,6 +266,13 @@ int main(void)
 
       adc_ready = 1;
 
+      /* ===== Initializing fft  any length outside {32,64,...,4096} ===== */
+
+if (arm_rfft_fast_init_f32(&fftHandler, FFT_BUFFER_SIZE) != ARM_MATH_SUCCESS)
+{
+    Error_Handler();
+}
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -332,12 +339,7 @@ int main(void)
 			  padded_filter[i] = 0;
 		  }
 
-		        /* ===== Initializing fft  any length outside {32,64,...,4096} ===== */
 
-		  if (arm_rfft_fast_init_f32(&fftHandler, FFT_BUFFER_SIZE) != ARM_MATH_SUCCESS)
-		  {
-		      Error_Handler();
-		  }
 
 		              /* FFT of input buffer (in-place: arm_rfft_fast_f32 supports p == pOut) */
 		    arm_rfft_fast_f32(&fftHandler,FFT_Buff_In,FFT_Buff_In2, 0);
