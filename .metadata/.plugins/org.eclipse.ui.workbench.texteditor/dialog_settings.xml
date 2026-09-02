@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="RXFIFO_Size"/>
+		<item key="selection" value="adc_buf"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="HAL_ADC_Start_IT"/>
-			<item value="while"/>
-			<item value="convolution"/>
-			<item value="call"/>
-			<item value="val"/>
-			<item value="Reset_Handler"/>
-			<item value="Reset_Handler:  "/>
-			<item value="uart"/>
+			<item value="adc_buf"/>
+			<item value="inspect_var"/>
+			<item value="callback"/>
+			<item value="tx_bf"/>
+			<item value="txbuf"/>
+			<item value="live_ecg_len"/>
+			<item value="filt"/>
+			<item value="filter"/>
 		</list>
 		<list key="replacehistory">
 		</list>

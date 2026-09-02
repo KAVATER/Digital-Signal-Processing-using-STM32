@@ -19,7 +19,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
-#include "dma.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -122,6 +121,7 @@ float32_t fft_time_result[FFT_BUFFER_SIZE];
  * delay is removed. Same length as the input signal, so it plots directly
  * against ecg_mudy_sig sample-for-sample with no offset. */
 float32_t FFT_Buff_Out_aligned[input_sig_len];
+volatile float32_t inspect_var;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -169,7 +169,7 @@ rx_DataType rx_data;
 rx_DataType adc_buff[adc_buff_len];   /* same type as the FIFO holds */
 
 uint32_t adc_ready = 0;
-char bf[10];
+char bf[50];
 /* ===== END ===== */
 
 void reduce_to_original_len(float32_t *output_buff)
@@ -249,7 +249,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
@@ -388,6 +387,11 @@ int main(void)
 		          FFT_Buff_Out_aligned[n] = FFT_Buff_Out_original[n + GROUP_DELAY];
 		      }
 
+//		      for(uint32_t k = 0; k<input_sig_len; k++)
+//		      {
+//		    	  inspect_var = FFT_Buff_Out_aligned[k];
+//		      }
+
 		      /* ===== Convolution to cross check the fft result ===== */
 		      // arm_conv_f32(ecg_mudy_sig, input_sig_len, fir_filter, filter_len, conv_out);
 
@@ -399,7 +403,7 @@ int main(void)
 		    //   }
 		          /* ===== Plotting ===== */
 
-		           //plot_signal_2((float32_t*)adc_buff,adc_buff_len , FFT_Buff_Out_aligned, input_sig_len);
+		       //   plot_signal_2((float32_t*)adc_buff,adc_buff_len , FFT_Buff_Out_aligned, input_sig_len);
 		         // plot_signal_3(ecg_mudy_sig, input_sig_len, conv_out_aligned,input_sig_len,FFT_Buff_Out_aligned, input_sig_len );
 
 //			      for (int i = 0; i < received; i++)
@@ -408,26 +412,35 @@ int main(void)
 //		      	 	              HAL_UART_Transmit(&huart2, (uint8_t *)bf, strlen(bf), HAL_MAX_DELAY);
 //		      	 	          }
 
-		      /* ===== Format the ENTIRE block first ===== */
-		      tx_len = 0;
 		      for (int i = 0; i < received; i++)
 		      {
-		          tx_len += snprintf(tx_buf + tx_len,
-		                             sizeof(tx_buf) - tx_len,
+		          int len = snprintf(bf, sizeof(bf),
 		                             "%u,%.6f\r\n",
 		                             (unsigned)adc_buff[i],
 		                             FFT_Buff_Out_aligned[i]);
+		          HAL_UART_Transmit(&huart2, (uint8_t *)bf, len, HAL_MAX_DELAY);
 		      }
 
-		      /* ===== Then fire DMA once, outside the loop ===== */
-		      if (huart2.gState == HAL_UART_STATE_READY)
-		      {
-		          HAL_UART_Transmit_DMA(&huart2, (uint8_t *)tx_buf, tx_len);
-		      }
-		      else
-		      {
-
-		      }
+		      /* ===== Format the ENTIRE block first ===== */
+//		      tx_len = 0;
+//		      for (int i = 0; i < received; i++)
+//		      {
+//		          tx_len += snprintf(tx_buf + tx_len,
+//		                             sizeof(tx_buf) - tx_len,
+//		                             "%u,%.6f\r\n",
+//		                             (unsigned)adc_buff[i],
+//		                             FFT_Buff_Out_aligned[i]);
+//		      }
+//
+//		      /* ===== Then fire DMA once, outside the loop ===== */
+//		      if (huart2.gState == HAL_UART_STATE_READY)
+//		      {
+//		          HAL_UART_Transmit_DMA(&huart2, (uint8_t *)tx_buf, tx_len);
+//		      }
+//		      else
+//		      {
+//
+//		      }
 
 		      /* ===== END of Plotting ===== */
 	 	          flag = 0;
